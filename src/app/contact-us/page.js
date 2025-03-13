@@ -23,7 +23,7 @@ const ContactUs = () => {
   ];
   return (
     <div
-      className="relative bg-cover bg-center pt-[60px] px-[100px] h-[100vh]"
+      className="relative bg-cover bg-center pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] h-[140vh]"
       style={{ backgroundImage: "url('/contact-us-map.png')" }}
     >
       {/* Top Gradient */}
@@ -42,7 +42,7 @@ const ContactUs = () => {
               Contact Redestate
             </span>
           </div>
-          <h3 className="text-5xl font-semibold text-primary  ">
+          <h3 className="sm:text-5xl text-3xl font-semibold text-primary  ">
             GET IN TOUCH
           </h3>
           <span className="text-white text-md">
@@ -50,10 +50,10 @@ const ContactUs = () => {
             form below, and our team will get back to you shortly!
           </span>
         </div>
-        <div className="grid md:grid-cols-3 grid-rows-3 ">
+        <div className="grid md:grid-cols-3 grid-rows-3 gap-3 md:gap-0">
           {contactDetails?.map((details) => {
             return (
-              <div className="flex items-center gap-4 justify-center">
+              <div className="flex items-center gap-4 md:justify-center">
                 <span className="p-4 rounded-full border text-xl">
                   {details?.icon}
                 </span>
