@@ -15,15 +15,15 @@ const Reviews = () => {
         backgroundImage: "url(/circle-design.png)",
         backgroundBlendMode: "soft-light",
       }}
-      className="bg-[#F5F5F5]  px-[100px] py-[50px]"
+      className="bg-[#F5F5F5] px-[20px] md:px-[50px] lg:px-[100px] py-[50px]"
     >
       <SectionHeader
         name={"Testimonial"}
         title={"What People Are Saying"}
         subtitle={"Real Feedback, Real Success"}
       />
-      <div className="text-black flex flex-col items-center ">
-        <div className="flex flex-col gap-5 items-center w-[50%]">
+      <div className="text-black flex flex-col items-center pt-5 px-5 sm:pt-0">
+        <div className="flex flex-col gap-5 items-center sm:w-[50%]">
           <h4 className="font-semibold">Ali Bin Saleh</h4>
           <span>Client</span>
           <div className="grid grid-cols-5 gap-3">

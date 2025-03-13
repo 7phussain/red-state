@@ -92,8 +92,8 @@ export default function FAQs() {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-[50px] px-[100px] py-[70px]">
-      <div className=" mt-8 space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-[50px] px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
+      <div className=" mt-8 order-2 sm:order-1 space-y-4">
         {collapsibleItems.map((item, index) => (
           <div key={index} className="border rounded-lg p-1  ">
             <button
@@ -129,17 +129,17 @@ export default function FAQs() {
           </div>
         ))}
       </div>
-      <div className={` flex flex-col gap-4 items-end`}>
+      <div className={` flex order-1 sm:order-2 flex-col gap-4 items-end`}>
         <div className=" ">
           <span className="rounded-full   py-1 flex items-center mb-3 text-primary w-fit text-white">
             <RxDotFilled size={30} />
             FAQ's
           </span>
         </div>
-        <h3 className="text-5xl font-semibold text-primary  ">
+        <h3 className="sm:text-5xl text-3xl text-right sm:text-start font-semibold text-primary  ">
           Frequently Asked Questions
         </h3>
-        <span className="text-secondary ">
+        <span className="text-secondary text-right sm:text-start">
           Have questions about buying, selling, or renting with Redestate? We’ve
           got the answers to help guide you through the process.
         </span>

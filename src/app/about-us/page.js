@@ -8,8 +8,8 @@ const AboutUs = () => {
   return (
     <div className="pt-[70px]">
       {" "}
-      <div className=" px-[100px] ">
-        <div className="grid grid-cols-2 items-center">
+      <div className=" px-[20px] md:px-[50px] lg:px-[100px]">
+        <div className="grid sm:grid-cols-2 grid-cols-1  items-center">
           <div className={` flex flex-col gap-4`}>
             <div className="">
               <span className="rounded-full  px-2 py-1 flex items-center mb-3 bg-primary w-fit text-white">
@@ -17,7 +17,7 @@ const AboutUs = () => {
                 About Redestate
               </span>
             </div>
-            <h3 className="text-5xl font-semibold text-primary  ">
+            <h3 className="sm:text-5xl text-3xl font-semibold text-primary  ">
               Your Dream Home, Our Expertise.
             </h3>
             <span className="text-secondary text-xl"></span>
@@ -26,8 +26,8 @@ const AboutUs = () => {
           <img src="/aboutus/seasite.png" className="rounded-lg w-full" />
         </div>
       </div>
-      <div className=" px-[100px] py-[70px]">
-        <div className="grid grid-cols-2 items-center gap-[50px]">
+      <div className=" px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
+        <div className=" items-center gap-[50px] grid sm:grid-cols-2  grid-cols-1">
           {/* <div className="relative ">
             <img src="/aboutus/redstate.png" className="rounded-lg w-full" />
             <img
@@ -35,7 +35,7 @@ const AboutUs = () => {
               className="rounded-lg w-[300px] absolute top-[50%] left-[50%] -translate-x-1/2"
             />
           </div> */}
-          <div className="relative">
+          <div className="relative order-2 sm:order-1">
             {/* Background Image */}
             <img src="/aboutus/redstate.png" className="rounded-lg w-full" />
 
@@ -48,7 +48,7 @@ const AboutUs = () => {
               className="rounded-lg w-[300px] absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2"
             />
           </div>
-          <p className={` text-secondary`}>
+          <p className={` text-secondary order-1 sm:order-2`}>
             Founded in 2020, Red Estate has quickly risen to the top and
             established itself as a leading force in the real estate industry.
             As a respected brokerage, investment, and advisory firm, our
@@ -67,8 +67,8 @@ const AboutUs = () => {
           </p>
         </div>
       </div>
-      <div className=" px-[100px] py-[70px]">
-        <div className="grid grid-cols-2 items-center gap-[50px]">
+      <div className=" px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
+        <div className="grid grid-cols-1 items-center gap-[50px] sm:grid-cols-2">
           <div className={` flex flex-col gap-4`}>
             <div className="">
               <span className="rounded-full  py-1 flex items-center mb-3 text-primary w-fit text-white">
@@ -76,7 +76,7 @@ const AboutUs = () => {
                 Our Vision
               </span>
             </div>
-            <h3 className="text-5xl font-semibold text-primary  ">
+            <h3 className="sm:text-5xl text-2xl  font-semibold text-primary  ">
               Tailored Real Estate Solutions for Every Client.
             </h3>
             <span className="text-secondary ">
@@ -89,20 +89,20 @@ const AboutUs = () => {
           <img src="/aboutus/tailored.png" className="rounded-lg w-full" />
         </div>
       </div>
-      <div className=" px-[100px] py-[70px]">
-        <div className="grid grid-cols-2 items-center gap-[50px] ">
+      <div className=" px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
+        <div className="grid grid-cols-1 items-center gap-[50px] sm:grid-cols-2 ">
           <img
             src="/aboutus/leading_excellence.png"
-            className="rounded-lg w-full"
+            className="rounded-lg w-full order-2 sm:order-1"
           />
-          <div className={` flex flex-col gap-4`}>
+          <div className={` flex flex-col gap-4 order-1 sm:order-2`}>
             <div className="">
               <span className="rounded-full   py-1 flex items-center mb-3 text-primary w-fit text-white">
                 <RxDotFilled size={30} />
                 Our Mission
               </span>
             </div>
-            <h3 className="text-5xl font-semibold text-primary  ">
+            <h3 className="sm:text-5xl text-2xl font-semibold text-primary  ">
               Leading with Excellence, Integrity, and Innovation in Real Estate
             </h3>
             <span className="text-secondary ">

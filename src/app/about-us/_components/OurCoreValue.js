@@ -41,14 +41,16 @@ const OurCoreValue = () => {
   ];
   return (
     <div>
-      <div className={` flex flex-col gap-4 px-[100px]`}>
+      <div
+        className={` flex flex-col gap-4  px-[20px] md:px-[50px] lg:px-[100px]`}
+      >
         <div className="">
           <span className="rounded-full   py-1 flex items-center mb-3 text-primary w-fit text-white">
             <RxDotFilled size={30} />
             Our Core Value
           </span>
         </div>
-        <h3 className="text-5xl font-semibold text-primary  ">
+        <h3 className="sm:text-5xl text-3xl font-semibold text-primary  ">
           What We Stand For You
         </h3>
         <span className="text-secondary ">
@@ -56,7 +58,7 @@ const OurCoreValue = () => {
           client satisfaction.
         </span>
       </div>
-      <div className="grid grid-cols-3 gap-8 px-[100px] py-[70px]">
+      <div className="grid grid-cols-1 sm:grid-cols-3  gap-8 px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
         {values.map((item) => {
           return (
             <Card icon={item?.icon} title={item?.title} desc={item?.desc} />
