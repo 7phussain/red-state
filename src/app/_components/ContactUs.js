@@ -187,43 +187,46 @@ const ContactUs = () => {
         "--border-color":
           pathname !== "/contact-us" ? "white" : "var(--primary)",
       }}
-      className={`grid grid-cols-2 py-8 px-[100px] items-center ${
+      className={`grid md:grid-cols-2 grid-row-2 py-8 px-[30px] md:px-[50px] lg:px-[100px]  items-center ${
         pathname === "/contact-us" ? "text-primary" : "text-white"
       }`}
     >
       <div>
-        <h4 className="text-5xl font-semibold mb-4">Contact Us</h4>
-        <p className="font-normal">
+        <h4 className="md:text-5xl text-3xl  font-semibold mb-4 text-center md:text-start">
+          Contact Us
+        </h4>
+        <p className="font-normal text-xs text-center md:text-start">
           We’re here to help you with all your real estate needs.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col contact-us gap-4">
-        <div className="flex flex-col gap-3">
-          <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Your Name"
-            className="rounded-full px-4 py-2"
-          />
-        </div>
+        <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:pt-0 pt-3">
+          <div className="flex flex-col gap-3">
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="rounded-full px-4 py-2"
+            />
+          </div>
 
-        <div className="flex flex-col gap-3">
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter Your Email"
-            className="rounded-full px-4 py-2"
-          />
+          <div className="flex flex-col gap-3">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter Your Email"
+              className="rounded-full px-4 py-2"
+            />
+          </div>
         </div>
-
-        <div className="grid grid-cols-2 gap-4 items-center">
+        <div className="grid grid-cols-2 gap-4 items-center ">
           <div className="flex flex-col gap-3">
             <label>Unit Type</label>
             <div
