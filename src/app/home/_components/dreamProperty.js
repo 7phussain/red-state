@@ -9,21 +9,21 @@ import { BsArrowUpRightCircle } from "react-icons/bs";
 const DreamProperty = () => {
   const [focusedImage, setFocusedImage] = useState(0);
   return (
-    <div className="px-[100px]">
+    <div className="px-[30px] md:px-[50px] lg:px-[100px]">
       <div className="flex flex-col items-center py-6 gap-6">
         <div className="flex flex-col items-center">
           <h2 className="text-primary font-medium text-4xl">
             Find Your Dream Property
           </h2>
-          <p className="text-secondary">
+          <p className="text-secondary mx-auto w-[70%] text-center pt-3">
             We offer modern properties with the best quality that meet all your
             needs.
           </p>
         </div>
-        <div className="flex gap-8 mt-6 items-center">
+        <div className="grid xl:grid-cols-6 md:grid-cols-3 grid-cols-2   gap-8 mt-6 items-center">
           {[0, 1, 2, 3, 4].map((i) => {
             return (
-              <div>
+              <div className="w-full">
                 <label htmlFor="" className="text-secondary">
                   Looking For
                 </label>
@@ -31,7 +31,7 @@ const DreamProperty = () => {
               </div>
             );
           })}
-          <span className="p-3 bg-primary rounded-full ml-9">
+          <span className="p-3 bg-primary rounded-full ml-9 w-fit">
             <LuSearch size={24} />
           </span>
         </div>
