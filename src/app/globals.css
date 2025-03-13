@@ -1,6 +1,31 @@
 @import "tailwindcss";
-
+body {
+  font-family: var(--font-plus-sans), sans-serif;
+}
 :root {
+  --primary: #ca1e2e;
+  --secondary: #8c8c8c;
+  --border-colo: "white";
+}
+.text-primary {
+  color: var(--primary);
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.border-primary {
+  border-color: var(--primary);
+}
+.text-secondary {
+  color: var(--secondary);
+}
+.bg-secondary {
+  background-color: var(--secondary);
+}
+.border-secondary {
+  border-color: var(--secondary);
+}
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -23,4 +48,17 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+} */
+
+.contact-us input {
+  padding: 10px 20px;
+  /* border-radius: ; */
+  border: 1px solid var(--border-color);
+  outline: none;
+}
+.single_property input {
+  padding: 10px 20px;
+  /* border-radius: ; */
+  border: 1px solid var(--primary);
+  outline: none;
 }
