@@ -50,7 +50,7 @@ const ContactUs = () => {
             form below, and our team will get back to you shortly!
           </span>
         </div>
-        <div className="grid grid-cols-3 ">
+        <div className="grid md:grid-cols-3 grid-rows-3 ">
           {contactDetails?.map((details) => {
             return (
               <div className="flex items-center gap-4 justify-center">
