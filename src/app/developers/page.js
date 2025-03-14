@@ -10,7 +10,7 @@ const Developers = () => {
   return (
     <div className="pt-[60px]">
       <div
-        className="relative bg-cover bg-center  px-[100px] h-[100vh]"
+        className="relative bg-cover bg-center  px-[30px] md:px-[50px] lg:px-[100px] h-[100vh]"
         style={{ backgroundImage: "url('/developers_hero.png')" }}
       >
         {/* Top Gradient */}

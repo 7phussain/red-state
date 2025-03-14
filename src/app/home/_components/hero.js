@@ -9,11 +9,11 @@ import {
 
 const Hero = () => {
   return (
-    <div className="relative h-[100vh] w-full flex flex-col justify-between pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] ">
+    <div className="relative h-[70vh] md:h-[100vh] w-full flex flex-col justify-between pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] ">
       {/* Background Image */}
       <img
         src="./hero.png"
-        className=" lg:object-contain object-cover absolute bottom-0 z-20 left-0 w-[100vw] h-[90%] "
+        className=" object-cover absolute bottom-0 z-20 left-0 w-[100vw] h-[90%] "
       />
 
       {/* Gradient Overlay */}
@@ -33,8 +33,8 @@ const Hero = () => {
         <h1>INVESTMENTS</h1>
       </div>
 
-      <div className="relative z-30 flex justify-between pb-4 items-end">
-        <p className="w-[300px]">
+      <div className="relative z-30 flex justify-between pb-4 sm:items-end sm:flex-row flex-col gap-6">
+        <p className="sm:w-[300px] w-[280px]">
           Discover meticulously crafted homes and properties, blending
           contemporary aesthetics with sustainable living.
         </p>

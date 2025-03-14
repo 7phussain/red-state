@@ -1,18 +1,58 @@
 "use client";
 
-import { selectStyles } from "@/app/_components/selectStyles";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { LuSearch } from "react-icons/lu";
 import SectionHeader from "./SectionHeader";
 import { BsArrowUpRightCircle } from "react-icons/bs";
+import PropertyFilters from "@/app/_components/filters";
+import useApi from "@/utils/useApi";
+import { useRouter } from "next/navigation";
+
 const DreamProperty = () => {
   const [focusedImage, setFocusedImage] = useState(0);
+  const [filtersApplied, setFiltersApplied] = useState({});
+  const [properties, setProperties] = useState([]);
+  const { fetchData } = useApi();
+  const router = useRouter();
+  const fetchListings = (page = 1, filters, callBack) => {
+    fetchData(
+      `/listings?page=${page}`,
+      {
+        method: "GET",
+        params: filters,
+      },
+      (res, status) => {
+        callBack(res, status);
+      }
+    );
+  };
+  useEffect(() => {
+    fetchListings(
+      1,
+      {
+        location: filtersApplied["location"]?.label,
+        listing_type: filtersApplied["listing_type"]?.value,
+        property_type: filtersApplied["property_type"]?.label,
+        bedrooms: filtersApplied["bedroom"]?.value,
+        max_price: filtersApplied["max_price"]?.value,
+        listing_title: filtersApplied["listing_title"],
+        is_featured: 1,
+      },
+      (res, status) => {
+        if (status) {
+          setProperties(res?.data?.data);
+          setPagination({ ...res?.data, data: {} || {} }); // Store pagination info
+          setCurrentPage(res?.data?.current_page);
+        }
+      }
+    );
+  }, [filtersApplied]);
   return (
     <div className="px-[30px] md:px-[50px] lg:px-[100px]">
       <div className="flex flex-col items-center py-6 gap-6">
         <div className="flex flex-col items-center">
-          <h2 className="text-primary font-medium text-4xl">
+          <h2 className="text-primary font-medium sm:text-4xl text-3xl">
             Find Your Dream Property
           </h2>
           <p className="text-secondary mx-auto w-[70%] text-center pt-3">
@@ -20,22 +60,11 @@ const DreamProperty = () => {
             needs.
           </p>
         </div>
-        <div className="grid xl:grid-cols-6 md:grid-cols-3 grid-cols-2   gap-8 mt-6 items-center">
-          {[0, 1, 2, 3, 4].map((i) => {
-            return (
-              <div className="w-full">
-                <label htmlFor="" className="text-secondary">
-                  Looking For
-                </label>
-                <Select d placeholder="Looking for" styles={selectStyles} />
-              </div>
-            );
-          })}
-          <span className="p-3 bg-primary rounded-full ml-9 w-fit">
-            <LuSearch size={24} />
-          </span>
-        </div>
       </div>
+      <PropertyFilters
+        filtersApplied={filtersApplied}
+        setFiltersApplied={setFiltersApplied}
+      />
       <SectionHeader
         name={"About Redestate"}
         title={"Your Dream Home, Our Expertise."}
@@ -43,13 +72,13 @@ const DreamProperty = () => {
           "Red Estate is a leading real estate brokerage and investment firm dedicated to providing exceptional service and solutions to clients worldwide"
         }
       />
-      <div className="gap-3 grid-cols-6 grid transition-all duration-300 ease-in-out">
-        {[1, 2, 3, 4].map((item, ind) => {
+      <div className="gap-3 lg:grid-cols-6 md:grid-cols-3 grid-cols-1  grid transition-all duration-300 ease-in-out">
+        {properties?.slice(0, 4).map((item, ind) => {
           return (
             <div
               onMouseEnter={() => setFocusedImage(ind)}
               className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[400px] transition-all duration-300 ease-in-out  ${
-                focusedImage === ind ? "col-span-2" : "col-span-1"
+                focusedImage === ind ? "md:col-span-2" : "col-span-1"
               }`}
               style={{
                 background:
@@ -57,24 +86,28 @@ const DreamProperty = () => {
               }}
             >
               <img
-                src="/hero.png"
+                src={`${item?.banner_img}`}
                 alt=""
                 className="h-full w-full object-cover absolute rounded-[12px] z-0 top-0 left-0 transition-all duration-300 ease-in-out"
               />
               <div className="flex flex-col z-40">
-                <h4 className="text-[16px] font-semibold">Burj Azizi</h4>
+                <h4 className="text-[16px] font-semibold">
+                  {item?.listing_title}
+                </h4>
                 {focusedImage === ind && (
                   <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Id, tempora.
                   </p>
                 )}
-                <span>600+ units available</span>
               </div>
             </div>
           );
         })}
-        <div className="text-primary flex items-center justify-center flex-col gap-3">
+        <div
+          onClick={() => router.push("/properties")}
+          className="text-primary flex items-center justify-center flex-col gap-3 cursor-pointer"
+        >
           <BsArrowUpRightCircle size={54} />
           More Properties
         </div>

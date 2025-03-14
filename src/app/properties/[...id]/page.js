@@ -16,7 +16,6 @@ const SingleProperty = () => {
   const { fetchData } = useApi();
   const { listing_attribute, meta_tags_for_listings } = propertyDetails;
   const images = [
-    `${meta_tags_for_listings?.banner}`,
     ...(meta_tags_for_listings?.additional_gallery
       ? meta_tags_for_listings?.additional_gallery
       : []),
@@ -36,32 +35,39 @@ const SingleProperty = () => {
   }, [id]);
 
   return (
-    <div className="pt-[60px]">
-      <div className="grid grid-cols-4 gap-3.5  pb-[50px] h-[500px]  grid-rows-2 px-[100px]">
-        {images?.map((item, ind) => {
-          return (
-            <div
-              className={`${
-                ind == 0 ? "row-span-2 col-span-2" : ""
-              }  w-full h-full object-cover`}
-            >
-              <img
-                src={item}
-                alt=""
-                className="object-cover h-full w-full rounded-3xl"
-              />
-              <div>{ind}</div>
-            </div>
-          );
-        })}
+    <div className="pt-[60px] ">
+      <div className="grid lg:grid-cols-2 grid-cols-1 gap-5  px-[30px] md:px-[50px] lg:px-[100px] pb-[50px]">
+        <div className={`  w-full h-full object-cover`}>
+          <img
+            src={`${meta_tags_for_listings?.banner}`}
+            alt=""
+            className="object-cover h-full w-full rounded-3xl"
+          />
+        </div>
+
+        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex no-scrollbar overflow-x-auto gap-3.5    grid-rows-2 ">
+          {images?.map((item, ind) => {
+            return (
+              <div className={`min-w-[200px] h-full  w-full object-cover`}>
+                <img
+                  src={item}
+                  alt=""
+                  className="object-cover h-full w-full rounded-3xl"
+                />
+                <div>{ind}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
+
       <Details propertyDetails={propertyDetails} />
       <div
         style={{
           backgroundImage: "url(/circle-design.png)",
           backgroundBlendMode: "soft-light",
         }}
-        className="bg-primary grid grid-cols-2   items-center  px-[100px] py-[50px] my-[50px]"
+        className="bg-primary grid md:grid-cols-2 grid-cols-1   items-center  px-[30px] md:px-[50px] lg:px-[100px] py-[50px] my-[50px]"
       >
         <div className={` flex flex-col gap-4 `}>
           <div className="">
@@ -77,10 +83,10 @@ const SingleProperty = () => {
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-3 py-[80px] gap-5 px-[100px]">
+      <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex no-scrollbar overflow-x-auto py-[80px] gap-5 px-[30px] md:px-[50px] lg:px-[100px]">
         {[1, 2, 3].map((item) => {
           return (
-            <div>
+            <div className="min-w-72">
               <div
                 className="relative h-[300px] rounded-2xl"
                 style={{

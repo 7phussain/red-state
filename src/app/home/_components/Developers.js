@@ -17,8 +17,8 @@ const developers = [
 const Developers = () => {
   const [focusedImage, setFocusedImage] = useState(0);
   return (
-    <div className="px-[100px] ">
-      <h3 className="text-primary text-6xl font-bold w-full text-center mb-4">
+    <div className="md:px-[50px] lg:px-[100px] px-[30px] ">
+      <h3 className="text-primary lg:text-6xl text-3xl font-bold w-full text-center mb-4">
         Our Developers
       </h3>
       <div className="grid grid-cols-6 gap-3">

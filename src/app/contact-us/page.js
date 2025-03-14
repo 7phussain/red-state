@@ -23,14 +23,13 @@ const ContactUs = () => {
   ];
   return (
     <div
-      className="relative bg-cover bg-center pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] h-[140vh]"
+      className="relative bg-cover bg-center pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] h-[100vh] bg-[#00000075]"
       style={{ backgroundImage: "url('/contact-us-map.png')" }}
     >
-      {/* Top Gradient */}
-      <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 to-transparent"></div>
+      {/* <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 to-transparent"></div>
 
-      {/* Bottom Gradient */}
-      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
+      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div> */}
+      <div className="absolute inset-0 bg-black opacity-50"></div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-between h-full pb-[60px]">
@@ -50,10 +49,10 @@ const ContactUs = () => {
             form below, and our team will get back to you shortly!
           </span>
         </div>
-        <div className="grid md:grid-cols-3 grid-rows-3 gap-3 md:gap-0">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3  gap-y-5 ">
           {contactDetails?.map((details) => {
             return (
-              <div className="flex items-center gap-4 md:justify-center">
+              <div className="flex items-center gap-4 lg:justify-center">
                 <span className="p-4 rounded-full border text-xl">
                   {details?.icon}
                 </span>

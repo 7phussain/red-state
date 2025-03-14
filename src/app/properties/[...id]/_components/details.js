@@ -36,7 +36,7 @@ const Details = ({ propertyDetails }) => {
     },
   ];
   return (
-    <div className="grid grid-cols-3 px-[100px]">
+    <div className="grid lg:grid-cols-3 grid-cols-1 px-[30px] md:px-[50px] lg:px-[100px]">
       <div className={` flex flex-col gap-4  col-span-2`}>
         <h3 className="text-5xl font-semibold text-primary  ">
           {propertyDetails?.title}
@@ -46,10 +46,10 @@ const Details = ({ propertyDetails }) => {
         </p>
         <div className="text-primary space-y-5 col-span-2 ">
           <h3 className=" text-3xl font-semibold text-primary ">Overview</h3>
-          <div className="grid grid-cols-3 gap-5 pl-4">
+          <div className="grid sm:grid-cols-3  grid-cols-1 items-center gap-5 pl-4">
             {overview?.map((item) => {
               return (
-                <div className="flex gap-3 items-center">
+                <div className="flex gap-3 items-center ">
                   <span className="text-2xl">{item?.icon}</span>
                   <span>{item?.title}</span>
                 </div>
@@ -64,7 +64,7 @@ const Details = ({ propertyDetails }) => {
           <img src="/location.png" alt="" className="h-[400px]" />
         </div>
       </div>
-      <div>
+      <div className="w-full">
         <div className="text-4xl font-semibold text-primary">
           <h3 className="  ">Price</h3>
           <p>
