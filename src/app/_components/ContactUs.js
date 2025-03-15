@@ -231,18 +231,24 @@ const ContactUs = () => {
             <label>Unit Type</label>
             <div
               className={`rounded-full border px-4 py-2 ${
-                pathname === "/contact-us" ? "border-primary" : "border-white"
+                pathname === "/contact-us" ? "border-primary " : "border-white "
               }`}
             >
               <select
                 name="unitType"
                 value={formData.unitType}
                 onChange={handleChange}
-                className="w-full bg-transparent border-none outline-none"
+                className={`w-full bg-transparent border-none outline-none `}
               >
-                <option value="Apartment">Apartment</option>
-                <option value="House">House</option>
-                <option value="Condo">Condo</option>
+                <option value="Apartment" className="text-black">
+                  Apartment
+                </option>
+                <option value="House" className="text-black">
+                  House
+                </option>
+                <option value="Condo" className="text-black">
+                  Condo
+                </option>
               </select>
             </div>
           </div>

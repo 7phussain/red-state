@@ -22,9 +22,9 @@ const Developers = () => {
         Our Developers
       </h3>
       <div className="grid grid-cols-6 gap-3">
-        {developers?.map((developer) => {
+        {developers?.map((developer, ind) => {
           return (
-            <div className="w-full">
+            <div key={ind} className="w-full">
               <img src={developer} className="w-full" />
             </div>
           );

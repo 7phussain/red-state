@@ -23,7 +23,7 @@ const AboutUs = () => {
             <span className="text-secondary text-xl"></span>
           </div>
 
-          <img src="/aboutus/seasite.png" className="rounded-lg w-full" />
+          <img src="/aboutus/seasite.webp" className="rounded-lg w-full" />
         </div>
       </div>
       <div className=" px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
@@ -37,7 +37,7 @@ const AboutUs = () => {
           </div> */}
           <div className="relative order-2 sm:order-1">
             {/* Background Image */}
-            <img src="/aboutus/redstate.png" className="rounded-lg w-full" />
+            <img src="/aboutus/redstate.webp" className="rounded-lg w-full" />
 
             {/* Black Overlay */}
             <div className="absolute inset-0 bg-[#00000083] bg-opacity-50 rounded-lg"></div>
@@ -86,13 +86,13 @@ const AboutUs = () => {
             </span>
           </div>
 
-          <img src="/aboutus/tailored.png" className="rounded-lg w-full" />
+          <img src="/aboutus/tailored.webp" className="rounded-lg w-full" />
         </div>
       </div>
       <div className=" px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
         <div className="grid grid-cols-1 items-center gap-[50px] sm:grid-cols-2 ">
           <img
-            src="/aboutus/leading_excellence.png"
+            src="/aboutus/leading_excellence.webp"
             className="rounded-lg w-full order-2 sm:order-1"
           />
           <div className={` flex flex-col gap-4 order-1 sm:order-2`}>

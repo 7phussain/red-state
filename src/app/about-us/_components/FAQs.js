@@ -133,7 +133,7 @@ export default function FAQs() {
         <div className=" ">
           <span className="rounded-full   py-1 flex items-center mb-3 text-primary w-fit text-white">
             <RxDotFilled size={30} />
-            FAQ's
+            FAQ s
           </span>
         </div>
         <h3 className="sm:text-5xl text-3xl text-right sm:text-start font-semibold text-primary  ">

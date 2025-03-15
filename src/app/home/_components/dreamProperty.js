@@ -76,6 +76,7 @@ const DreamProperty = () => {
         {properties?.slice(0, 4).map((item, ind) => {
           return (
             <div
+              key={ind}
               onMouseEnter={() => setFocusedImage(ind)}
               className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[400px] transition-all duration-300 ease-in-out  ${
                 focusedImage === ind ? "md:col-span-2" : "col-span-1"

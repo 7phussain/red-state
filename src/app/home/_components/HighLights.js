@@ -52,9 +52,10 @@ const Highlights = () => {
       />
       <div className="flex justify-center py-11">
         <ul className="space-x-5">
-          {links?.map((link) => {
+          {links?.map((link, ind) => {
             return (
               <button
+                key={ind}
                 onClick={() => setSelectedRegion(link)}
                 className={` p-2  rounded-full cursor-pointer ${
                   selectedRegion === link ? "bg-primary" : "text-primary"
@@ -67,9 +68,9 @@ const Highlights = () => {
         </ul>
       </div>
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 py-[80px] gap-5">
-        {properties?.slice(0, 3).map((item) => {
+        {properties?.slice(0, 3).map((item, ind) => {
           return (
-            <div>
+            <div key={ind}>
               {/* <div
                 className="relative h-[300px] rounded-2xl"
                 style={{

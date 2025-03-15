@@ -36,9 +36,12 @@ const Developers = () => {
             </span>
           </div>
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 gap-y-5">
-            {contactDetails?.map((details) => {
+            {contactDetails?.map((details, ind) => {
               return (
-                <div className="flex items-center gap-4 sm:justify-center text-primary">
+                <div
+                  key={ind}
+                  className="flex items-center gap-4 sm:justify-center text-primary"
+                >
                   <span className="p-4 rounded-full border text-xl">
                     {details?.icon}
                   </span>
@@ -68,7 +71,7 @@ const Developers = () => {
         className="bg-primary grid lg:grid-cols-2 md:grid-cols-1  gap-4  items-center px-[10px] md:px-[50px] lg:px-[100px] py-[50px]"
       >
         <img
-          src="/aboutus/leading_excellence.png"
+          src="/aboutus/leading_excellence.webp"
           className="rounded-lg w-full  h-full object-cover "
         />
         <div className={` flex flex-col gap-4 `}>

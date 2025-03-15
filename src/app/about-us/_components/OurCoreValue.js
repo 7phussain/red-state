@@ -59,9 +59,14 @@ const OurCoreValue = () => {
         </span>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-3  gap-8 px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
-        {values.map((item) => {
+        {values.map((item, ind) => {
           return (
-            <Card icon={item?.icon} title={item?.title} desc={item?.desc} />
+            <Card
+              key={ind}
+              icon={item?.icon}
+              title={item?.title}
+              desc={item?.desc}
+            />
           );
         })}
       </div>

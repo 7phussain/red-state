@@ -9,17 +9,53 @@ import {
 import FAQs from "@/app/about-us/_components/FAQs";
 import { useParams } from "next/navigation";
 import useApi from "@/utils/useApi";
+import Loader from "@/app/_components/Loader";
 
 const SingleProperty = () => {
   const { id } = useParams();
   const [propertyDetails, setPropertyDetails] = useState({});
   const { fetchData } = useApi();
   const { listing_attribute, meta_tags_for_listings } = propertyDetails;
+  const [properties, setProperties] = useState([]);
+  const [pagination, setPagination] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsloading] = useState(false);
   const images = [
     ...(meta_tags_for_listings?.additional_gallery
       ? meta_tags_for_listings?.additional_gallery
       : []),
   ];
+  const fetchListings = (page = 1, filters, callBack) => {
+    fetchData(
+      `/listings?page=${page}`,
+      {
+        method: "GET",
+        params: filters,
+      },
+      (res, status) => {
+        callBack(res, status);
+      }
+    );
+  };
+
+  // Fetch first page on component mount
+  useEffect(() => {
+    setIsloading(true);
+
+    fetchListings(
+      1,
+      {
+        min_price: propertyDetails?.listing_attribute_type?.price,
+        max_price: propertyDetails?.listing_attribute_type?.price,
+      },
+      (res, status) => {
+        if (status) {
+          setProperties(res?.data?.data);
+          setIsloading(false);
+        }
+      }
+    );
+  }, []);
   useEffect(() => {
     fetchData(
       `/new-listings/${id}`,
@@ -48,13 +84,16 @@ const SingleProperty = () => {
         <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex no-scrollbar overflow-x-auto gap-3.5    grid-rows-2 ">
           {images?.map((item, ind) => {
             return (
-              <div className={`min-w-[200px] h-full  w-full object-cover`}>
+              <div
+                key={ind}
+                className={`min-w-[200px] h-full  w-full object-cover`}
+              >
                 <img
                   src={item}
                   alt=""
                   className="object-cover h-full w-full rounded-3xl"
                 />
-                <div>{ind}</div>
+                {/* <div>{ind}</div> */}
               </div>
             );
           })}
@@ -83,60 +122,53 @@ const SingleProperty = () => {
           </span>
         </div>
       </div>
-      <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex no-scrollbar overflow-x-auto py-[80px] gap-5 px-[30px] md:px-[50px] lg:px-[100px]">
-        {[1, 2, 3].map((item) => {
-          return (
-            <div className="min-w-72">
-              <div
-                className="relative h-[300px] rounded-2xl"
-                style={{
-                  backgroundImage: "url(/hero.png)",
-                  backgroundSize: "cover",
-                }}
-              >
-                {/* <img src="/hero.png" alt="" className="rounded-[100px]" /> */}
-                <button className="p-2 px-3 rounded-full bg-primary uppercase absolute top-0 left-4 text-[14px] font-semibold">
-                  For Sale
-                </button>
-              </div>
-              <div>
-                <h4 className="text-primary font-semibold text-3xl py-2">
-                  750,000 AED
-                </h4>
-                <span className="text-primary font-medium underline py-2">
-                  Binghatti Skyrise
-                </span>
-                <div className="text-secondary">
-                  <div className="flex flex-col">
-                    <span>1234 Avenue</span>
-                    <span>Dubai, UAE</span>
-                  </div>
+      <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex no-scrollbar overflow-x-auto py-[80px] gap-5 px-[30px] md:px-[50px] lg:px-[100px]">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          properties?.slice(0, 3).map((item, ind) => {
+            return (
+              <div key={ind} className="min-w-72">
+                <div
+                  className="relative h-[300px] rounded-2xl"
+                  style={{
+                    backgroundImage: `url(${item?.banner_img})`,
+                    backgroundSize: "cover",
+                  }}
+                >
+                  {/* <img src="/hero.png" alt="" className="rounded-[100px]" /> */}
+                  <button className="p-2 px-3 rounded-full bg-primary uppercase absolute top-4 left-4 text-[14px] font-semibold">
+                    For {item?.listing_type}
+                  </button>
+                </div>
+                <div>
+                  <h4 className="text-primary font-semibold text-3xl py-2">
+                    {item?.currency} {item?.price}
+                  </h4>
+                  <span className="text-primary font-medium underline py-2">
+                    {item?.listing_title}
+                  </span>
+                  <div className="text-secondary">
+                    <div className="flex flex-col">
+                      <span>{item?.near_by}</span>
+                      <span>
+                        {item?.city}, {item?.country}
+                      </span>
+                    </div>
 
-                  <div className="flex ">
-                    <span>3 beds</span> - <span>2 bath</span> -
-                    <span>900 sq/ft</span>
+                    <div className="flex ">
+                      <span>{item?.bedrooms}</span> -{" "}
+                      <span>{item?.bathrooms}</span> -
+                      <span>{item?.size_unit}</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-      <div className="flex gap-3 justify-center py-4 pb-8">
-        <button className="text-gray-600">
-          <IoArrowBackCircleOutline size={44} />
-        </button>
-        <div className="gap-3 grid grid-cols-5 items-center">
-          {[1, 2, 3, 4, 5].map((dot) => {
-            return (
-              <div className="h-[10px] w-[10px] bg-primary rounded-full "></div>
             );
-          })}
-        </div>
-        <button className="text-gray-600">
-          <IoArrowForwardCircleOutline size={44} />
-        </button>
+          })
+        )}
       </div>
+
       <FAQs />
     </div>
   );

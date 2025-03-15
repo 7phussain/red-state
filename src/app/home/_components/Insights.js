@@ -6,18 +6,18 @@ import { useRef } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 const insights = [
   {
-    image: "/insights/luxury-living.png",
+    image: "/insights/luxury-living.webp",
 
     title: "Market Trends & Insights",
     desc: "UAE Real Estate Market Report: Latest Price Trends in 2024 Top Investment Hotspots in Dubai & Abu Dhabi",
   },
   {
-    image: "/insights/buying-selling.png",
+    image: "/insights/buying-selling.webp",
     title: "Buying & Selling Guide",
     desc: "Step-by-Step Guide to Buying Property in Dubai How to Sell Your Property Fast in the UAE",
   },
   {
-    image: "/insights/marketing_trends.png",
+    image: "/insights/marketing_trends.webp",
 
     title: "Luxury Living & Lifestyle",
     desc: "Most Luxurious Villas & Apartments in Dubai Best Waterfront Properties in the UAE",
@@ -48,7 +48,7 @@ const Insights = () => {
         }
       />
       <div className="flex overflow-hidden py-[80px] gap-5 min-w-full">
-        {insights.map((item) => {
+        {insights.map((item, ind) => {
           return (
             // <div className="w-96 flex-none">
             //   <div
@@ -65,7 +65,7 @@ const Insights = () => {
             //     <p className="text-secondary">{item?.desc}</p>
             //   </div>
             // </div>
-            <div className="relative">
+            <div key={ind} className="relative">
               <button
                 className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md"
                 onClick={scrollLeft}

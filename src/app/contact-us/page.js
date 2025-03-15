@@ -45,14 +45,17 @@ const ContactUs = () => {
             GET IN TOUCH
           </h3>
           <span className="text-white text-md">
-            We’re here to help you with all your real estate needs. Fill out the
+            We re here to help you with all your real estate needs. Fill out the
             form below, and our team will get back to you shortly!
           </span>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3  gap-y-5 ">
-          {contactDetails?.map((details) => {
+          {contactDetails?.map((details, indx) => {
             return (
-              <div className="flex items-center gap-4 lg:justify-center">
+              <div
+                key={indx}
+                className="flex items-center gap-4 lg:justify-center"
+              >
                 <span className="p-4 rounded-full border text-xl">
                   {details?.icon}
                 </span>

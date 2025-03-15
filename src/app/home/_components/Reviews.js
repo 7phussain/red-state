@@ -27,9 +27,9 @@ const Reviews = () => {
           <h4 className="font-semibold">Ali Bin Saleh</h4>
           <span>Client</span>
           <div className="grid grid-cols-5 gap-3">
-            {[1, 2, 3, 4, 5].map((start) => {
+            {[1, 2, 3, 4, 5].map((start, ind) => {
               return (
-                <div>
+                <div key={ind}>
                   <FaStar size={24} color="#e2b93b" />
                 </div>
               );
@@ -44,9 +44,12 @@ const Reviews = () => {
               <IoArrowBackCircleOutline size={44} />
             </button>
             <div className="gap-3 grid grid-cols-5 items-center">
-              {[1, 2, 3, 4, 5].map((dot) => {
+              {[1, 2, 3, 4, 5].map((dot, ind) => {
                 return (
-                  <div className="h-[10px] w-[10px] bg-primary rounded-full "></div>
+                  <div
+                    key={ind}
+                    className="h-[10px] w-[10px] bg-primary rounded-full "
+                  ></div>
                 );
               })}
             </div>

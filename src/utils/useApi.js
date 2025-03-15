@@ -23,7 +23,7 @@ const useApi = () => {
       const res = await axios({
         url: baseUrl + url,
         ...options,
-        withCredentials: true,
+        // withCredentials: true,
         headers: {
           ...options?.headers,
           Authorization: "Bearer " + token,

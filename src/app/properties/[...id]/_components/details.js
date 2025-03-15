@@ -47,9 +47,9 @@ const Details = ({ propertyDetails }) => {
         <div className="text-primary space-y-5 col-span-2 ">
           <h3 className=" text-3xl font-semibold text-primary ">Overview</h3>
           <div className="grid sm:grid-cols-3  grid-cols-1 items-center gap-5 pl-4">
-            {overview?.map((item) => {
+            {overview?.map((item, ind) => {
               return (
-                <div className="flex gap-3 items-center ">
+                <div key={ind} className="flex gap-3 items-center ">
                   <span className="text-2xl">{item?.icon}</span>
                   <span>{item?.title}</span>
                 </div>

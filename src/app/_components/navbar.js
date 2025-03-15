@@ -138,6 +138,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import Image from "next/image";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -175,7 +176,9 @@ const Navbar = () => {
   return (
     <nav
       className={`flex justify-between items-center fixed px-[50px] lg:px-[100px] z-50 top-0 left-0 py-4 w-[100vw] transition-all duration-300 ${
-        isScrolled ? "bg-white/30 backdrop-blur-md shadow-md" : "bg-transparent"
+        isScrolled
+          ? "bg-white/30 backdrop-blur-md shadow-md text-black"
+          : "bg-transparent"
       }`}
     >
       <img src="/logo.png" alt="Red State logo" width={120} />
