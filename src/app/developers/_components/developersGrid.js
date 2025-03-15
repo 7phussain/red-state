@@ -9,8 +9,8 @@ const DevelopersGrid = () => {
             key={ind}
             className="min-w-72 flex flex-col gap-3 items-center p-4"
           >
-            {/* <img src="/developer_logo.png" className="w-[200px]" /> */}
-            <div className="w-[200px]">
+            <img src="/developer_logo.png" className="w-[200px]" />
+            {/* <div className="w-[200px]">
               <Image
                 src="/developer_logo.png"
                 alt="Sea site"
@@ -19,7 +19,7 @@ const DevelopersGrid = () => {
                 // width={200}
                 objectFit="cover" // Controls how the image is resized
               />
-            </div>
+            </div> */}
 
             <span className="text-primary">AL Habtoor</span>
             <button className="border-primary border text-primary text-white py-1 rounded-full px-4">

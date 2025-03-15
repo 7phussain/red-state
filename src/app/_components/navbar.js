@@ -197,6 +197,7 @@ const Navbar = () => {
           <li key={link}>
             <Link
               href={link}
+              prefetch={true}
               className={`px-2 py-2 ${
                 pathname === link
                   ? "text-red-600 font-bold border-b-2 border-red-600"
