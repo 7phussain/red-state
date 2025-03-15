@@ -1,11 +1,6 @@
 "use client";
 
-import { selectStyles } from "@/app/_components/selectStyles";
 import React, { useState } from "react";
-import Select from "react-select";
-import { LuSearch } from "react-icons/lu";
-import SectionHeader from "./SectionHeader";
-import { BsArrowUpRightCircle } from "react-icons/bs";
 const developers = [
   "/developers/aldar.png",
   "/developers/alef.png",
@@ -15,7 +10,6 @@ const developers = [
   "/developers/object1.png",
 ];
 const Developers = () => {
-  const [focusedImage, setFocusedImage] = useState(0);
   return (
     <div className="md:px-[50px] lg:px-[100px] px-[30px] ">
       <h3 className="text-primary lg:text-6xl text-3xl font-bold w-full text-center mb-4">
@@ -26,6 +20,13 @@ const Developers = () => {
           return (
             <div key={ind} className="w-full">
               <img src={developer} className="w-full" />
+              {/* <Image
+                src={developer}
+                alt=""
+                className=""
+                layout="fill"
+                objectFit="cover" // Controls how the image is resized
+              /> */}
             </div>
           );
         })}

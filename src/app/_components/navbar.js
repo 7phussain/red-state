@@ -181,7 +181,15 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
     >
-      <img src="/logo.png" alt="Red State logo" width={120} />
+      {/* <img src="/logo.png" alt="Red State logo" width={120} /> */}
+      <Image
+        src="/logo.png"
+        alt="Red State logo"
+        width={120}
+        height={0} // Temporary placeholder, not needed with layout="intrinsic"
+        layout="intrinsic"
+      />
+      {/* <Image src="/logo.png" alt="Red State logo" width={120} height={auto} /> */}
 
       {/* Desktop Links */}
       <ul className="space-x-4 md:flex hidden">

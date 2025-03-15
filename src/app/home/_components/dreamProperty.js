@@ -8,6 +8,7 @@ import { BsArrowUpRightCircle } from "react-icons/bs";
 import PropertyFilters from "@/app/_components/filters";
 import useApi from "@/utils/useApi";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const DreamProperty = () => {
   const [focusedImage, setFocusedImage] = useState(0);
@@ -86,10 +87,17 @@ const DreamProperty = () => {
                   "linear-gradient(180deg, rgba(0, 0, 0, 0) 45.43%, rgba(0, 0, 0, 0.5) 71.41%)",
               }}
             >
-              <img
+              {/* <img
                 src={`${item?.banner_img}`}
                 alt=""
                 className="h-full w-full object-cover absolute rounded-[12px] z-0 top-0 left-0 transition-all duration-300 ease-in-out"
+              /> */}
+              <Image
+                src={`${item?.banner_img}`}
+                alt=""
+                className="absolute rounded-[12px] z-0 top-0 left-0 transition-all duration-300 ease-in-out"
+                layout="fill"
+                objectFit="cover" // Controls how the image is resized
               />
               <div className="flex flex-col z-40">
                 <h4 className="text-[16px] font-semibold">

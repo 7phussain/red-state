@@ -12,7 +12,7 @@ const Hero = () => {
     <div className="relative h-[70vh] md:h-[100vh] w-full flex flex-col justify-between pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] ">
       {/* Background Image */}
       <img
-        src="./hero.png"
+        src="./hero.webp"
         className=" object-cover absolute bottom-0 z-20 left-0 w-[100vw] h-[90%] "
       />
 

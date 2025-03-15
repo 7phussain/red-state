@@ -10,6 +10,7 @@ import FAQs from "@/app/about-us/_components/FAQs";
 import { useParams } from "next/navigation";
 import useApi from "@/utils/useApi";
 import Loader from "@/app/_components/Loader";
+import Image from "next/image";
 
 const SingleProperty = () => {
   const { id } = useParams();
@@ -79,6 +80,14 @@ const SingleProperty = () => {
             alt=""
             className="object-cover h-full w-full rounded-3xl"
           />
+          {/* <div className="relative w-[100vw] h-[90%]">
+            <Image
+              src={`${meta_tags_for_listings?.banner}`}
+              alt="Hero"
+              className="object-cover rounded-3xl"
+              layout="fill"
+            />
+          </div> */}
         </div>
 
         <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex no-scrollbar overflow-x-auto gap-3.5    grid-rows-2 ">
@@ -92,7 +101,14 @@ const SingleProperty = () => {
                   src={item}
                   alt=""
                   className="object-cover h-full w-full rounded-3xl"
-                />
+                />{" "}
+                {/* <Image
+                  src={item}
+                  alt=""
+                  className="object-cover rounded-3xl"
+                  layout="fill"
+                  objectFit="cover" // Controls how the image is resized
+                /> */}
                 {/* <div>{ind}</div> */}
               </div>
             );

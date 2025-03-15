@@ -181,7 +181,7 @@ const ContactUs = () => {
           pathname !== "/contact-us" &&
           `linear-gradient(0deg, rgba(9, 12, 27, 0.4), rgba(9, 12, 27, 0.4)), 
           linear-gradient(180deg, rgba(9, 12, 27, 0) 22.75%, #090C1B 87.07%), 
-          url(/contact_us.png)`,
+          url(/contact_us.webp)`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         "--border-color":

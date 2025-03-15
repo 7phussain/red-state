@@ -24,7 +24,7 @@ const ContactUs = () => {
   return (
     <div
       className="relative bg-cover bg-center pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] h-[100vh] bg-[#00000075]"
-      style={{ backgroundImage: "url('/contact-us-map.png')" }}
+      style={{ backgroundImage: "url('/contact-us-map.webp')" }}
     >
       {/* <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 to-transparent"></div>
 

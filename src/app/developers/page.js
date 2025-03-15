@@ -6,6 +6,7 @@ import {
   IoLocationOutline,
 } from "react-icons/io5";
 import DevelopersGrid from "./_components/developersGrid";
+import Image from "next/image";
 const Developers = () => {
   return (
     <>
@@ -14,9 +15,16 @@ const Developers = () => {
         className="relative bg-cover bg-center  "
         style={{ backgroundImage: "url('/developers_hero.png')" }}
       > */}
-        <img
-          src="/developers_hero.png"
+        {/* <img
+          src="/developers_hero.webp"
           className=" object-cover absolute bottom-0 z-20 left-0 w-[100vw] h-[100%] "
+        /> */}
+
+        <Image
+          src="/developers_hero.webp"
+          alt="Developer Hero"
+          className="object-cover absolute bottom-0 z-20 left-0 w-[100vw] h-[100%]"
+          layout="fill"
         />
         {/* Top Gradient */}
         <div className="absolute z-20 inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 to-transparent"></div>

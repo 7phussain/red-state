@@ -3,6 +3,7 @@ import { RxDotFilled } from "react-icons/rx";
 import OurCoreValue from "./_components/OurCoreValue";
 import Reviews from "../home/_components/Reviews";
 import FAQs from "./_components/FAQs";
+import Image from "next/image";
 
 const AboutUs = () => {
   return (
@@ -24,6 +25,13 @@ const AboutUs = () => {
           </div>
 
           <img src="/aboutus/seasite.webp" className="rounded-lg w-full" />
+          {/* <Image
+            src="/aboutus/seasite.webp"
+            alt="Sea site"
+            className="rounded-lg"
+            layout="fill"
+            objectFit="cover" // Controls how the image is resized
+          /> */}
         </div>
       </div>
       <div className=" px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
@@ -38,6 +46,13 @@ const AboutUs = () => {
           <div className="relative order-2 sm:order-1">
             {/* Background Image */}
             <img src="/aboutus/redstate.webp" className="rounded-lg w-full" />
+            {/* <Image
+              src="/aboutus/redstate.webp"
+              alt="Sea site"
+              className="rounded-lg"
+              layout="fill"
+              objectFit="cover" // Controls how the image is resized
+            /> */}
 
             {/* Black Overlay */}
             <div className="absolute inset-0 bg-[#00000083] bg-opacity-50 rounded-lg"></div>
@@ -47,6 +62,13 @@ const AboutUs = () => {
               src="/logo.png"
               className="rounded-lg w-[300px] absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2"
             />
+            {/* <Image
+              src="/logo.png"
+              alt="Logo"
+              className="rounded-lg absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2"
+              width={300}
+              height={300}
+            /> */}
           </div>
           <p className={` text-secondary order-1 sm:order-2`}>
             Founded in 2020, Red Estate has quickly risen to the top and
@@ -87,6 +109,13 @@ const AboutUs = () => {
           </div>
 
           <img src="/aboutus/tailored.webp" className="rounded-lg w-full" />
+          {/* <Image
+            src="/aboutus/tailored.webp"
+            alt="Tailored"
+            className="rounded-lg"
+            layout="fill"
+            objectFit="cover" // Controls how the image is resized
+          /> */}
         </div>
       </div>
       <div className=" px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
@@ -95,6 +124,13 @@ const AboutUs = () => {
             src="/aboutus/leading_excellence.webp"
             className="rounded-lg w-full order-2 sm:order-1"
           />
+          {/* <Image
+            src="/aboutus/leading_excellence.webp"
+            alt="Sea site"
+            className="rounded-lg  order-2 sm:order-1"
+            layout="fill"
+            objectFit="cover" // Controls how the image is resized
+          /> */}
           <div className={` flex flex-col gap-4 order-1 sm:order-2`}>
             <div className="">
               <span className="rounded-full   py-1 flex items-center mb-3 text-primary w-fit text-white">

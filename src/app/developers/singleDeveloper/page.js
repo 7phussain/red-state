@@ -7,6 +7,7 @@ import {
 } from "react-icons/io5";
 import { FiPhone } from "react-icons/fi";
 import { SlEnvolope } from "react-icons/sl";
+import Image from "next/image";
 const Developers = () => {
   const contactDetails = [
     {
@@ -55,10 +56,17 @@ const Developers = () => {
           </div>
         </div>
         <div className="lg:order-2 order-1">
-          <img
+          {/* <img
             src="/developer_logo.png"
             alt=""
             className="w-full h-full object-contain"
+          /> */}
+          <Image
+            src="/developer_logo.png"
+            alt="Sea site"
+            className=""
+            layout="fill"
+            objectFit="contain" // Controls how the image is resized
           />
         </div>
       </div>
@@ -70,9 +78,16 @@ const Developers = () => {
         }}
         className="bg-primary grid lg:grid-cols-2 md:grid-cols-1  gap-4  items-center px-[10px] md:px-[50px] lg:px-[100px] py-[50px]"
       >
-        <img
+        {/* <img
           src="/aboutus/leading_excellence.webp"
           className="rounded-lg w-full  h-full object-cover "
+        /> */}
+        <Image
+          src="/aboutus/leading_excellence.webp"
+          alt="Leading Excellence"
+          className=""
+          layout="fill"
+          objectFit="cover" // Controls how the image is resized
         />
         <div className={` flex flex-col gap-4 `}>
           <div className="">

@@ -5,6 +5,7 @@ import { FaMap } from "react-icons/fa6";
 import { GiHomeGarage } from "react-icons/gi";
 import { MdOutlinePool } from "react-icons/md";
 import { BsTools } from "react-icons/bs";
+import Image from "next/image";
 const Details = ({ propertyDetails }) => {
   const { listing_attribute, meta_tags_for_listings, listing_attribute_type } =
     propertyDetails;
@@ -62,6 +63,14 @@ const Details = ({ propertyDetails }) => {
             Location
           </h3>
           <img src="/location.png" alt="" className="h-[400px]" />
+          <div className="w-full h-[400px] relative">
+            {/* <Image
+              src="/location.png"
+              alt="Location"
+              className="object-cover"
+              layout="fill"
+            /> */}
+          </div>
         </div>
       </div>
       <div className="w-full">
@@ -78,6 +87,14 @@ const Details = ({ propertyDetails }) => {
             src="/azizi_logo-removebg-preview.png"
             className="w-[400px] h-[200px] object-cover"
           />
+          {/* <Image
+            src="/azizi_logo-removebg-preview.png"
+            alt="Location"
+            className="object-cover"
+            layout="fill"
+            height={200}
+            width={400}
+          /> */}
         </div>
         <button className="border-primary border  text-white py-3 rounded-full text-primary w-full">
           View Developer Profile
