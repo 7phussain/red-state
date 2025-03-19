@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   IoArrowBackCircleOutline,
@@ -8,29 +8,46 @@ import {
 } from "react-icons/io5";
 
 const Hero = () => {
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => setIsMobile(window.innerWidth < 800);
+    checkScreenSize(); // Run once on mount
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   return (
-    <div className="relative h-[70vh] md:h-[100vh] w-full flex flex-col justify-between pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] ">
+    <div className="relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[100px]"
+      style={{
+        background: isMobile ? "linear-gradient(180deg, #E6ECF4 0%, #FFFFFF 100%)"
+            : "transparent",
+      }}
+    >
       {/* Background Image */}
       <img
         src="./hero.webp"
-        className=" object-cover absolute bottom-0 z-20 left-0 w-[100vw] h-[90%] "
+        className=" object-cover absolute bottom-0 z-20 left-0 min-w-[100vw] h-[90%] md:h-[80%] lg:h-[70%] "
       />
 
       {/* Gradient Overlay */}
       <div
         className="absolute inset-0 z-20"
         style={{
-          background: `
-            linear-gradient(180deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0) 41.3%),
-            linear-gradient(0deg, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0) 41.3%)
-          `,
+          background: isMobile 
+          ? `linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 100%)`
+          : `linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 41.3%),
+            linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`,
         }}
       ></div>
 
       {/* Content */}
-      <div className="relative flex flex-col uppercase text-[30px] sm:text-[70px] md:text-[86px] lg:text-8xl w-full items-center text-[#CA1E2E] font-extrabold">
-        <h1>Future - Ready</h1>
-        <h1>INVESTMENTS</h1>
+      <div className="relative flex flex-col leading-[44px] md:leading-[70px] lg:leading-[100px] uppercase w-full items-center text-[#CA1E2E] font-extrabold">
+        <div className="h-[40px] lg:h-[20px]"></div>
+        <h1 className="text-[44px] md:text-[70px] lg:text-[100px] m-0 p-0">Future - Ready</h1>
+        <h1 className="text-[52px] md:text-[80px] lg:text-[118px] m-0 p-0">INVESTMENTS</h1>
       </div>
 
       <div className="relative z-30 flex justify-between pb-4 sm:items-end sm:flex-row flex-col gap-6">
@@ -38,7 +55,7 @@ const Hero = () => {
           Discover meticulously crafted homes and properties, blending
           contemporary aesthetics with sustainable living.
         </p>
-        <div className="flex flex-col items-end">
+        {/* <div className="flex flex-col items-end">
           <div className="flex gap-3 text-[24px]">
             <button>
               <IoArrowBackCircleOutline size={36} />
@@ -52,7 +69,7 @@ const Hero = () => {
             <span>1234 Lane</span>
             <span>Dubai, CA 90001</span>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
