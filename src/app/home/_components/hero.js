@@ -20,7 +20,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[100px]"
+    <div className="relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]"
       style={{
         background: isMobile ? "linear-gradient(180deg, #E6ECF4 0%, #FFFFFF 100%)"
             : "transparent",

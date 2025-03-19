@@ -187,104 +187,104 @@ const ContactUs = () => {
         "--border-color":
           pathname !== "/contact-us" ? "white" : "var(--primary)",
       }}
-      className={`grid md:grid-cols-2 grid-row-2 py-8 px-[30px] md:px-[50px] lg:px-[100px]  items-center ${
-        pathname === "/contact-us" ? "text-primary" : "text-white"
-      }`}
+      className={`py-6 px-[30px] md:px-[50px] lg:px-[100px] ${pathname === "/contact-us" ? "text-primary" : "text-white"
+        }`}
     >
-      <div>
-        <h4 className="md:text-5xl text-3xl  font-semibold mb-4 text-center md:text-start">
-          Contact Us
-        </h4>
-        <p className="font-normal text-xs text-center md:text-start">
-          We’re here to help you with all your real estate needs.
-        </p>
-      </div>
-
-      <form onSubmit={handleSubmit} className="flex flex-col contact-us gap-4">
-        <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:pt-0 pt-3">
-          <div className="flex flex-col gap-3">
-            <label>Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="rounded-full px-4 py-2"
-            />
-          </div>
-
-          <div className="flex flex-col gap-3">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter Your Email"
-              className="rounded-full px-4 py-2"
-            />
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center my-5 py-5">
+        <div>
+          <h4 className="text-3xl md:text-5xl font-semibold mb-4 text-center md:text-start">
+            Contact Us
+          </h4>
+          <p className="font-normal text-xs text-center md:text-start">
+            We’re here to help you with all your real estate needs.
+          </p>
         </div>
-        <div className="grid grid-cols-2 gap-4 items-center ">
-          <div className="flex flex-col gap-3">
-            <label>Unit Type</label>
-            <div
-              className={`rounded-full border px-4 py-2 ${
-                pathname === "/contact-us" ? "border-primary " : "border-white "
-              }`}
-            >
-              <select
-                name="unitType"
-                value={formData.unitType}
+
+        <form onSubmit={handleSubmit} className="flex flex-col contact-us gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:pt-0 pt-3">
+            <div className="flex flex-col gap-3">
+              <label>Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
                 onChange={handleChange}
-                className={`w-full bg-transparent border-none outline-none `}
+                placeholder="Your Name"
+                className="rounded-full px-4 py-2"
+              />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter Your Email"
+                className="rounded-full px-4 py-2"
+              />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 items-center ">
+            <div className="flex flex-col gap-3">
+              <label>Unit Type</label>
+              <div
+                className={`rounded-full border px-4 py-2 ${pathname === "/contact-us" ? "border-primary " : "border-white "
+                  }`}
               >
-                <option value="Apartment" className="text-black">
-                  Apartment
-                </option>
-                <option value="House" className="text-black">
-                  House
-                </option>
-                <option value="Condo" className="text-black">
-                  Condo
-                </option>
-              </select>
+                <select
+                  name="unitType"
+                  value={formData.unitType}
+                  onChange={handleChange}
+                  className={`w-full bg-transparent border-none outline-none `}
+                >
+                  <option value="Apartment" className="text-black">
+                    Apartment
+                  </option>
+                  <option value="House" className="text-black">
+                    House
+                  </option>
+                  <option value="Condo" className="text-black">
+                    Condo
+                  </option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <label>Phone Number</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+999"
+                className="rounded-full px-4 py-2"
+              />
             </div>
           </div>
 
           <div className="flex flex-col gap-3">
-            <label>Phone Number</label>
+            <label>Note</label>
             <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
+              type="text"
+              name="note"
+              value={formData.note}
               onChange={handleChange}
-              placeholder="+999"
+              placeholder="Type Your Message"
               className="rounded-full px-4 py-2"
             />
           </div>
-        </div>
 
-        <div className="flex flex-col gap-3">
-          <label>Note</label>
-          <input
-            type="text"
-            name="note"
-            value={formData.note}
-            onChange={handleChange}
-            placeholder="Type Your Message"
-            className="rounded-full px-4 py-2"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="bg-primary text-white py-3 rounded-full cursor-pointer"
-        >
-          Submit
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="bg-primary text-white py-3 rounded-full cursor-pointer"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -30,14 +30,14 @@ const Stats = () => {
         backgroundImage: "url(/circle-design.png)",
         backgroundBlendMode: "soft-light",
       }}
-      className="bg-primary min-h-[200px] grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 px-[70px]  lg:px-[150px] items-center my-6 py-6"
+      className="bg-primary min-h-[200px] grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 px-[70px] lg:px-[70px] xl:px-[100px] items-center py-5 my-4"
     >
       {statsData?.map((state, ind) => {
         return (
-          <div key={ind} className="flex flex-col gap-4">
-            <span className="font-extralight">{state?.label}</span>
-            <span className="font-semibold text-6xl  flex gap-2.5 items-end">
-              {state?.units} <FaPlus size={42} />{" "}
+          <div key={ind} className="flex flex-col gap-2 py-4">
+            <span className="text-base">{state?.label}</span>
+            <span className="font-semibold text-3xl md:text-4xl flex gap-1 items-center">
+              {state?.units} <FaPlus size={30} />{" "}
             </span>
           </div>
         );

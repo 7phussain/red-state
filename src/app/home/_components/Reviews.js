@@ -15,18 +15,18 @@ const Reviews = () => {
         backgroundImage: "url(/circle-design.png)",
         backgroundBlendMode: "soft-light",
       }}
-      className="bg-[#F5F5F5] px-[20px] md:px-[50px] lg:px-[100px] py-[50px]"
+      className="bg-[#F5F5F5] px-[20px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-6"
     >
       <SectionHeader
         name={"Testimonial"}
         title={"What People Are Saying"}
         subtitle={"Real Feedback, Real Success"}
       />
-      <div className="text-black flex flex-col items-center pt-5 px-5 sm:pt-0">
-        <div className="flex flex-col gap-5 items-center sm:w-[50%]">
+      <div className="text-black flex flex-col items-center pb-5 mb-5">
+        <div className="text-lg flex flex-col items-center w-[80%] md:w-[70%] lg:w-[60%]">
           <h4 className="font-semibold">Ali Bin Saleh</h4>
-          <span>Client</span>
-          <div className="grid grid-cols-5 gap-3">
+          <h5>Client</h5>
+          <div className="grid grid-cols-5 gap-3 py-2">
             {[1, 2, 3, 4, 5].map((start, ind) => {
               return (
                 <div key={ind}>
@@ -35,7 +35,7 @@ const Reviews = () => {
               );
             })}
           </div>
-          <p className="font-normal text-2xl py-4">
+          <p className="font-normal text-2xl py-4 text-center">
             “Seamless and stress-free home buying, thanks to a dedicated and
             expert team. Highly recommended for outstanding service”
           </p>
@@ -48,7 +48,7 @@ const Reviews = () => {
                 return (
                   <div
                     key={ind}
-                    className="h-[10px] w-[10px] bg-primary rounded-full "
+                    className="h-[10px] w-[10px] bg-primary rounded-full"
                   ></div>
                 );
               })}
@@ -58,8 +58,8 @@ const Reviews = () => {
             </button>
           </div>
         </div>
-        <div></div>
-        <div></div>
+        {/* <div></div>
+        <div></div> */}
       </div>
     </div>
   );

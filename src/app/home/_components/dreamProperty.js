@@ -16,6 +16,7 @@ const DreamProperty = () => {
   const [properties, setProperties] = useState([]);
   const { fetchData } = useApi();
   const router = useRouter();
+
   const fetchListings = (page = 1, filters, callBack) => {
     fetchData(
       `/listings?page=${page}`,
@@ -50,7 +51,7 @@ const DreamProperty = () => {
     );
   }, [filtersApplied]);
   return (
-    <div className="py-6 my-6 px-[30px] md:px-[50px] lg:px-[100px]">
+    <div className="py-6 my-6 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
       <div className="flex flex-col items-center gap-3 py-5 mt-5">
         <h2 className="text-primary font-medium text-2xl md:text-3xl lg:text-4xl">
           Find Your Dream Property
@@ -71,13 +72,14 @@ const DreamProperty = () => {
           "Red Estate is a leading real estate brokerage and investment firm dedicated to providing exceptional service and solutions to clients worldwide"
         }
       />
-      <div className="gap-3 lg:grid-cols-6 md:grid-cols-3 grid-cols-1  grid transition-all duration-300 ease-in-out">
+      {/* lg:grid-cols-6 md:grid-cols-3 grid-cols-1 grid  */}
+      <div className="gap-3 grid grid-cols-1 md:grid-cols-6 transition-all duration-300 ease-in-out">
         {properties?.slice(0, 4).map((item, ind) => {
           return (
             <div
               key={ind}
               onMouseEnter={() => setFocusedImage(ind)}
-              className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[400px] transition-all duration-300 ease-in-out  ${focusedImage === ind ? "md:col-span-2" : "col-span-1"
+              className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[150px] md:h-[400px] transition-all duration-300 ease-in-out  ${focusedImage === ind ? "h-[400px] md:col-span-2" : "col-span-1"
                 }`}
               style={{
                 background:
@@ -102,8 +104,7 @@ const DreamProperty = () => {
                 </h4>
                 {focusedImage === ind && (
                   <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Id, tempora.
+                    {item?.description.slice(0, 120) + "..."}
                   </p>
                 )}
               </div>
