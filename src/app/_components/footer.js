@@ -42,7 +42,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div className="grid grid-cols-2 w-full md:px-[50px] lg:px-[70px] xl:px-[100px] px-[30px] pt-2">
+        <div className="grid grid-cols-2 lg:grid-cols-1 gap-4 w-full md:px-[50px] lg:px-[70px] xl:px-[100px] px-[30px] pt-5 pb-2">
           <div className="w-full h-fit flex items-center justify-center flex-col lg:flex-row gap-2">
             {links?.map((link, ind) => {
               return (
@@ -63,7 +63,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="w-[100vw] flex items-center justify-center">
-          <div className="text-[19vw] font-bold relative">
+          <div className="text-[19vw] font-bold relative leading-none">
             REDESTATE
           </div>
         </div>

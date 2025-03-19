@@ -6,88 +6,103 @@ import { GiHomeGarage } from "react-icons/gi";
 import { MdOutlinePool } from "react-icons/md";
 import { BsTools } from "react-icons/bs";
 import Image from "next/image";
+import {
+  LuBedDouble,
+  LuBath,
+  LuMapPin,
+  LuScale3D
+} from "react-icons/lu";
+
 const Details = ({ propertyDetails }) => {
   const { listing_attribute, meta_tags_for_listings, listing_attribute_type } =
     propertyDetails;
   const overview = [
     {
-      icon: <IoBedSharp />,
-      title: listing_attribute?.bedroom,
+      icon: <LuBedDouble size={18} />,
+      title: propertyDetails?.bedrooms,
     },
     {
-      icon: <BiSolidBath />,
-      title: listing_attribute?.bathroom,
-    },
-
-    {
-      icon: <FaMap />,
-      title: listing_attribute?.area,
+      icon: <LuBath size={18} />,
+      title: propertyDetails?.bathrooms,
     },
     {
-      icon: <GiHomeGarage />,
-      title: "1 car garage",
+      icon: <LuScale3D size={18} />,
+      title: `${propertyDetails?.size} ${propertyDetails?.size_unit}`
     },
     {
-      icon: <MdOutlinePool />,
-      title: "pool",
+      icon: <LuMapPin size={18} />,
+      title: propertyDetails?.area || propertyDetails?.address,
     },
-    {
-      icon: <BsTools />,
-      title: `Built in ${meta_tags_for_listings?.year_build_in}`,
-    },
+    // {
+    //   icon: <GiHomeGarage />,
+    //   title: "1 car garage",
+    // },
+    // {
+    //   icon: <MdOutlinePool />,
+    //   title: "pool",
+    // },
+    // {
+    //   icon: <BsTools />,
+    //   title: `Built in ${meta_tags_for_listings?.year_build_in}`,
+    // },
   ];
   return (
-    <div className="grid lg:grid-cols-3 grid-cols-1 px-[30px] md:px-[50px] lg:px-[100px]">
-      <div className={` flex flex-col gap-4  col-span-2`}>
-        <h3 className="text-5xl font-semibold text-primary  ">
-          {propertyDetails?.title}
-        </h3>
-        <p className="text-secondary ">
-          {meta_tags_for_listings?.long_description}
-        </p>
-        <div className="text-primary space-y-5 col-span-2 ">
-          <h3 className=" text-3xl font-semibold text-primary ">Overview</h3>
-          <div className="grid sm:grid-cols-3  grid-cols-1 items-center gap-5 pl-4">
-            {overview?.map((item, ind) => {
-              return (
-                <div key={ind} className="flex gap-3 items-center ">
-                  <span className="text-2xl">{item?.icon}</span>
-                  <span>{item?.title}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="py-4">
-          <h3 className=" text-3xl font-semibold text-primary py-3">
-            Location
+    <>
+      <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
+        <div className={`col-span-1 lg:col-span-2 flex flex-col gap-5`}>
+          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">
+            {propertyDetails?.listing_title}
           </h3>
-          <img src="/location.png" alt="" className="h-[400px]" />
-          <div className="w-full h-[400px] relative">
-            {/* <Image
+          <p className="text-secondary mb-5">
+            {propertyDetails?.description}
+          </p>
+          <div className="flex flex-col gap-5">
+            <h3 className="text-xl font-semibold text-primary">Overview</h3>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+              {overview?.map((item, ind) => {
+                return (
+                  <div key={ind} className="text-primary font-semibold grid grid-cols-6 gap-3 items-center">
+                    <span className="">{item?.icon}</span>
+                    <span className="col-span-5">{item?.title}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div className="flex flex-col gap-5">
+            <h3 className="text-xl font-semibold text-primary">Location</h3>
+          </div>
+
+          <div className="py-4">
+            <h3 className=" text-3xl font-semibold text-primary py-3">
+              Location
+            </h3>
+            <img src="/location.png" alt="" className="h-[400px]" />
+            <div className="w-full h-[400px] relative">
+              {/* <Image
               src="/location.png"
               alt="Location"
               className="object-cover"
               layout="fill"
             /> */}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="w-full">
-        <div className="text-4xl font-semibold text-primary">
-          <h3 className="  ">Price</h3>
-          <p>
-            {" "}
-            {listing_attribute_type?.price}{" "}
-            {listing_attribute_type?.currency_type}
-          </p>
-        </div>
-        <div className="">
-          <img
-            src="/azizi_logo-removebg-preview.png"
-            className="w-[400px] h-[200px] object-cover"
-          />
-          {/* <Image
+        <div className="col-span-1 w-full">
+          <div className="text-4xl font-semibold text-primary">
+            <h3 className="  ">Price</h3>
+            <p>
+              {" "}
+              {listing_attribute_type?.price}{" "}
+              {listing_attribute_type?.currency_type}
+            </p>
+          </div>
+          <div className="">
+            <img
+              src="/azizi_logo-removebg-preview.png"
+              className="w-[400px] h-[200px] object-cover"
+            />
+            {/* <Image
             src="/azizi_logo-removebg-preview.png"
             alt="Location"
             className="object-cover"
@@ -95,78 +110,79 @@ const Details = ({ propertyDetails }) => {
             height={200}
             width={400}
           /> */}
-        </div>
-        <button className="border-primary border  text-white py-3 rounded-full text-primary w-full">
-          View Developer Profile
-        </button>
-        <form
-          action=""
-          className="flex flex-col contact-us gap-4 text-primary border-primary  single_property"
-        >
-          <div className="flex flex-col gap-3">
-            <label htmlFor="">Name</label>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="Your Name"
-              className="rounded-full"
-            />
           </div>
-          <div className="flex flex-col gap-3">
-            {" "}
-            <label htmlFor="">Email</label>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="Enter Your email"
-              className="rounded-full"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 items-center">
+          <button className="border-primary border  text-white py-3 rounded-full text-primary w-full">
+            View Developer Profile
+          </button>
+          <form
+            action=""
+            className="flex flex-col contact-us gap-4 text-primary border-primary  single_property"
+          >
             <div className="flex flex-col gap-3">
-              <label htmlFor="">Unit Type</label>
-              <div
-                className={`rounded-full border  border-primary px-4 py-[10px]`}
-              >
-                <select
-                  name=""
-                  id=""
-                  className=" w-full border-none outline-none"
-                >
-                  <option value="">Apartment</option>
-                </select>
-              </div>
-            </div>
-            <div className="flex flex-col gap-3">
-              <label htmlFor="">Phone Number</label>
+              <label htmlFor="">Name</label>
               <input
-                type="number"
+                type="text"
                 name=""
                 id=""
-                placeholder="+999"
+                placeholder="Your Name"
                 className="rounded-full"
               />
             </div>
-          </div>
-          <div className="flex flex-col gap-3">
-            <label htmlFor="">Note</label>
-            <input
-              type="text"
-              name=""
-              id=""
-              placeholder="Type Your Message"
-              className="rounded-full"
-            />
-          </div>
-          <button className="bg-primary text-white py-3 rounded-full">
-            Submit
-          </button>
-        </form>
+            <div className="flex flex-col gap-3">
+              {" "}
+              <label htmlFor="">Email</label>
+              <input
+                type="text"
+                name=""
+                id=""
+                placeholder="Enter Your email"
+                className="rounded-full"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 items-center">
+              <div className="flex flex-col gap-3">
+                <label htmlFor="">Unit Type</label>
+                <div
+                  className={`rounded-full border  border-primary px-4 py-[10px]`}
+                >
+                  <select
+                    name=""
+                    id=""
+                    className=" w-full border-none outline-none"
+                  >
+                    <option value="">Apartment</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-col gap-3">
+                <label htmlFor="">Phone Number</label>
+                <input
+                  type="number"
+                  name=""
+                  id=""
+                  placeholder="+999"
+                  className="rounded-full"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-3">
+              <label htmlFor="">Note</label>
+              <input
+                type="text"
+                name=""
+                id=""
+                placeholder="Type Your Message"
+                className="rounded-full"
+              />
+            </div>
+            <button className="bg-primary text-white py-3 rounded-full">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

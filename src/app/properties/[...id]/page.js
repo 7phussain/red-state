@@ -59,7 +59,7 @@ const SingleProperty = () => {
   }, []);
   useEffect(() => {
     fetchData(
-      `/new-listings/${id}`,
+      `/listings/${id}`,
       {
         method: "GET",
       },
@@ -72,57 +72,62 @@ const SingleProperty = () => {
   }, [id]);
 
   return (
-    <div className="pt-[60px] ">
-      <div className="grid lg:grid-cols-2 grid-cols-1 gap-5  px-[30px] md:px-[50px] lg:px-[100px] pb-[50px]">
-        <div className={`  w-full h-full object-cover`}>
+    <div className="flex flex-col gap-5 py-5 my-5">
+      <div className="grid lg:grid-cols-2 grid-cols-1 gap-2 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-5 mt-5">
+        <div className={`w-full h-full object-cover`}>
           <img
-            src={`${meta_tags_for_listings?.banner}`}
+            src={`${propertyDetails?.banner_img}`}
             alt=""
             className="object-cover h-full w-full rounded-3xl"
           />
-          {/* <div className="relative w-[100vw] h-[90%]">
-            <Image
-              src={`${meta_tags_for_listings?.banner}`}
-              alt="Hero"
-              className="object-cover rounded-3xl"
-              layout="fill"
-            />
-          </div> */}
         </div>
-
-        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 flex no-scrollbar overflow-x-auto gap-3.5    grid-rows-2 ">
-          {images?.map((item, ind) => {
-            return (
-              <div
-                key={ind}
-                className={`min-w-[200px] h-full  w-full object-cover`}
-              >
-                <img
-                  src={item}
-                  alt=""
-                  className="object-cover h-full w-full rounded-3xl"
-                />{" "}
-                {/* <Image
-                  src={item}
-                  alt=""
-                  className="object-cover rounded-3xl"
-                  layout="fill"
-                  objectFit="cover" // Controls how the image is resized
-                /> */}
-                {/* <div>{ind}</div> */}
-              </div>
-            );
-          })}
-        </div>
+        {propertyDetails?.images?.length >= 3 ? (
+          <div className="lg:grid lg:grid-cols-2 flex no-scrollbar overflow-x-auto gap-2 grid-row-2">
+            {propertyDetails?.images?.slice(0, 4).map((item, ind) => {
+              return (
+                <div
+                  key={ind}
+                  className={`min-w-[200px] h-full w-full object-cover`}
+                >
+                  <img
+                    src={item?.img_url}
+                    alt=""
+                    className="object-cover h-full w-full rounded-3xl"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="lg:grid lg:grid-cols-1 flex no-scrollbar overflow-x-auto gap-2 lg:grid-row-1 h-[100px] md:h-[150px] lg:h-auto">
+            {propertyDetails?.images?.map((item, ind) => {
+              return (
+                <>
+                  <div
+                    key={ind}
+                    className={`w-auto h-full lg:min-w-[200px] lg:max-w-[300px] object-cover`}
+                  >
+                    <img
+                      src={item?.img_url}
+                      alt=""
+                      className="object-cover h-full w-full rounded-3xl"
+                    />
+                  </div>
+                </>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <Details propertyDetails={propertyDetails} />
+
       <div
         style={{
           backgroundImage: "url(/circle-design.png)",
           backgroundBlendMode: "soft-light",
         }}
-        className="bg-primary grid md:grid-cols-2 grid-cols-1   items-center  px-[30px] md:px-[50px] lg:px-[100px] py-[50px] my-[50px]"
+        className="bg-primary grid md:grid-cols-2 grid-cols-1   items-center  px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-[50px] my-[50px]"
       >
         <div className={` flex flex-col gap-4 `}>
           <div className="">
@@ -138,7 +143,7 @@ const SingleProperty = () => {
           </span>
         </div>
       </div>
-      <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex no-scrollbar overflow-x-auto py-[80px] gap-5 px-[30px] md:px-[50px] lg:px-[100px]">
+      <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex no-scrollbar overflow-x-auto py-[80px] gap-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
         {isLoading ? (
           <Loader />
         ) : (
