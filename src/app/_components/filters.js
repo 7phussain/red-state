@@ -155,36 +155,60 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
-import { LuSearch } from "react-icons/lu";
+import { LuSearch, LuX } from "react-icons/lu";
 import { selectStyles } from "../_components/selectStyles";
 import useApi from "@/utils/useApi";
 
 const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
-  const [propertyTypes, setPropertyTypes] = useState([]);
+  // const [propertyTypes, setPropertyTypes] = useState([]);
   const [locations, setLocations] = useState([
+    { label: "Abu Dhabi", value: "Abu Dhabi" },
     { label: "Dubai", value: "Dubai" },
+    { label: "Sharjah", value: "Sharjah" },
+    { label: "Ajman", value: "Ajman" },
+    { label: "Umm Al Quwain", value: "Umm Al Quwain" },
+    { label: "Ras Al Khaimah", value: "Ras Al Khaimah" },
+    { label: "Fujairah", value: "Fujairah" },
   ]);
   const { fetchData } = useApi();
   const [isSearchCollapsed, setIsSearchCollapsed] = useState(true);
 
-  useEffect(() => {
-    fetchData(`/listing-types`, { method: "GET" }, (res, status) => {
-      if (status) {
-        setPropertyTypes(
-          res?.data?.data?.map((i) => ({ label: i?.name, value: i?._id }))
-        );
-      }
-    });
-  }, []);
+  const propertyTypes = [
+    {
+      label: "Apartment",
+      value: "Apartment"
+    },
+    {
+      label: "Villa",
+      value: "Villa"
+    },
+    {
+      label: "Townhouse",
+      value: "Townhouse"
+    },
+    {
+      label: "Penthouse",
+      value: "Penthouse"
+    },
+    {
+      label: "Mansion",
+      value: "Mansion"
+    },
+    {
+      label: "Commercial",
+      value: "Commercial"
+    }
+  ];
 
   const filters = [
     {
       label: "Looking For",
       options: [
-        { label: "Sell", value: "Sell" },
-        { label: "Rent", value: "Rent" },
         { label: "Off-plan", value: "Off-plan" },
         { label: "Secondary", value: "Secondary" },
+        { label: "Rent", value: "Rent" },
+        { label: "Sell", value: "Sell" },
+        { label: "Ready-To-Move", value: "Ready-to-move" },
       ],
       key: "listing_type",
     },
@@ -245,77 +269,80 @@ const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
   };
 
   return (
-    <div className="grid xl:grid-cols-6 md:grid-cols-3 sm:grid-cols-2 grid-col-1 gap-8 mt-6 items-center sm:w-fit w-full">
-      {filters.map((i) => {
-        return (
-          <div key={i.key}>
-            <label htmlFor={i.key} className="text-secondary">
-              {i?.label}
-            </label>
-            <div className="min-w-48">
-              {!i?.isCreatable ? (
-                <Select
-                  placeholder={i?.label}
-                  options={i?.options}
-                  value={filtersApplied[i?.key] || null}
-                  styles={selectStyles}
-                  onChange={(e) => {
-                    setFiltersApplied((pre) => ({ ...pre, [i?.key]: e }));
-                  }}
-                />
-              ) : (
-                <CreatableSelect
-                  isClearable
-                  options={i?.options}
-                  value={filtersApplied[i?.key] || null}
-                  onChange={(e) => {
-                    setFiltersApplied((pre) => ({ ...pre, [i?.key]: e }));
-                  }}
-                  onCreateOption={handleCreate}
-                  styles={selectStyles}
-                  placeholder={i?.label}
-                  formatCreateLabel={(inputValue) => inputValue}
-                />
-              )}
+    <>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-5 mt-5 items-center w-full text-sm">
+        {filters.map((i) => {
+          return (
+            <div key={i.key}>
+              <label htmlFor={i.key} className="text-secondary">
+                {i?.label}
+              </label>
+              <div className="w-full">
+                {!i?.isCreatable ? (
+                  <Select
+                    placeholder={i?.label}
+                    options={i?.options}
+                    value={filtersApplied[i?.key] || null}
+                    styles={selectStyles}
+                    onChange={(e) => {
+                      setFiltersApplied((pre) => ({ ...pre, [i?.key]: e }));
+                    }}
+                  />
+                ) : (
+                  <CreatableSelect
+                    isClearable
+                    options={i?.options}
+                    value={filtersApplied[i?.key] || null}
+                    onChange={(e) => {
+                      setFiltersApplied((pre) => ({ ...pre, [i?.key]: e }));
+                    }}
+                    onCreateOption={handleCreate}
+                    styles={selectStyles}
+                    placeholder={i?.label}
+                    formatCreateLabel={(inputValue) => inputValue}
+                  />
+                )}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
 
-      <div
-        className={`flex items-center cursor-pointer transition-all duration-500 ease-in-out border border-primary rounded-full ${
-          isSearchCollapsed ? "w-[55px] p-2" : "w-56 px-4 py-2"
-        }`}
-      >
-        {!isSearchCollapsed && (
-          <input
-            type="text"
-            placeholder="Search"
-            value={filtersApplied["title"]}
-            onChange={(e) =>
-              setFiltersApplied((pre) => ({
-                ...pre,
-                listing_title: e?.target?.value,
-              }))
-            }
-            className="w-full bg-transparent focus:outline-none px-2 text-primary"
-          />
-        )}
-        <button
-          onClick={() => setIsSearchCollapsed((prev) => !prev)}
-          className="p-2 bg-primary rounded-full"
+        <div
+          className={`w-full flex items-center justify-center cursor-pointer transition-all duration-500 ease-in-out rounded-full ${isSearchCollapsed ? "w-[55px] p-1" : "w-56 p-1  border border-primary"
+            }`}
         >
-          <LuSearch size={20} className="text-white" />
+          {!isSearchCollapsed && (
+            <input
+              type="text"
+              placeholder="Search"
+              value={filtersApplied["title"]}
+              onChange={(e) =>
+                setFiltersApplied((pre) => ({
+                  ...pre,
+                  listing_title: e?.target?.value,
+                }))
+              }
+              className="w-full bg-transparent focus:outline-none px-2 text-primary"
+            />
+          )}
+          <button
+            onClick={() => setIsSearchCollapsed((prev) => !prev)}
+            className="p-2 bg-primary rounded-full"
+          >
+            <LuSearch size={20} className="text-white" />
+          </button>
+        </div>
+      </div>
+      <div className="w-full flex justify-end">
+        <button
+          onClick={clearFilters}
+          className="text-primary cursor-pointer flex items-center justify-center gap-2 py-2"
+        >
+          <LuX size={18} />
+          <span>Clear Filters</span>
         </button>
       </div>
-
-      <button
-        onClick={clearFilters}
-        className="px-4 py-2 bg-primary cursor-pointer text-white rounded-full mt-4"
-      >
-        Clear Filters
-      </button>
-    </div>
+    </>
   );
 };
 

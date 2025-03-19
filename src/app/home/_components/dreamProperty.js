@@ -50,17 +50,15 @@ const DreamProperty = () => {
     );
   }, [filtersApplied]);
   return (
-    <div className="px-[30px] md:px-[50px] lg:px-[100px]">
-      <div className="flex flex-col items-center py-6 gap-6">
-        <div className="flex flex-col items-center">
-          <h2 className="text-primary font-medium sm:text-4xl text-3xl">
-            Find Your Dream Property
-          </h2>
-          <p className="text-secondary mx-auto w-[70%] text-center pt-3">
-            We offer modern properties with the best quality that meet all your
-            needs.
-          </p>
-        </div>
+    <div className="py-6 my-6 px-[30px] md:px-[50px] lg:px-[100px]">
+      <div className="flex flex-col items-center gap-3 py-5 mt-5">
+        <h2 className="text-primary font-medium text-2xl md:text-3xl lg:text-4xl">
+          Find Your Dream Property
+        </h2>
+        <p className="text-secondary mx-auto md:w-[70%] text-sm lg:text-base text-center">
+          We offer modern properties with the best quality that meet all your
+          needs.
+        </p>
       </div>
       <PropertyFilters
         filtersApplied={filtersApplied}
@@ -79,9 +77,8 @@ const DreamProperty = () => {
             <div
               key={ind}
               onMouseEnter={() => setFocusedImage(ind)}
-              className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[400px] transition-all duration-300 ease-in-out  ${
-                focusedImage === ind ? "md:col-span-2" : "col-span-1"
-              }`}
+              className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[400px] transition-all duration-300 ease-in-out  ${focusedImage === ind ? "md:col-span-2" : "col-span-1"
+                }`}
               style={{
                 background:
                   "linear-gradient(180deg, rgba(0, 0, 0, 0) 45.43%, rgba(0, 0, 0, 0.5) 71.41%)",

@@ -29,7 +29,7 @@ const Hero = () => {
       {/* Background Image */}
       <img
         src="./hero.webp"
-        className=" object-cover absolute bottom-0 z-20 left-0 min-w-[100vw] h-[90%] md:h-[80%] lg:h-[70%] "
+        className="object-cover object-top absolute bottom-0 z-20 left-1/2 -translate-x-1/2 w-[100%] h-[90%]"
       />
 
       {/* Gradient Overlay */}
@@ -37,7 +37,9 @@ const Hero = () => {
         className="absolute inset-0 z-20"
         style={{
           background: isMobile 
-          ? `linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 100%)`
+          // ? `linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%)`
+          ? `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 41.3%),
+            linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`
           : `linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 41.3%),
             linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`,
         }}

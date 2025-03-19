@@ -5,6 +5,7 @@ export const selectStyles = {
     border: "none", // Removes border
     boxShadow: "none", // Removes focus outline
     color: "var(--primary)",
+    fontSize: "small"
     // Uses CSS variable for text
   }),
   singleValue: (provided) => ({
