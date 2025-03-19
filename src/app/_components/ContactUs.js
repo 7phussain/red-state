@@ -144,7 +144,10 @@ const ContactUs = () => {
       },
     ];
 
-    formPayload.append("form_id", 175);
+    formPayload.append(
+      "form_id",
+      process.env.NEXT_PUBLIC_CONTACT_US_FORM_ID || 175
+    );
     formPayload.append("data", JSON.stringify(data));
 
     try {
@@ -187,8 +190,9 @@ const ContactUs = () => {
         "--border-color":
           pathname !== "/contact-us" ? "white" : "var(--primary)",
       }}
-      className={`py-6 px-[30px] md:px-[50px] lg:px-[100px] ${pathname === "/contact-us" ? "text-primary" : "text-white"
-        }`}
+      className={`py-6 px-[30px] md:px-[50px] lg:px-[100px] ${
+        pathname === "/contact-us" ? "text-primary" : "text-white"
+      }`}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 items-center my-5 py-5">
         <div>
@@ -200,7 +204,10 @@ const ContactUs = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col contact-us gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col contact-us gap-4"
+        >
           <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:pt-0 pt-3">
             <div className="flex flex-col gap-3">
               <label>Name</label>
@@ -230,8 +237,11 @@ const ContactUs = () => {
             <div className="flex flex-col gap-3">
               <label>Unit Type</label>
               <div
-                className={`rounded-full border px-4 py-2 ${pathname === "/contact-us" ? "border-primary " : "border-white "
-                  }`}
+                className={`rounded-full border px-4 py-2 ${
+                  pathname === "/contact-us"
+                    ? "border-primary "
+                    : "border-white "
+                }`}
               >
                 <select
                   name="unitType"
@@ -239,14 +249,24 @@ const ContactUs = () => {
                   onChange={handleChange}
                   className={`w-full bg-transparent border-none outline-none `}
                 >
-                  <option value="Apartment" className="text-black">
+                  <option value="apartment" className="text-black">
                     Apartment
                   </option>
-                  <option value="House" className="text-black">
-                    House
+                  <option value="villa" className="text-black">
+                    Villa
                   </option>
-                  <option value="Condo" className="text-black">
-                    Condo
+                  <option value="townhouse" className="text-black">
+                    Townhouse
+                  </option>
+                  <option value="penthouse" className="text-black">
+                    Penthouse
+                  </option>
+                  <option value="mansion" className="text-black">
+                    Mansion
+                  </option>
+                  <option value="commercial" className="text-black">
+                    {" "}
+                    Commercial
                   </option>
                 </select>
               </div>

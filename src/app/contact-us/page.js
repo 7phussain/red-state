@@ -13,7 +13,7 @@ const ContactUs = () => {
     {
       title: "Our Phone",
       icon: <FiPhone />,
-      desc: "Business Bay - Khalij Tujari 2 -Dubai",
+      desc: "+971 522 17 2300 ",
     },
     {
       title: "Email Address",

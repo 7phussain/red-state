@@ -188,6 +188,17 @@ const Navbar = () => {
         width={120}
         height={0} // Temporary placeholder, not needed with layout="intrinsic"
         layout="intrinsic"
+        className={
+          isScrolled
+            ? `brightness-75`
+            : pathname === "/about-us" ||
+              pathname === "/properties" ||
+              pathname === "/developers" ||
+              /^\/properties\/[^/]+$/.test(pathname) ||
+              /^\/developers\/[^/]+$/.test(pathname)
+            ? "brightness-75"
+            : ""
+        }
       />
       {/* <Image src="/logo.png" alt="Red State logo" width={120} height={auto} /> */}
 
@@ -204,7 +215,8 @@ const Navbar = () => {
                   : pathname === "/about-us" ||
                     pathname === "/properties" ||
                     pathname === "/developers" ||
-                    /^\/properties\/[^/]+$/.test(pathname)
+                    /^\/properties\/[^/]+$/.test(pathname) ||
+                    /^\/developers\/[^/]+$/.test(pathname)
                   ? "text-black"
                   : ""
               }`}

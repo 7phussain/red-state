@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { RxDotFilled } from "react-icons/rx";
 import {
   IoArrowBackCircleOutline,
@@ -7,7 +8,39 @@ import {
 } from "react-icons/io5";
 import DevelopersGrid from "./_components/developersGrid";
 import Image from "next/image";
+import Loader from "../_components/Loader";
+import useApi from "@/utils/useApi";
+
 const Developers = () => {
+  const { fetchData } = useApi();
+  const [developers, setDevelopers] = useState([]);
+  const [pagination, setPagination] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsloading] = useState(false);
+  const fetchDevelopers = (page = 1, filters, callBack) => {
+    fetchData(
+      `/developers/index?page=${page}`,
+      {
+        method: "GET",
+      },
+      (res, status) => {
+        callBack(res, status);
+      }
+    );
+  };
+  useEffect(() => {
+    setIsloading(true);
+
+    fetchDevelopers(1, {}, (res, status) => {
+      if (status) {
+        setDevelopers(res?.data?.developers);
+        setPagination({ ...res?.data, data: {} || {} }); // Store pagination info
+        setCurrentPage(res?.data?.current_page);
+        setIsloading(false);
+      }
+    });
+  }, []);
+
   return (
     <>
       <div className="relative pt-[60px] px-[30px] md:px-[50px] lg:px-[100px] h-[100vh]">
@@ -45,29 +78,73 @@ const Developers = () => {
               Explore Our Developers
             </h3>
             <span className="text-white text-md">
-              Discover meticulously crafted homes and properties, blending
+              Discover meticulously crafted homes and developers, blending
               contemporary aesthetics with sustainable living.
             </span>
           </div>
           {/* </div> */}
         </div>
       </div>
-      <DevelopersGrid />
+      <DevelopersGrid developers={developers} />
       <div className="flex gap-3 justify-center py-4 pb-8">
-        <button className="text-gray-600">
+        <button
+          className={`text-gray-600  ${
+            !pagination?.prev_page_url
+              ? "opacity-50 cursor-not-allowed"
+              : "cursor-pointer"
+          }`}
+          disabled={!pagination?.prev_page_url}
+          onClick={() =>
+            fetchListings(currentPage - 1, filtersApplied, (res) => {
+              setDevelopers(res?.data?.data);
+              setPagination(res?.data);
+              setCurrentPage(res?.data?.current_page);
+            })
+          }
+        >
           <IoArrowBackCircleOutline size={44} />
         </button>
+
         <div className="gap-3 grid grid-cols-5 items-center">
-          {[1, 2, 3, 4, 5].map((dot, ind) => {
-            return (
+          {Array.from({ length: pagination?.last_page || 1 }).map(
+            (_, index) => (
               <div
-                key={ind}
-                className="h-[10px] w-[10px] bg-primary rounded-full "
-              ></div>
-            );
-          })}
+                key={index}
+                className={`h-[10px] w-[10px] rounded-full ${
+                  currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
+                }`}
+                onClick={() => {
+                  setIsloading(true);
+                  fetchListings(index + 1, {}, (res) => {
+                    setDevelopers(res?.data?.data);
+                    setPagination(res?.data);
+                    setCurrentPage(res?.data?.current_page);
+                    setIsloading(false);
+                  });
+                }}
+              />
+            )
+          )}
         </div>
-        <button className="text-gray-600">
+
+        {/* Next Button */}
+        <button
+          className={`text-gray-600  ${
+            !pagination?.next_page_url
+              ? "opacity-50 cursor-not-allowed"
+              : "cursor-pointer"
+          }`}
+          disabled={!pagination?.next_page_url}
+          onClick={() => {
+            setIsFeaturedLoading(true);
+            fetchListings(currentPage + 1, {}, (res) => {
+              setDevelopers(res?.data?.data);
+              setPagination(res?.data);
+              setCurrentPage(res?.data?.current_page);
+              setIsloading(false);
+            });
+          }}
+        >
           <IoArrowForwardCircleOutline size={44} />
         </button>
       </div>

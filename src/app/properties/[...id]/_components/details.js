@@ -1,17 +1,7 @@
-import React from "react";
-import { IoBedSharp } from "react-icons/io5";
-import { BiSolidBath } from "react-icons/bi";
-import { FaMap } from "react-icons/fa6";
-import { GiHomeGarage } from "react-icons/gi";
-import { MdOutlinePool } from "react-icons/md";
-import { BsTools } from "react-icons/bs";
-import Image from "next/image";
-import {
-  LuBedDouble,
-  LuBath,
-  LuMapPin,
-  LuScale3D
-} from "react-icons/lu";
+import React, { useState } from "react";
+import { LuBedDouble, LuBath, LuMapPin, LuScale3D } from "react-icons/lu";
+import GoogleMaps from "@/app/_components/map";
+import useApi from "@/utils/useApi";
 
 const Details = ({ propertyDetails }) => {
   const { listing_attribute, meta_tags_for_listings, listing_attribute_type } =
@@ -27,7 +17,7 @@ const Details = ({ propertyDetails }) => {
     },
     {
       icon: <LuScale3D size={18} />,
-      title: `${propertyDetails?.size} ${propertyDetails?.size_unit}`
+      title: `${propertyDetails?.size} ${propertyDetails?.size_unit}`,
     },
     {
       icon: <LuMapPin size={18} />,
@@ -46,6 +36,63 @@ const Details = ({ propertyDetails }) => {
     //   title: `Built in ${meta_tags_for_listings?.year_build_in}`,
     // },
   ];
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    unitType: "Apartment",
+    phone: "",
+    note: "",
+  });
+  const { fetchData } = useApi();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    const formPayload = new FormData();
+    const data = [
+      {
+        leadName: formData.name,
+        leadEmail: formData.email,
+        leadContact: formData.phone, // Changed key from `contact` to `leadContact`
+        project: formData.unitType,
+        note: formData.note,
+      },
+    ];
+
+    formPayload.append(
+      "form_id",
+      process.env.NEXT_PUBLIC_CONTACT_US_FORM_ID || 175
+    );
+    formPayload.append("data", JSON.stringify(data));
+
+    try {
+      const response = await fetchData(
+        "/form-submissions",
+        {
+          method: "POST",
+          data: formPayload, // Send FormData directly
+        },
+        (data, status) => {
+          if (status) {
+            setFormData({
+              name: "",
+              email: "",
+              unitType: "Apartment",
+              phone: "",
+              note: "",
+            });
+            alert("Form submitted successfully!");
+          } else {
+            alert("Error submitting form!");
+          }
+        }
+      );
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   return (
     <>
       <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
@@ -53,15 +100,16 @@ const Details = ({ propertyDetails }) => {
           <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">
             {propertyDetails?.listing_title}
           </h3>
-          <p className="text-secondary mb-5">
-            {propertyDetails?.description}
-          </p>
+          <p className="text-secondary mb-5">{propertyDetails?.description}</p>
           <div className="flex flex-col gap-5">
             <h3 className="text-xl font-semibold text-primary">Overview</h3>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
               {overview?.map((item, ind) => {
                 return (
-                  <div key={ind} className="text-primary font-semibold grid grid-cols-6 gap-3 items-center">
+                  <div
+                    key={ind}
+                    className="text-primary font-semibold grid grid-cols-6 gap-3 items-center"
+                  >
                     <span className="">{item?.icon}</span>
                     <span className="col-span-5">{item?.title}</span>
                   </div>
@@ -74,17 +122,11 @@ const Details = ({ propertyDetails }) => {
           </div>
 
           <div className="py-4">
-            <h3 className=" text-3xl font-semibold text-primary py-3">
-              Location
-            </h3>
-            <img src="/location.png" alt="" className="h-[400px]" />
             <div className="w-full h-[400px] relative">
-              {/* <Image
-              src="/location.png"
-              alt="Location"
-              className="object-cover"
-              layout="fill"
-            /> */}
+              <GoogleMaps
+                lat={propertyDetails?.latlong?.split(",")[0]}
+                lon={propertyDetails?.latlong?.split(",")[1]}
+              />
             </div>
           </div>
         </div>
@@ -114,15 +156,14 @@ const Details = ({ propertyDetails }) => {
           <button className="border-primary border  text-white py-3 rounded-full text-primary w-full">
             View Developer Profile
           </button>
-          <form
-            action=""
-            className="flex flex-col contact-us gap-4 text-primary border-primary  single_property"
-          >
+          <div className="flex flex-col contact-us gap-4 text-primary border-primary  single_property">
             <div className="flex flex-col gap-3">
               <label htmlFor="">Name</label>
               <input
                 type="text"
-                name=""
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
                 id=""
                 placeholder="Your Name"
                 className="rounded-full"
@@ -133,7 +174,9 @@ const Details = ({ propertyDetails }) => {
               <label htmlFor="">Email</label>
               <input
                 type="text"
-                name=""
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 id=""
                 placeholder="Enter Your email"
                 className="rounded-full"
@@ -147,19 +190,41 @@ const Details = ({ propertyDetails }) => {
                   className={`rounded-full border  border-primary px-4 py-[10px]`}
                 >
                   <select
-                    name=""
+                    name="unitType"
+                    value={formData.unitType}
+                    onChange={handleChange}
                     id=""
                     className=" w-full border-none outline-none"
                   >
-                    <option value="">Apartment</option>
+                    <option value="apartment" className="text-black">
+                      Apartment
+                    </option>
+                    <option value="villa" className="text-black">
+                      Villa
+                    </option>
+                    <option value="townhouse" className="text-black">
+                      Townhouse
+                    </option>
+                    <option value="penthouse" className="text-black">
+                      Penthouse
+                    </option>
+                    <option value="mansion" className="text-black">
+                      Mansion
+                    </option>
+                    <option value="commercial" className="text-black">
+                      {" "}
+                      Commercial
+                    </option>
                   </select>
                 </div>
               </div>
               <div className="flex flex-col gap-3">
                 <label htmlFor="">Phone Number</label>
                 <input
-                  type="number"
-                  name=""
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
                   id=""
                   placeholder="+999"
                   className="rounded-full"
@@ -170,16 +235,21 @@ const Details = ({ propertyDetails }) => {
               <label htmlFor="">Note</label>
               <input
                 type="text"
-                name=""
+                name="note"
+                value={formData.note}
+                onChange={handleChange}
                 id=""
                 placeholder="Type Your Message"
                 className="rounded-full"
               />
             </div>
-            <button className="bg-primary text-white py-3 rounded-full">
+            <button
+              onClick={() => handleSubmit()}
+              className="bg-primary text-white py-3 rounded-full cursor-pointer"
+            >
               Submit
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </>

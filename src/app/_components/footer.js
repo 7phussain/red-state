@@ -10,10 +10,20 @@ const Footer = () => {
     { name: "Contact Us", link: "/contact-us" },
   ];
   const socialLinks = [
-    { name: "INSTAGRAM", link: "/home" },
-    { name: "FACEBOOK", link: "/properties" },
-    { name: "LINKEDIN", link: "/developers" },
-    { name: "YOUTUBE", link: "/about-us" },
+    {
+      name: "INSTAGRAM",
+      link: "https://www.instagram.com/redestate1?igsh=MWVuYmRibTAxa3B3aw== ",
+    },
+    {
+      name: "FACEBOOK",
+      link: "https://www.facebook.com/share/19Rsvzco95/?mibextid=wwXIfr",
+    },
+    { name: "LINKEDIN", link: "https://www.linkedin.com/company/red-estate/" },
+    // { name: "YOUTUBE", link: "/about-us" },
+    {
+      name: "TIKTOK",
+      link: "https://www.tiktok.com/@redestate1?_t=ZS-8uoQKzLQArq&_r=1",
+    },
   ];
   const termsLinks = [
     { name: "Privacy Policy", link: "/home" },
@@ -33,12 +43,14 @@ const Footer = () => {
         <div className="flex flex-col lg:flex-row gap-5 justify-between md:px-[50px] lg:px-[70px] xl:px-[100px] px-[30px] py-2">
           <div className="order-1 lg:order-0 flex flex-col gap-3 text-base">
             <div>Khalij tujari 2, Dubai</div>
-            <div>+971 52 217 2300</div>
+            <a target="_blank" href="https://wa.me/+971522172300">
+              +971 522 17 2300
+            </a>
           </div>
           <div className="order-0 lg:order-1 flex flex-col gap-3">
             <span>GET IN TOUCH</span>
             <p className="text-3xl md:text-5xl font-semibold">
-              info@redstate.com
+              Info@redestate.ae
             </p>
           </div>
         </div>
@@ -55,7 +67,7 @@ const Footer = () => {
           <div className="w-full h-fit flex flex-col items-center justify-center lg:flex-row gap-2">
             {socialLinks?.map((link, ind) => {
               return (
-                <Link key={ind} href={link?.link}>
+                <Link key={ind} href={link?.link} target="_blank">
                   {link?.name}
                 </Link>
               );
@@ -72,21 +84,28 @@ const Footer = () => {
         </h2> */}
         <div className="grid grid-cols-1 lg:grid-cols-3 md:px-[50px] lg:px-[70px] xl:px-[100px] px-[30px] gap-5">
           <div className="col-span-2 order-1 lg:order-0 flex flex-wrap justify-center lg:justify-start gap-1">
-            Copyright {new Date().getFullYear()} RedEstate. All Rights Reserved by 
-            <a href="https://dodeal.com" rel="noopener noreferrer" target="_blank">DODEAL</a>
+            Copyright {new Date().getFullYear()} RedEstate. All Rights Reserved
+            by
+            <a
+              href="https://dodeal.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              DODEAL
+            </a>
           </div>
           <div className="order-0 lg:order-1 flex justify-center gap-4 lg:justify-end">
-              {termsLinks?.map((link, ind) => {
-                return (
-                  <Link key={ind} href={link?.link}>
-                    {link?.name}
-                  </Link>
-                );
-              })}
+            {termsLinks?.map((link, ind) => {
+              return (
+                <Link key={ind} href={link?.link}>
+                  {link?.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 

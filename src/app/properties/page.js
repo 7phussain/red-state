@@ -288,7 +288,7 @@ const Properties = () => {
                 setProperties(res?.data?.data);
                 setPagination(res?.data);
                 setCurrentPage(res?.data?.current_page);
-                setIsFeaturedLoading(false);
+                setIsloading(false);
               });
             }}
           >

@@ -8,7 +8,6 @@ import {
 } from "react-icons/io5";
 
 const Hero = () => {
-
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -20,15 +19,17 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]"
+    <div
+      className="relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]"
       style={{
-        background: isMobile ? "linear-gradient(180deg, #E6ECF4 0%, #FFFFFF 100%)"
-            : "transparent",
+        background: isMobile
+          ? "linear-gradient(180deg, #E6ECF4 0%, #FFFFFF 100%)"
+          : "transparent",
       }}
     >
       {/* Background Image */}
       <img
-        src="./hero.webp"
+        src="./B1.png"
         className="object-cover object-top absolute bottom-0 z-20 left-1/2 -translate-x-1/2 w-[100%] h-[90%]"
       />
 
@@ -36,11 +37,11 @@ const Hero = () => {
       <div
         className="absolute inset-0 z-20"
         style={{
-          background: isMobile 
-          // ? `linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%)`
-          ? `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 41.3%),
+          background: isMobile
+            ? // ? `linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%)`
+              `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 41.3%),
             linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`
-          : `linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 41.3%),
+            : `linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 41.3%),
             linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`,
         }}
       ></div>
@@ -48,8 +49,12 @@ const Hero = () => {
       {/* Content */}
       <div className="relative flex flex-col leading-[44px] md:leading-[70px] lg:leading-[100px] uppercase w-full items-center text-[#CA1E2E] font-extrabold">
         <div className="h-[40px] lg:h-[20px]"></div>
-        <h1 className="text-[44px] md:text-[70px] lg:text-[100px] m-0 p-0">Future - Ready</h1>
-        <h1 className="text-[52px] md:text-[80px] lg:text-[118px] m-0 p-0">INVESTMENTS</h1>
+        <h1 className="text-[44px] md:text-[70px] lg:text-[100px] m-0 p-0">
+          Future - Ready
+        </h1>
+        <h1 className="text-[52px] md:text-[80px] lg:text-[118px] m-0 p-0">
+          INVESTMENTS
+        </h1>
       </div>
 
       <div className="relative z-30 flex justify-between pb-4 sm:items-end sm:flex-row flex-col gap-6">
