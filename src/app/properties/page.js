@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import { useRouter } from "next/navigation";
 import {
@@ -26,6 +26,7 @@ const Properties = () => {
   const [currentPageFeatured, setCurrentPageFeatured] = useState(1);
 
   const [filtersApplied, setFiltersApplied] = useState({});
+  const paginationRef = useRef(null);
   const router = useRouter();
   const fetchListings = (page = 1, filters, callBack) => {
     fetchData(
@@ -90,7 +91,9 @@ const Properties = () => {
         <SectionHeader
           // name={"About Redestate"}
           title={"Find Your Dream Property"}
-          subtitle={"We offer modern properties with the best quality that meet all your needs."}
+          subtitle={
+            "We offer modern properties with the best quality that meet all your needs."
+          }
         />
         {/* <div className="flex flex-col items-center py-6 gap-6">
           <div className="flex flex-col items-center">
@@ -149,14 +152,15 @@ const Properties = () => {
                         ) : item?.bedrooms === "1 Bedroom" ? (
                           <span>1 Bed</span>
                         ) : (
-                          <span>
-                            {item?.bedrooms.slice(0, 5)}
-                          </span>
+                          <span>{item?.bedrooms.slice(0, 5)}</span>
                         )}
                         <LuDot size={20} />
                         <span>{item?.bathrooms.slice(0, 6)}</span>
                         <LuDot size={20} />
-                        <span>{item?.size}{item?.size_unit}</span>
+                        <span>
+                          {item?.size}
+                          {item?.size_unit}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -165,8 +169,6 @@ const Properties = () => {
             })
           )}
         </div>
-
-
 
         {/* <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex no-scrollbar overflow-x-auto  py-[80px] gap-5 ">
           {isLoading ? (
@@ -218,7 +220,6 @@ const Properties = () => {
           )}
         </div> */}
 
-
         {/* <div className="flex gap-3 justify-center py-4 pb-8">
           <button className="text-gray-600">
             <IoArrowBackCircleOutline size={44} />
@@ -234,19 +235,30 @@ const Properties = () => {
             <IoArrowForwardCircleOutline size={44} />
           </button>
         </div> */}
-        <div className="flex gap-3 justify-center py-4 pb-8">
+        <div
+          ref={paginationRef}
+          className="flex gap-3 justify-center py-4 pb-8"
+        >
           {/* Previous Button */}
           <button
-            className={`text-gray-600  ${!pagination?.prev_page_url
-              ? "opacity-50 cursor-not-allowed"
-              : "cursor-pointer"
-              }`}
+            className={`text-gray-600  ${
+              !pagination?.prev_page_url
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
+            }`}
             disabled={!pagination?.prev_page_url}
             onClick={() =>
               fetchListings(currentPage - 1, filtersApplied, (res) => {
                 setProperties(res?.data?.data);
                 setPagination(res?.data);
                 setCurrentPage(res?.data?.current_page);
+                // Delay scrolling to ensure content updates first
+                setTimeout(() => {
+                  paginationRef.current?.scrollIntoView({
+                    behavior: "auto",
+                    block: "end",
+                  });
+                }, 100);
               })
             }
           >
@@ -259,8 +271,9 @@ const Properties = () => {
               (_, index) => (
                 <div
                   key={index}
-                  className={`h-[10px] w-[10px] rounded-full ${currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
-                    }`}
+                  className={`h-[10px] w-[10px] rounded-full ${
+                    currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
+                  }`}
                   onClick={() => {
                     setIsloading(true);
                     fetchListings(index + 1, filtersApplied, (res) => {
@@ -268,6 +281,13 @@ const Properties = () => {
                       setPagination(res?.data);
                       setCurrentPage(res?.data?.current_page);
                       setIsloading(false);
+                      // Delay scrolling to ensure content updates first
+                      setTimeout(() => {
+                        paginationRef.current?.scrollIntoView({
+                          behavior: "auto",
+                          block: "end",
+                        });
+                      }, 100);
                     });
                   }}
                 />
@@ -277,18 +297,26 @@ const Properties = () => {
 
           {/* Next Button */}
           <button
-            className={`text-gray-600  ${!pagination?.next_page_url
-              ? "opacity-50 cursor-not-allowed"
-              : "cursor-pointer"
-              }`}
+            className={`text-gray-600  ${
+              !pagination?.next_page_url
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
+            }`}
             disabled={!pagination?.next_page_url}
             onClick={() => {
-              setIsFeaturedLoading(true);
+              setIsloading(true);
               fetchListings(currentPage + 1, filtersApplied, (res) => {
                 setProperties(res?.data?.data);
                 setPagination(res?.data);
                 setCurrentPage(res?.data?.current_page);
                 setIsloading(false);
+                // Delay scrolling to ensure content updates first
+                setTimeout(() => {
+                  paginationRef.current?.scrollIntoView({
+                    behavior: "auto",
+                    block: "end",
+                  });
+                }, 100);
               });
             }}
           >
@@ -360,14 +388,15 @@ const Properties = () => {
                       ) : item?.bedrooms === "1 Bedroom" ? (
                         <span>1 Bed</span>
                       ) : (
-                        <span>
-                          {item?.bedrooms.slice(0, 5)}
-                        </span>
+                        <span>{item?.bedrooms.slice(0, 5)}</span>
                       )}
                       <LuDot size={20} />
                       <span>{item?.bathrooms.slice(0, 6)}</span>
                       <LuDot size={20} />
-                      <span>{item?.size}{item?.size_unit}</span>
+                      <span>
+                        {item?.size}
+                        {item?.size_unit}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -417,10 +446,11 @@ const Properties = () => {
       <div className="flex gap-3 justify-center py-4 pb-8">
         {/* Previous Button */}
         <button
-          className={`text-gray-600  ${!paginationFeatured?.prev_page_url
-            ? "opacity-50 cursor-not-allowed"
-            : "cursor-pointer"
-            }`}
+          className={`text-gray-600  ${
+            !paginationFeatured?.prev_page_url
+              ? "opacity-50 cursor-not-allowed"
+              : "cursor-pointer"
+          }`}
           disabled={!paginationFeatured?.prev_page_url}
           onClick={() => {
             setIsFeaturedLoading(true);
@@ -445,10 +475,11 @@ const Properties = () => {
             (_, index) => (
               <div
                 key={index}
-                className={`h-[10px] w-[10px] rounded-full ${currentPageFeatured === index + 1
-                  ? "bg-primary"
-                  : "bg-gray-300"
-                  }`}
+                className={`h-[10px] w-[10px] rounded-full ${
+                  currentPageFeatured === index + 1
+                    ? "bg-primary"
+                    : "bg-gray-300"
+                }`}
                 onClick={() =>
                   fetchListings(index + 1, { is_featured: 1 }, (res) => {
                     setPropertiesFeatured(res?.data?.data);
@@ -463,10 +494,11 @@ const Properties = () => {
 
         {/* Next Button */}
         <button
-          className={`text-gray-600 ${!paginationFeatured?.next_page_url
-            ? "opacity-50 cursor-not-allowed"
-            : "cursor-pointer"
-            }`}
+          className={`text-gray-600 ${
+            !paginationFeatured?.next_page_url
+              ? "opacity-50 cursor-not-allowed"
+              : "cursor-pointer"
+          }`}
           disabled={!paginationFeatured?.next_page_url}
           onClick={() => {
             setIsFeaturedLoading(true);

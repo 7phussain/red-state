@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { LuBedDouble, LuBath, LuMapPin, LuScale3D } from "react-icons/lu";
 import GoogleMaps from "@/app/_components/map";
 import useApi from "@/utils/useApi";
-
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 const Details = ({ propertyDetails }) => {
   const { listing_attribute, meta_tags_for_listings, listing_attribute_type } =
     propertyDetails;
@@ -44,12 +44,26 @@ const Details = ({ propertyDetails }) => {
     note: "",
   });
   const { fetchData } = useApi();
+  const [error, setError] = useState({ phone: "" });
+
+  const validatePhone = (value) => {
+    const phoneNumber = parsePhoneNumberFromString(value, "US"); // Change "US" for different country codes
+    if (!phoneNumber || !phoneNumber.isValid()) {
+      setError((pre) => ({ ...pre, phone: "Invalid phone number" }));
+    } else {
+      setError((pre) => ({ ...pre, phone: "" }));
+    }
+    setFormData((pre) => ({ ...pre, phone: value }));
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
+    if (error.phone) {
+      return;
+    }
     const formPayload = new FormData();
     const data = [
       {
@@ -224,11 +238,14 @@ const Details = ({ propertyDetails }) => {
                   type="tel"
                   name="phone"
                   value={formData.phone}
-                  onChange={handleChange}
+                  onChange={(e) => validatePhone(e?.target.value)}
                   id=""
                   placeholder="+999"
                   className="rounded-full"
                 />
+                {error?.phone && (
+                  <p className="text-white bg-primary p-2 ">{error?.phone}</p>
+                )}
               </div>
             </div>
             <div className="flex flex-col gap-3">

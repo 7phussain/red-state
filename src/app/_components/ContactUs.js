@@ -114,6 +114,7 @@
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import useApi from "@/utils/useApi";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const ContactUs = () => {
   const pathname = usePathname();
@@ -125,6 +126,17 @@ const ContactUs = () => {
     note: "",
   });
   const { fetchData } = useApi();
+  const [error, setError] = useState({ phone: "" });
+
+  const validatePhone = (value) => {
+    const phoneNumber = parsePhoneNumberFromString(value, "US"); // Change "US" for different country codes
+    if (!phoneNumber || !phoneNumber.isValid()) {
+      setError((pre) => ({ ...pre, phone: "Invalid phone number" }));
+    } else {
+      setError((pre) => ({ ...pre, phone: "" }));
+    }
+    setFormData((pre) => ({ ...pre, phone: value }));
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -132,6 +144,10 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (error.phone) {
+      alert("Invalid Phone");
+      return;
+    }
 
     const formPayload = new FormData();
     const data = [
@@ -278,10 +294,13 @@ const ContactUs = () => {
                 type="tel"
                 name="phone"
                 value={formData.phone}
-                onChange={handleChange}
+                onChange={(e) => validatePhone(e?.target.value)}
                 placeholder="+999"
                 className="rounded-full px-4 py-2"
               />
+              {error?.phone && (
+                <p className="text-white bg-primary p-2 ">{error?.phone}</p>
+              )}
             </div>
           </div>
 
