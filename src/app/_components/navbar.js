@@ -238,22 +238,42 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpened && (
-        <ul className="absolute top-16 left-0 w-full bg-white flex flex-col items-center space-y-4 py-4 shadow-md md:hidden">
-          {links.map(({ name, link }) => (
-            <li key={link}>
-              <Link
-                href={link}
-                className={`px-2 py-2 ${
-                  pathname === link
-                    ? "text-red-600 font-bold border-b-2 border-red-600"
-                    : "text-black"
-                }`}
-                onClick={() => setIsMenuOpened(false)} // Close menu on click
-              >
-                {name}
-              </Link>
-            </li>
-          ))}
+        <ul className="absolute top-0 right-0 py-[40px] w-[80%] h-[100vh] rounded-l-[90px] bg-primary flex flex-col items-center justify-between space-y-4 py-4 shadow-md md:hidden">
+          <div className="flex flex-col gap-8">
+            <div className="border-b border-white">
+              <img
+                src="/logo.png"
+                className="w-[200px] py-3 object-contain grayscale-50"
+              />
+            </div>
+
+            {links.map(({ name, link }) => (
+              <li key={link} className="text-white text-xl">
+                <Link
+                  href={link}
+                  className={`px-2 py-2 ${
+                    pathname === link ? "font-bold " : "font-normal"
+                  }`}
+                  onClick={() => setIsMenuOpened(false)} // Close menu on click
+                >
+                  {name}
+                </Link>
+              </li>
+            ))}
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-5 justify-between  py-2">
+            <div className="order-1 lg:order-0 flex flex-col gap-3 text-base">
+              <div>Khalij tujari 2, Dubai</div>
+              <a target="_blank" href="https://wa.me/+971522172300">
+                +971 522 17 2300
+              </a>
+            </div>
+            <div className="order-0 lg:order-1 flex flex-col gap-3">
+              <span>GET IN TOUCH</span>
+              <p className="text-xl font-semibold">Info@redestate.ae</p>
+            </div>
+          </div>
         </ul>
       )}
     </nav>
