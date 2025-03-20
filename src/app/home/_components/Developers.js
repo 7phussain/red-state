@@ -34,29 +34,31 @@ const Developers = () => {
         Our Developers
       </h3>
       <div className="flex no-scrollbar overflow-x-auto  gap-5">
-        {developers?.map((item, ind) => {
-          return (
-            <div key={ind} className="min-w-[100px] h-[100px] ">
-              <img
-                src={`${process.env.NEXT_PUBLIC_BASE_URL.slice(0, -3)}${
-                  item?.logo
-                }`}
-                onError={(e) => {
-                  e.target.onerror = null; // Prevent infinite loop
-                  e.target.src = "/no_image.png"; // Set fallback image
-                }}
-                className="w-full h-full object-contain"
-              />
-              {/* <Image
+        {developers
+          ?.filter((item) => item?.logo)
+          ?.map((item, ind) => {
+            return (
+              <div key={ind} className="min-w-[100px] h-[100px] ">
+                <img
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL.slice(0, -3)}${
+                    item?.logo
+                  }`}
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite loop
+                    e.target.src = "/no_image.png"; // Set fallback image
+                  }}
+                  className="w-full h-full object-contain"
+                />
+                {/* <Image
                 src={developer}
                 alt=""
                 className=""
                 layout="fill"
                 objectFit="cover" // Controls how the image is resized
               /> */}
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
       </div>
     </div>
   );
