@@ -49,10 +49,10 @@ const Hero = () => {
       {/* Content */}
       <div className="relative flex flex-col leading-[44px] md:leading-[70px] lg:leading-[100px] uppercase w-full items-center text-[#CA1E2E] font-extrabold">
         <div className="h-[40px] lg:h-[20px]"></div>
-        <h1 className="text-[44px] md:text-[70px] lg:text-[100px] m-0 p-0">
+        <h1 className="text-[30px] md:text-[70px] lg:text-[100px] m-0 p-0">
           Future - Ready
         </h1>
-        <h1 className="text-[52px] md:text-[80px] lg:text-[118px] m-0 p-0">
+        <h1 className="text-[40px] md:text-[80px] lg:text-[118px] m-0 p-0">
           INVESTMENTS
         </h1>
       </div>
