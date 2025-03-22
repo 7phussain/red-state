@@ -110,7 +110,7 @@ const Details = ({ propertyDetails }) => {
   return (
     <>
       <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
-        <div className={`col-span-1 lg:col-span-2 flex flex-col gap-5`}>
+        <div className={`col-span-1 lg:col-span-2 flex flex-col gap-5 order-1 lg:order-0`}>
           <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">
             {propertyDetails?.listing_title}
           </h3>
@@ -144,32 +144,36 @@ const Details = ({ propertyDetails }) => {
             </div>
           </div>
         </div>
-        <div className="col-span-1 w-full">
+        <div className="col-span-1 w-full order-0 lg:order-1 flex flex-col gap-5">
           <div className="text-4xl font-semibold text-primary">
-            <h3 className="  ">Price</h3>
-            <p>
+            {propertyDetails?.is_start_price === 1 && (
+              <h3 className="">
+                Starting from
+              </h3>
+            )}
+            <h3>
+              {propertyDetails?.currency}
               {" "}
-              {listing_attribute_type?.price}{" "}
-              {listing_attribute_type?.currency_type}
-            </p>
+              {propertyDetails?.price}
+            </h3>
           </div>
-          <div className="">
-            <img
-              src="/azizi_logo-removebg-preview.png"
-              className="w-[400px] h-[200px] object-cover"
-            />
-            {/* <Image
-            src="/azizi_logo-removebg-preview.png"
-            alt="Location"
-            className="object-cover"
-            layout="fill"
-            height={200}
-            width={400}
-          /> */}
+          <div className="flex flex-col gap-5">
+            <h3 className="text-xl font-semibold text-primary">Overview</h3>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+              {overview?.map((item, ind) => {
+                return (
+                  <div
+                    key={ind}
+                    className="text-primary font-semibold grid grid-cols-6 gap-3 items-center"
+                  >
+                    <span className="">{item?.icon}</span>
+                    <span className="col-span-5">{item?.title}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <button className="border-primary border  text-white py-3 rounded-full text-primary w-full">
-            View Developer Profile
-          </button>
+
           <div className="flex flex-col contact-us gap-4 text-primary border-primary  single_property">
             <div className="flex flex-col gap-3">
               <label htmlFor="">Name</label>

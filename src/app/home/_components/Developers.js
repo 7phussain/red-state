@@ -9,7 +9,7 @@ const Developers = () => {
   const [isLoading, setIsloading] = useState(false);
   const fetchDevelopers = (page = 1, filters, callBack) => {
     fetchData(
-      `/developers/index?page=${page}`,
+      `/developers?page=${page}`,
       {
         method: "GET",
       },
