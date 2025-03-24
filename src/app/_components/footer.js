@@ -26,7 +26,7 @@ const Footer = () => {
     },
   ];
   const termsLinks = [
-    { name: "Privacy Policy", link: "/home" },
+    { name: "Privacy Policy", link: "/privacy-policy" },
     // { name: "TERM OF USE", link: "/properties" },
     // { name: "Legal Disclaimer", link: "/properties" },
     // { name: "COOKIEPOLICY", link: "/developers" },

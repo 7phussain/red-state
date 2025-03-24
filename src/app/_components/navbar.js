@@ -194,6 +194,7 @@ const Navbar = () => {
             : pathname === "/about-us" ||
               pathname === "/properties" ||
               pathname === "/developers" ||
+              pathname === "/privacy-policy" ||
               /^\/properties\/[^/]+$/.test(pathname) ||
               /^\/developers\/[^/]+$/.test(pathname)
             ? "brightness-75"
@@ -215,6 +216,7 @@ const Navbar = () => {
                   : pathname === "/about-us" ||
                     pathname === "/properties" ||
                     pathname === "/developers" ||
+                    pathname === "/privacy-policy" ||
                     /^\/properties\/[^/]+$/.test(pathname) ||
                     /^\/developers\/[^/]+$/.test(pathname)
                   ? "text-black"
