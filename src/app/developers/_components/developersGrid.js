@@ -11,7 +11,7 @@ const DevelopersGrid = ({ developers }) => {
           return (
             <div
               key={ind}
-              className="min-w-72 flex flex-col gap-3 items-center p-4 cursor-pointer"
+              className="min-w-72 flex flex-col gap-3 items-center justify-center p-4 cursor-pointer"
               onClick={() => {
                 router.push(`/developers/${item?.id}`);
               }}
@@ -38,9 +38,9 @@ const DevelopersGrid = ({ developers }) => {
             </div> */}
 
               <span className="text-primary">{item?.developerName}</span>
-              <button className="border-primary border text-primary text-white py-1 rounded-full px-4">
+              {/* <button className="border-primary border text-primary text-white py-1 rounded-full px-4">
                 View Properties
-              </button>
+              </button> */}
             </div>
           );
         })}
