@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./_components/navbar";
 import ContactUs from "./_components/ContactUs";
 import Footer from "./_components/footer";
+import WhatsAppButton from "./_components/WhatsappButton";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +24,9 @@ const plusSans = Plus_Jakarta_Sans({
 export const metadata = {
   title: "RED STATE",
   description: "REAL STATE WEBSITE",
+  icons: {
+    icon: "/fav.png",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -35,6 +39,7 @@ export default function RootLayout({ children }) {
         {children}
         <ContactUs />
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   );

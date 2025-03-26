@@ -29,7 +29,7 @@ const Hero = () => {
     >
       {/* Background Image */}
       <img
-        src="./B1.png"
+        src="./B1.webp"
         className="object-cover object-top absolute bottom-0 z-20 left-1/2 -translate-x-1/2 w-[100%] h-[90%]"
       />
 
