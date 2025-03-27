@@ -176,28 +176,28 @@ const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
   const propertyTypes = [
     {
       label: "Apartment",
-      value: "Apartment"
+      value: "Apartment",
     },
     {
       label: "Villa",
-      value: "Villa"
+      value: "Villa",
     },
     {
       label: "Townhouse",
-      value: "Townhouse"
+      value: "Townhouse",
     },
     {
       label: "Penthouse",
-      value: "Penthouse"
+      value: "Penthouse",
     },
     {
       label: "Mansion",
-      value: "Mansion"
+      value: "Mansion",
     },
     {
       label: "Commercial",
-      value: "Commercial"
-    }
+      value: "Commercial",
+    },
   ];
 
   const filters = [
@@ -245,8 +245,8 @@ const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
     {
       label: "Budget",
       options: [
-        { label: "AED 250,000", value: "250000" },
-        { label: "AED 500,000", value: "500000" },
+        { label: "AED 450,000", value: "450000" },
+        { label: "AED 600,000", value: "500000" },
         { label: "AED 750,000", value: "750000" },
         { label: "AED 800,000", value: "800000" },
         { label: "AED 900,000", value: "900000" },
@@ -308,8 +308,11 @@ const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
         })}
 
         <div
-          className={`w-full flex items-center justify-center cursor-pointer transition-all duration-500 ease-in-out rounded-full ${isSearchCollapsed ? "w-[55px] p-1" : "w-56 p-1  border border-primary"
-            }`}
+          className={`w-full flex items-center justify-center cursor-pointer transition-all duration-500 ease-in-out rounded-full ${
+            isSearchCollapsed
+              ? "w-[55px] p-1"
+              : "w-56 p-1  border border-primary"
+          }`}
         >
           {!isSearchCollapsed && (
             <input
