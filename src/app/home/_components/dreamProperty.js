@@ -14,6 +14,7 @@ import {
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import { LuDot } from "react-icons/lu";
+import Loader from "@/app/_components/Loader";
 
 const DreamProperty = () => {
   const [focusedImage, setFocusedImage] = useState(0);
