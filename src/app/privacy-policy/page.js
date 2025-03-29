@@ -4,13 +4,13 @@ export default function PrivacyPolicy() {
   return (
     <>
       {/* <Head>
-        <title>Privacy Policy | REDSTATE</title>
+        <title>Privacy Policy | REDESTATE</title>
         <meta
           name="description"
-          content="Privacy policy of REDSTATE explaining how we collect and use your personal information."
+          content="Privacy policy of REDESTATE explaining how we collect and use your personal information."
         />
       </Head> */}
-      <div className="container mx-auto p-6 text-black">
+      <div className="px-[20px] md:px-[50px] lg:px-[100px]  p-6 pt-[100px] text-black">
         <h1 className="text-3xl font-bold mb-4 text-center">Privacy Policy</h1>
         <p className="text-center">
           This privacy policy explains how we collect information from you and
@@ -39,14 +39,14 @@ export default function PrivacyPolicy() {
         </h2>
         <p>
           We may provide your name, email, and phone number to agents when you
-          send a property enquiry through REDSTATE. Once this data is shared,
+          send a property enquiry through REDESTATE. Once this data is shared,
           the agent’s own privacy policy will apply. We may also send
           information about your visit to analytics and search engine providers
           to improve our services. This data may include your IP address, pages
           visited, and browser type but does not contain any direct personal
           identifiers such as your name or email address. Additionally, we may
           share your metadata with advertising networks to serve relevant ads.
-          If REDSTATE or its assets are acquired, the user data we hold will be
+          If REDESTATE or its assets are acquired, the user data we hold will be
           part of the transfer. If we obtain professional advice (e.g., from
           lawyers or financial advisors), we may disclose your personal
           information. We may also disclose your personal information if
@@ -62,7 +62,7 @@ export default function PrivacyPolicy() {
             agents or developers.
           </li>
           <li>
-            Providing you with information on REDSTATE services that may
+            Providing you with information on REDESTATE services that may
             interest you. Any marketing emails we send will include an option to
             unsubscribe.
           </li>
@@ -72,7 +72,7 @@ export default function PrivacyPolicy() {
           </li>
           <li>
             Delivering relevant advertising to you on our site or other sites
-            operated by REDSTATE.
+            operated by REDESTATE.
           </li>
           <li>
             Internal business administration, e.g., data analysis,
@@ -107,7 +107,7 @@ export default function PrivacyPolicy() {
 
         <h2 className="text-2xl font-semibold mt-4">Cookies</h2>
         <p>
-          We use cookies to distinguish you from other users of REDSTATE,
+          We use cookies to distinguish you from other users of REDESTATE,
           allowing us to customize your experience on our website, e.g., by
           remembering your chosen currency or favorite properties. The Google
           advertising network uses a cookie to record your activity (including
