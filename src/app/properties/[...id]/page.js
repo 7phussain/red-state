@@ -7,13 +7,18 @@ import {
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 import FAQs from "@/app/about-us/_components/FAQs";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import useApi from "@/utils/useApi";
 import Loader from "@/app/_components/Loader";
 import Image from "next/image";
 import { LoadScript } from "@react-google-maps/api";
+import formatPrice from "@/app/_functions/formatPrice";
+import { LuDot } from "react-icons/lu";
 
 const SingleProperty = () => {
+
+  const router = useRouter();
+  
   const { id } = useParams();
   const [propertyDetails, setPropertyDetails] = useState({});
   const { fetchData } = useApi();
@@ -129,7 +134,7 @@ const SingleProperty = () => {
             backgroundImage: "url(/circle-design.png)",
             backgroundBlendMode: "soft-light",
           }}
-          className="bg-primary grid md:grid-cols-2 grid-cols-1   items-center  px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-[50px] my-[50px]"
+          className="bg-primary grid md:grid-cols-2 grid-cols-1 items-center px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-[50px] mt-[50px]"
         >
           <div className={` flex flex-col gap-4 `}>
             <div className="">
@@ -145,44 +150,60 @@ const SingleProperty = () => {
             </span>
           </div>
         </div>
-        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex no-scrollbar overflow-x-auto py-[80px] gap-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
+        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex no-scrollbar overflow-x-auto py-5 gap-5 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
           {isLoading ? (
             <Loader />
           ) : (
             properties?.slice(0, 3).map((item, ind) => {
               return (
-                <div key={ind} className="min-w-72">
+                <div key={ind}>
                   <div
                     className="relative h-[300px] rounded-2xl"
                     style={{
                       backgroundImage: `url(${item?.banner_img})`,
                       backgroundSize: "cover",
                     }}
+                    onClick={() => router.push(`/properties/${item?.id}`)}
                   >
                     {/* <img src="/hero.png" alt="" className="rounded-[100px]" /> */}
-                    <button className="p-2 px-3 rounded-full bg-primary uppercase absolute top-4 left-4 text-[14px] font-semibold">
-                      For {item?.listing_type}
+                    <button className="p-1.5 px-3 rounded-full bg-primary uppercase text-xs absolute top-3 left-3 font-semibold">
+                      {item?.listing_type}
                     </button>
                   </div>
-                  <div>
-                    <h4 className="text-primary font-semibold text-3xl py-2">
-                      {item?.currency} {item?.price}
-                    </h4>
-                    <span className="text-primary font-medium underline py-2">
+                  <div className="flex flex-col gap-1 py-4">
+                    {item?.price && (
+                      <h4 className="text-primary font-bold text-2xl">
+                        {item?.currency}
+                        {" "}
+                        {formatPrice(item?.price)}
+                      </h4>
+                    )}
+                    <h5 className="text-primary font-semibold text-base underline">
                       {item?.listing_title}
-                    </span>
-                    <div className="text-secondary">
-                      <div className="flex flex-col">
-                        <span>{item?.near_by}</span>
-                        <span>
-                          {item?.city}, {item?.country}
-                        </span>
+                    </h5>
+                    <div className="text-secondary flex flex-col gap-1">
+                      {/* <div className="flex flex-col"> */}
+                      {/* <span>{item?.near_by}</span> */}
+                      <div className="capitalize">
+                        {item?.city}, {item?.country}
                       </div>
+                      {/* </div> */}
 
-                      <div className="flex ">
-                        <span>{item?.bedrooms}</span> -{" "}
-                        <span>{item?.bathrooms}</span> -
-                        <span>{item?.size_unit}</span>
+                      <div className="flex gap-1">
+                        {item?.bedrooms === "Studio" ? (
+                          <span>Studio</span>
+                        ) : item?.bedrooms === "1 Bedroom" ? (
+                          <span>1 Bed</span>
+                        ) : (
+                          <span>{item?.bedrooms.slice(0, 5)}</span>
+                        )}
+                        <LuDot size={20} />
+                        <span>{item?.bathrooms.slice(0, 6)}</span>
+                        <LuDot size={20} />
+                        <span>
+                          {item?.size}
+                          {item?.size_unit}
+                        </span>
                       </div>
                     </div>
                   </div>

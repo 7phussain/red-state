@@ -308,11 +308,10 @@ const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
         })}
 
         <div
-          className={`w-full flex items-center justify-center cursor-pointer transition-all duration-500 ease-in-out rounded-full ${
-            isSearchCollapsed
-              ? "w-[55px] p-1"
-              : "w-56 p-1  border border-primary"
-          }`}
+          className={`w-full flex items-center justify-center cursor-pointer transition-all duration-500 ease-in-out rounded-full ${isSearchCollapsed
+            ? "w-[55px] p-1"
+            : "w-56 p-1  border border-primary"
+            }`}
         >
           {!isSearchCollapsed && (
             <input
@@ -336,15 +335,17 @@ const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
           </button>
         </div>
       </div>
-      <div className="w-full flex justify-end">
-        <button
-          onClick={clearFilters}
-          className="text-primary cursor-pointer flex items-center justify-center gap-2 py-2"
-        >
-          <LuX size={18} />
-          <span>Clear Filters</span>
-        </button>
-      </div>
+      {Object.values(filtersApplied).filter((i) => i).length > 0 &&
+        <div className="w-full flex justify-end">
+          <button
+            onClick={clearFilters}
+            className="text-primary cursor-pointer flex items-center justify-center gap-2 py-2"
+          >
+            <LuX size={18} />
+            <span>Clear Filters</span>
+          </button>
+        </div >
+      }
     </>
   );
 };

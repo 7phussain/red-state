@@ -85,14 +85,15 @@ const Developers = () => {
           {/* </div> */}
         </div>
       </div>
-      <DevelopersGrid developers={developers} />
+      <div className="px-[30px] md:px-[50px] lg:px-[100px] my-5 py-5">
+        <DevelopersGrid developers={developers} />
+      </div>
       <div className="flex gap-3 justify-center py-4 pb-8">
         <button
-          className={`text-gray-600  ${
-            !pagination?.prev_page_url
+          className={`text-gray-600  ${!pagination?.prev_page_url
               ? "opacity-50 cursor-not-allowed"
               : "cursor-pointer"
-          }`}
+            }`}
           disabled={!pagination?.prev_page_url}
           onClick={() =>
             fetchListings(currentPage - 1, filtersApplied, (res) => {
@@ -110,9 +111,8 @@ const Developers = () => {
             (_, index) => (
               <div
                 key={index}
-                className={`h-[10px] w-[10px] rounded-full ${
-                  currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
-                }`}
+                className={`h-[10px] w-[10px] rounded-full ${currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
+                  }`}
                 onClick={() => {
                   setIsloading(true);
                   fetchListings(index + 1, {}, (res) => {
@@ -129,11 +129,10 @@ const Developers = () => {
 
         {/* Next Button */}
         <button
-          className={`text-gray-600  ${
-            !pagination?.next_page_url
+          className={`text-gray-600  ${!pagination?.next_page_url
               ? "opacity-50 cursor-not-allowed"
               : "cursor-pointer"
-          }`}
+            }`}
           disabled={!pagination?.next_page_url}
           onClick={() => {
             setIsFeaturedLoading(true);

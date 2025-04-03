@@ -28,12 +28,12 @@ const Developers = () => {
     {
       title: "Our Phone",
       icon: <FiPhone />,
-      desc: developerDetails?.developerContact,
+      desc: "+971 52 217 2300"
     },
     {
       title: "Email Address",
       icon: <SlEnvolope />,
-      desc: developerDetails?.developerEmail,
+      desc: "info@redestate.ae",
     },
   ];
   useEffect(() => {
@@ -88,37 +88,34 @@ const Developers = () => {
   }, [filtersApplied]);
   return (
     <div className="pt-[50px]">
-      <div className="grid md:grid-cols-2 grid-cols-1 min-h-[60vh] grid-rows-1 text px-[30px] md:px-[50px] lg:px-[100px]  py-[100px]">
-        <div className="relative z-10 flex flex-col justify-between h-full pb-[60px] md:order-1 order-2">
-          <div></div>
-          <div className={` flex flex-col gap-4`}>
-            <h3 className="text-5xl font-semibold text-primary  ">
-              {developerDetails?.developerName}
-            </h3>
-            <span className="text-secondary text-md">
-              {developerDetails?.description}
-            </span>
+      <div className="grid grid-cols-1 md:grid-cols-2 px-[30px] md:px-[50px] lg:px-[100px] py-5 my-5">
+        <div className="relative z-10 w-full h-full flex flex-col justify-center gap-5 md:order-1 order-2">
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-primary">
+            {developerDetails?.developerName}
+          </h3>
+          <div className="text-secondary text-md">
+            {developerDetails?.description}
           </div>
-          {/* <div className="grid sm:grid-cols-2 grid-cols-1 gap-3 gap-y-5">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-5">
             {contactDetails?.map((details, ind) => {
               return (
                 <div
                   key={ind}
-                  className="flex items-center gap-4 sm:justify-center text-primary"
+                  className="flex items-center gap-3 text-primary"
                 >
                   <span className="p-4 rounded-full border text-xl">
                     {details?.icon}
                   </span>
-                  <div className="flex flex-col gap-3">
-                    <p className="text-lg font-semibold">{details?.title}</p>
-                    <p className="text-black"> {details?.desc}</p>
+                  <div className="flex flex-col gap-1">
+                    <p className="font-semibold">{details?.title}</p>
+                    <p className="text-black">{details?.desc}</p>
                   </div>
                 </div>
               );
             })}
-          </div> */}
+          </div>
         </div>
-        <div className="md:order-2 order-1">
+        <div className="md:order-2 order-1 w-full h-full flex items-center justify-center">
           <img
             src={
               developerDetails?.logo
@@ -130,15 +127,8 @@ const Developers = () => {
               e.target.onerror = null; // Prevent infinite loop
               e.target.src = "/no_image.png"; // Set fallback image
             }}
-            className="w-full h-full object-contain"
+            className="w-full h-full max-w-[300px] max-h-[300px] object-contain"
           />
-          {/* <Image
-            src="/developer_logo.png"
-            alt="Sea site"
-            className=""
-            layout="fill"
-            objectFit="contain" // Controls how the image is resized
-          /> */}
         </div>
       </div>
 
@@ -147,7 +137,7 @@ const Developers = () => {
           backgroundImage: "url(/circle-design.png)",
           backgroundBlendMode: "soft-light",
         }}
-        className="bg-primary grid lg:grid-cols-2 md:grid-cols-1  gap-4  items-center px-[10px] md:px-[50px] lg:px-[100px] py-[50px]"
+        className="bg-primary grid lg:grid-cols-2 md:grid-cols-1 gap-5 items-center px-[10px] md:px-[50px] lg:px-[100px] py-[50px] my-5"
       >
         <img
           src="/aboutus/leading_excellence.webp"
@@ -160,40 +150,29 @@ const Developers = () => {
           layout="fill"
           objectFit="cover" // Controls how the image is resized
         /> */}
-        <div className={` flex flex-col gap-4 `}>
-          <div className="">
-            <span className="rounded-full pr-2   py-1 flex items-center mb-3 border w-fit text-white">
-              <RxDotFilled size={30} />
-              Why Choose {developerDetails?.developerName}
-            </span>
+        <div className={`flex flex-col gap-5`}>
+          <div className="rounded-full py-1 px-2 flex items-center gap-2 border w-fit text-white">
+            <div className="w-2 h-2 rounded-full bg-white"></div>
+            <div>Why Choose {developerDetails?.developerName}</div>
           </div>
-          {/* <h3 className="sm:text-5xl text-3xl font-semibold  ">
-            evidenced by its commitment to develop and grow businesses
-          </h3> */}
-          {/* <span className="text-gray-300 ">
-            The Al Habtoor Group has grown with the United Arab Emirates. What
-            started out as a small engineering firm in 1970, is today one of the
-            region’s most respected conglomerates with interests in the
-            hospitality, automotive, real estate, education and publishing
-            sectors. The Al Habtoor Group has earned itself a solid reputation
-            both locally and internationally due to the vision of its Chairman,
-            Khalaf Ahmad Al Habtoor. The Al Habtoor Group is one of the UAE’s
-            most respected and successful businesses. Today it operates in the
-            UAE and international markets. It employs thousands of
-            highly-qualified, experienced professionals.
-          </span> */}
-          <span className="text-white text-base">
+          <h3 className="text-lg md:text-xl lg:text-2xl font-semibold  ">
+            Evidenced by its commitment to develop and grow businesses
+          </h3>
+          <div className="text-white text-sm">
             {developerDetails?.longDescription}
-          </span>
+          </div>
         </div>
       </div>
-      <div className="px-[30px] md:px-[50px] lg:px-[100px]  py-[100px]">
+
+      <div className="my-5 py-5 px-[30px] md:px-[50px] lg:px-[100px] flex flex-col gap-5">
+        <div className="text-lg md:text-xl lg:text-2xl text-primary font-semibold">
+          {developerDetails?.developerName}'s Listings
+        </div>
         <PropertyFilters
           filtersApplied={filtersApplied}
           setFiltersApplied={setFiltersApplied}
         />
-
-        <div className="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 flex no-scrollbar overflow-x-auto py-5 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {isLoading ? (
             <Loader />
           ) : (
@@ -256,8 +235,8 @@ const Developers = () => {
           {/* Previous Button */}
           <button
             className={`text-gray-600  ${!pagination?.prev_page_url
-                ? "opacity-50 cursor-not-allowed"
-                : "cursor-pointer"
+              ? "opacity-50 cursor-not-allowed"
+              : "cursor-pointer"
               }`}
             disabled={!pagination?.prev_page_url}
             onClick={() =>
@@ -296,8 +275,8 @@ const Developers = () => {
           {/* Next Button */}
           <button
             className={`text-gray-600  ${!pagination?.next_page_url
-                ? "opacity-50 cursor-not-allowed"
-                : "cursor-pointer"
+              ? "opacity-50 cursor-not-allowed"
+              : "cursor-pointer"
               }`}
             disabled={!pagination?.next_page_url}
             onClick={() => {

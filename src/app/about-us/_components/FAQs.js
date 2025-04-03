@@ -92,12 +92,12 @@ export default function FAQs() {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-[50px] px-[20px] md:px-[50px] lg:px-[100px] py-[70px]">
-      <div className=" mt-8 order-2 sm:order-1 space-y-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 px-[20px] md:px-[50px] lg:px-[100px] py-5 my-5">
+      <div className="order-1 lg:order-0 text-start space-y-3">
         {collapsibleItems.map((item, index) => (
-          <div key={index} className="border rounded-lg p-1  ">
+          <div key={index} className="pb-3 border-b border-b-[#EEE]">
             <button
-              className="flex justify-between items-center w-full text-lg font-semibold text-primary"
+              className="flex justify-between items-center w-full font-medium text-primary"
               onClick={() => toggleItem(index)}
             >
               {item.title}
@@ -106,9 +106,9 @@ export default function FAQs() {
                 transition={{ duration: 0.3 }}
               >
                 {openIndex === index ? (
-                  <FiChevronUp className="w-5 h-5" />
+                  <FiChevronUp className="w-4 h-4" />
                 ) : (
-                  <FiChevronDown className="w-5 h-5" />
+                  <FiChevronDown className="w-4 h-4" />
                 )}
               </motion.div>
             </button>
@@ -122,24 +122,22 @@ export default function FAQs() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="overflow-hidden"
             >
-              <p className="mt-2 text-gray-700 text-[14px]">
+              <p className="py-2 text-secondary">
                 {item.description}
               </p>
             </motion.div>
           </div>
         ))}
       </div>
-      <div className={` flex order-1 sm:order-2 flex-col gap-4 items-end`}>
-        <div className=" ">
-          <span className="rounded-full   py-1 flex items-center mb-3 text-primary w-fit text-white">
-            <RxDotFilled size={30} />
-            FAQ s
-          </span>
+      <div className={`order-0 lg:order-1 flex flex-col gap-5 items-start text-start lg:items-end lg:text-end`}>
+        <div className="rounded-full flex items-center gap-1 border border-primary w-fit py-1 px-2 flex items-center text-primary text-white">
+          <div className="w-2 h-2 bg-primary rounded-full"></div>
+          <span>FAQ's</span>
         </div>
-        <h3 className="sm:text-5xl text-3xl text-right sm:text-start font-semibold text-primary  ">
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-primary">
           Frequently Asked Questions
         </h3>
-        <span className="text-secondary text-right sm:text-start">
+        <span className="text-secondary">
           Have questions about buying, selling, or renting with Redestate? We’ve
           got the answers to help guide you through the process.
         </span>

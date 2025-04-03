@@ -8,6 +8,7 @@ import SectionHeader from "./SectionHeader";
 import { BsArrowUpRightCircle } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 import useApi from "@/utils/useApi";
+import formatPrice from "@/app/_functions/formatPrice";
 const Highlights = () => {
   const [selectedRegion, setSelectedRegion] = useState("Dubai");
   const [filtersApplied, setFiltersApplied] = useState({});
@@ -67,40 +68,10 @@ const Highlights = () => {
         })}
         {/* </ul> */}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-5 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-5 gap-5">
         {properties?.slice(0, 3).map((item, ind) => {
           return (
             <div key={ind}>
-              {/* <div
-                className="relative h-[300px] rounded-2xl"
-                style={{
-                  backgroundImage: "url(/hero.png)",
-                  backgroundSize: "cover",
-                }}
-              >
-                <button className="p-2 px-3 rounded-full bg-primary uppercase absolute top-0 left-4 text-[14px] font-semibold">
-                  For Sale
-                </button>
-              </div>
-              <div>
-                <h4 className="text-primary font-semibold text-3xl py-2">
-                  750,000 AED
-                </h4>
-                <span className="text-primary font-medium underline py-2">
-                  Binghatti Skyrise
-                </span>
-                <div className="text-secondary">
-                  <div className="flex flex-col">
-                    <span>1234 Avenue</span>
-                    <span>Dubai, UAE</span>
-                  </div>
-
-                  <div className="flex ">
-                    <span>3 beds</span> - <span>2 bath</span> -
-                    <span>900 sq/ft</span>
-                  </div>
-                </div>
-              </div> */}
               <div
                 className="relative h-[300px] rounded-2xl"
                 style={{
@@ -115,7 +86,7 @@ const Highlights = () => {
               </div>
               <div className="flex flex-col gap-1 py-4">
                 <h4 className="text-primary font-bold text-2xl">
-                  {item?.currency} {item?.price}
+                  {item?.currency} {formatPrice(item?.price)}
                 </h4>
                 <h5 className="text-primary font-semibold text-base underline">
                   {item?.listing_title}

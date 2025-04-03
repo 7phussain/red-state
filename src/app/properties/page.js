@@ -13,6 +13,7 @@ import useApi from "@/utils/useApi";
 import PropertyFilters from "../_components/filters";
 import Loader from "../_components/Loader";
 import SectionHeader from "../home/_components/SectionHeader";
+import formatPrice from "../_functions/formatPrice";
 
 const Properties = () => {
   const { fetchData } = useApi();
@@ -132,9 +133,13 @@ const Properties = () => {
                     </button>
                   </div>
                   <div className="flex flex-col gap-1 py-4">
-                    <h4 className="text-primary font-bold text-2xl">
-                      {item?.currency} {item?.price}
-                    </h4>
+                    {item?.price && (
+                      <h4 className="text-primary font-bold text-2xl">
+                        {item?.currency}
+                        {" "}
+                        {formatPrice(item?.price)}
+                      </h4>
+                    )}
                     <h5 className="text-primary font-semibold text-base underline">
                       {item?.listing_title}
                     </h5>
@@ -241,11 +246,10 @@ const Properties = () => {
         >
           {/* Previous Button */}
           <button
-            className={`text-gray-600  ${
-              !pagination?.prev_page_url
+            className={`text-gray-600  ${!pagination?.prev_page_url
                 ? "opacity-50 cursor-not-allowed"
                 : "cursor-pointer"
-            }`}
+              }`}
             disabled={!pagination?.prev_page_url}
             onClick={() =>
               fetchListings(currentPage - 1, filtersApplied, (res) => {
@@ -271,9 +275,8 @@ const Properties = () => {
               (_, index) => (
                 <div
                   key={index}
-                  className={`h-[10px] w-[10px] rounded-full ${
-                    currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
-                  }`}
+                  className={`h-[10px] w-[10px] rounded-full ${currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
+                    }`}
                   onClick={() => {
                     setIsloading(true);
                     fetchListings(index + 1, filtersApplied, (res) => {
@@ -297,11 +300,10 @@ const Properties = () => {
 
           {/* Next Button */}
           <button
-            className={`text-gray-600  ${
-              !pagination?.next_page_url
+            className={`text-gray-600  ${!pagination?.next_page_url
                 ? "opacity-50 cursor-not-allowed"
                 : "cursor-pointer"
-            }`}
+              }`}
             disabled={!pagination?.next_page_url}
             onClick={() => {
               setIsloading(true);
@@ -446,11 +448,10 @@ const Properties = () => {
       <div className="flex gap-3 justify-center py-4 pb-8">
         {/* Previous Button */}
         <button
-          className={`text-gray-600  ${
-            !paginationFeatured?.prev_page_url
+          className={`text-gray-600  ${!paginationFeatured?.prev_page_url
               ? "opacity-50 cursor-not-allowed"
               : "cursor-pointer"
-          }`}
+            }`}
           disabled={!paginationFeatured?.prev_page_url}
           onClick={() => {
             setIsFeaturedLoading(true);
@@ -475,11 +476,10 @@ const Properties = () => {
             (_, index) => (
               <div
                 key={index}
-                className={`h-[10px] w-[10px] rounded-full ${
-                  currentPageFeatured === index + 1
+                className={`h-[10px] w-[10px] rounded-full ${currentPageFeatured === index + 1
                     ? "bg-primary"
                     : "bg-gray-300"
-                }`}
+                  }`}
                 onClick={() =>
                   fetchListings(index + 1, { is_featured: 1 }, (res) => {
                     setPropertiesFeatured(res?.data?.data);
@@ -494,11 +494,10 @@ const Properties = () => {
 
         {/* Next Button */}
         <button
-          className={`text-gray-600 ${
-            !paginationFeatured?.next_page_url
+          className={`text-gray-600 ${!paginationFeatured?.next_page_url
               ? "opacity-50 cursor-not-allowed"
               : "cursor-pointer"
-          }`}
+            }`}
           disabled={!paginationFeatured?.next_page_url}
           onClick={() => {
             setIsFeaturedLoading(true);
