@@ -120,9 +120,11 @@ const ContactUs = () => {
   const pathname = usePathname();
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    unitType: "Apartment",
     phone: "",
+    email: "",
+    project: "Consultation",
+    bedrooms: "3 Bedrooms",
+    leadFor: "Investment",
     note: "",
   });
   const { fetchData } = useApi();
@@ -145,41 +147,56 @@ const ContactUs = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (error.phone) {
-      alert("Invalid Phone");
       return;
     }
 
-    const formPayload = new FormData();
-    const data = [
-      {
-        leadName: formData.name,
-        leadEmail: formData.email,
-        leadContact: formData.phone, // Changed key from `contact` to `leadContact`
-        project: formData.unitType,
-        note: formData.note,
-      },
-    ];
+    const getUserIP = async () => {
+      try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+      } catch (err) {
+        return null;
+      }
+    };
 
-    formPayload.append(
-      "form_id",
-      process.env.NEXT_PUBLIC_CONTACT_US_FORM_ID || 175
-    );
-    formPayload.append("data", JSON.stringify(data));
+    const ip = await getUserIP();
+    const deviceType = navigator.userAgent;
+    const fullUrl = window.location.href;
+
+    const data = {
+      leadName: formData.name,
+      leadContact: formData.phone,
+      leadEmail: formData.email,
+      project: formData?.project || "Consultation",
+      projectName: formData?.project || "Consultation",
+      enquiryType: formData?.bedrooms,
+      leadFor: formData.leadFor,
+      notes: `User Note: ${formData.note}`,
+      ip: ip,
+      device: deviceType,
+      filename: fullUrl
+    };
 
     try {
-      const response = await fetchData(
-        "/form-submissions",
+      await fetchData(
+        "/create-lead",
         {
           method: "POST",
-          data: formPayload, // Send FormData directly
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: data, // Send FormData directly
         },
-        (data, status) => {
+        (response, status) => {
           if (status) {
             setFormData({
               name: "",
               email: "",
-              unitType: "Apartment",
               phone: "",
+              project: "Consultation",
+              bedrooms: "3 Bedrooms",
+              leadFor: "Investment",
               note: "",
             });
             alert("Form submitted successfully!");
@@ -192,6 +209,59 @@ const ContactUs = () => {
       console.error("Error:", error);
     }
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (error.phone) {
+  //     alert("Invalid Phone");
+  //     return;
+  //   }
+
+  //   const formPayload = new FormData();
+  //   const data = [
+  //     {
+  //       leadName: formData.name,
+  //       leadContact: formData.phone,
+  //       leadEmail: formData.email,
+  //       project: formData.project,
+  //       enquiryType: formData.bedrooms,
+  //       leadFor: formData.leadFor,
+  //       notes: formData.note,
+  //     },
+  //   ];
+
+  //   formPayload.append(
+  //     "form_id",
+  //     process.env.NEXT_PUBLIC_CONTACT_US_FORM_ID || 175
+  //   );
+  //   formPayload.append("data", JSON.stringify(data));
+
+  //   try {
+  //     const response = await fetchData(
+  //       "/form-submissions",
+  //       {
+  //         method: "POST",
+  //         data: formPayload, // Send FormData directly
+  //       },
+  //       (data, status) => {
+  //         if (status) {
+  //           setFormData({
+  //             name: "",
+  //             email: "",
+  //             unitType: "Apartment",
+  //             phone: "",
+  //             note: "",
+  //           });
+  //           alert("Form submitted successfully!");
+  //         } else {
+  //           alert("Error submitting form!");
+  //         }
+  //       }
+  //     );
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   return (
     <div
@@ -206,9 +276,8 @@ const ContactUs = () => {
         "--border-color":
           pathname !== "/contact-us" ? "white" : "var(--primary)",
       }}
-      className={`py-6 px-[30px] md:px-[50px] lg:px-[100px] ${
-        pathname === "/contact-us" ? "text-primary" : "text-white"
-      }`}
+      className={`py-6 px-[30px] md:px-[50px] lg:px-[100px] ${pathname === "/contact-us" ? "text-primary" : "text-white"
+        }`}
     >
       <div className="grid grid-cols-1 md:grid-cols-2 items-center my-5 py-5">
         <div>
@@ -222,74 +291,24 @@ const ContactUs = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col contact-us gap-4"
+          className="flex flex-col contact-us gap-5"
         >
-          <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:pt-0 pt-3">
-            <div className="flex flex-col gap-3">
-              <label>Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your Name"
-                className="rounded-full px-4 py-2"
-              />
-            </div>
-
-            <div className="flex flex-col gap-3">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter Your Email"
-                className="rounded-full px-4 py-2"
-              />
-            </div>
+          {/* NAME */}
+          <div className="flex flex-col gap-1">
+            <label className="px-2">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              className="rounded-full px-4 py-2"
+            />
           </div>
-          <div className="grid grid-cols-2 gap-4 items-center ">
-            <div className="flex flex-col gap-3">
-              <label>Unit Type</label>
-              <div
-                className={`rounded-full border px-4 py-2 ${
-                  pathname === "/contact-us"
-                    ? "border-primary "
-                    : "border-white "
-                }`}
-              >
-                <select
-                  name="unitType"
-                  value={formData.unitType}
-                  onChange={handleChange}
-                  className={`w-full bg-transparent border-none outline-none `}
-                >
-                  <option value="apartment" className="text-black">
-                    Apartment
-                  </option>
-                  <option value="villa" className="text-black">
-                    Villa
-                  </option>
-                  <option value="townhouse" className="text-black">
-                    Townhouse
-                  </option>
-                  <option value="penthouse" className="text-black">
-                    Penthouse
-                  </option>
-                  <option value="mansion" className="text-black">
-                    Mansion
-                  </option>
-                  <option value="commercial" className="text-black">
-                    {" "}
-                    Commercial
-                  </option>
-                </select>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-3">
-              <label>Phone Number</label>
+          {/* CONTACT EMAIL */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="flex flex-col gap-1">
+              <label className="px-2">Phone Number</label>
               <input
                 type="tel"
                 name="phone"
@@ -302,10 +321,88 @@ const ContactUs = () => {
                 <p className="text-white bg-primary p-2 ">{error?.phone}</p>
               )}
             </div>
+            <div className="flex flex-col gap-1">
+              <label className="px-2">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter Your Email"
+                className="rounded-full px-4 py-2"
+              />
+            </div>
+          </div>
+          {/* BEDROOMS FOR */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="flex flex-col gap-1">
+              <label className="px-2">Bedrooms</label>
+              <div
+                className={`rounded-full border px-4 py-2 ${pathname === "/contact-us"
+                  ? "border-primary "
+                  : "border-white "
+                  }`}
+              >
+                <select
+                  name="bedrooms"
+                  value={formData.bedrooms}
+                  onChange={handleChange}
+                  className={`w-full bg-transparent border-none outline-none `}
+                >
+                  <option value="Studio" className="text-black">
+                    Studio
+                  </option>
+                  <option value="1 Bedroom" className="text-black">
+                    1 Bedroom
+                  </option>
+                  <option value="2 Bedrooms" className="text-black">
+                    2 Bedrooms
+                  </option>
+                  <option value="3 Bedrooms" className="text-black">
+                    3 Bedrooms
+                  </option>
+                  <option value="4 Bedrooms" className="text-black">
+                    4 Bedrooms
+                  </option>
+                  <option value="5 Bedrooms" className="text-black">
+                    5 Bedrooms
+                  </option>
+                  <option value="Retail" className="text-black">
+                    Retail
+                  </option>
+                  <option value="Other" className="text-black">
+                    Other
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="px-2">Property For</label>
+              <div
+                className={`rounded-full border px-4 py-2 ${pathname === "/contact-us"
+                  ? "border-primary "
+                  : "border-white "
+                  }`}
+              >
+                <select
+                  name="leadFor"
+                  value={formData.leadFor}
+                  onChange={handleChange}
+                  className={`w-full bg-transparent border-none outline-none `}
+                >
+                  <option value="Investment" className="text-black">
+                    Investment
+                  </option>
+                  <option value="End-user" className="text-black">
+                    End-user
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <label>Note</label>
+          <div className="flex flex-col gap-1">
+            <label className="px-2">Note</label>
             <input
               type="text"
               name="note"

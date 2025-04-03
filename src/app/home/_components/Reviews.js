@@ -120,7 +120,7 @@ const Reviews = () => {
         backgroundImage: "url(/circle-design.png)",
         backgroundBlendMode: "soft-light",
       }}
-      className="bg-[#F5F5F5] px-[20px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-6"
+      className="bg-[#F5F5F5] px-[20px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-5 my-5"
     >
       <SectionHeader
         name={"Testimonial"}

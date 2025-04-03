@@ -40,20 +40,22 @@ const OurCoreValue = () => {
     },
   ];
   return (
-    <div>
-      <div
-        className={` flex flex-col gap-4  px-[20px] md:px-[50px] lg:px-[100px]`}
-      >
-        <div className="">
-          <span className="rounded-full   py-1 flex items-center mb-3 text-primary w-fit text-white">
-            <RxDotFilled size={30} />
-            Our Core Value
-          </span>
+    <div className="py-5 my-5 relative">
+      <div className="absolute top-0 right-0 text-secondary opacity-10">
+        <div className="text-[12vw] font-bold relative leading-none">
+          REDESTATE
         </div>
-        <h3 className="sm:text-5xl text-3xl font-semibold text-primary  ">
+      </div>
+      <div className="h-[30px]"></div>
+      <div className={`flex flex-col gap-4 px-[20px] md:px-[50px] lg:px-[100px]`}>
+        <div className="rounded-full py-1 px-2 flex gap-2 items-center text-primary w-fit border border-primary">
+          <div className="w-2 h-2 rounded-full bg-primary"></div>
+          Our Core Value
+        </div>
+        <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-primary  ">
           What We Stand For You
         </h3>
-        <span className="text-secondary ">
+        <span className="text-secondary">
           Core principles that guide every transaction, ensuring excellence and
           client satisfaction.
         </span>
