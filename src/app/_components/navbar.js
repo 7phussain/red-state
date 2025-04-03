@@ -146,7 +146,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const links = [
-    { name: "Home", link: "/home" },
+    { name: "Home", link: "/" },
     { name: "Properties", link: "/properties" },
     { name: "Developers", link: "/developers" },
     { name: "About Us", link: "/about-us" },

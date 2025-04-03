@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   const links = [
-    { name: "Home", link: "/home" },
+    { name: "Home", link: "/" },
     { name: "Properties", link: "/properties" },
     { name: "Developers", link: "/developers" },
     { name: "About Us", link: "/about-us" },
