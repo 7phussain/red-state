@@ -122,23 +122,23 @@ export default function FAQs() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="overflow-hidden"
             >
-              <p className="py-2 text-secondary">
-                {item.description}
-              </p>
+              <p className="py-2 text-secondary">{item.description}</p>
             </motion.div>
           </div>
         ))}
       </div>
-      <div className={`order-0 lg:order-1 flex flex-col gap-5 items-start text-start lg:items-end lg:text-end`}>
+      <div
+        className={`order-0 lg:order-1 flex flex-col gap-5 items-start text-start lg:items-end lg:text-end`}
+      >
         <div className="rounded-full flex items-center gap-1 border border-primary w-fit py-1 px-2 flex items-center text-primary text-white">
           <div className="w-2 h-2 bg-primary rounded-full"></div>
-          <span>FAQ's</span>
+          <span>FAQ s</span>
         </div>
         <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-primary">
           Frequently Asked Questions
         </h3>
         <span className="text-secondary">
-          Have questions about buying, selling, or renting with Redestate? We’ve
+          Have questions about buying, selling, or renting with Redestate? We ve
           got the answers to help guide you through the process.
         </span>
       </div>

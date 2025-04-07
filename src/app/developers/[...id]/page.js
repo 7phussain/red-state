@@ -28,7 +28,7 @@ const Developers = () => {
     {
       title: "Our Phone",
       icon: <FiPhone />,
-      desc: "+971 52 217 2300"
+      desc: "+971 52 217 2300",
     },
     {
       title: "Email Address",
@@ -99,10 +99,7 @@ const Developers = () => {
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-5">
             {contactDetails?.map((details, ind) => {
               return (
-                <div
-                  key={ind}
-                  className="flex items-center gap-3 text-primary"
-                >
+                <div key={ind} className="flex items-center gap-3 text-primary">
                   <span className="p-4 rounded-full border text-xl">
                     {details?.icon}
                   </span>
@@ -119,8 +116,9 @@ const Developers = () => {
           <img
             src={
               developerDetails?.logo
-                ? `${process.env.NEXT_PUBLIC_BASE_URL.slice(0, -3)}${developerDetails?.logo
-                }`
+                ? `${process.env.NEXT_PUBLIC_BASE_URL.slice(0, -3)}${
+                    developerDetails?.logo
+                  }`
                 : "/no_image.png"
             }
             onError={(e) => {
@@ -166,7 +164,7 @@ const Developers = () => {
 
       <div className="my-5 py-5 px-[30px] md:px-[50px] lg:px-[100px] flex flex-col gap-5">
         <div className="text-lg md:text-xl lg:text-2xl text-primary font-semibold">
-          {developerDetails?.developerName}'s Listings
+          {developerDetails?.developerName} s Listings
         </div>
         <PropertyFilters
           filtersApplied={filtersApplied}
@@ -234,10 +232,11 @@ const Developers = () => {
         <div className="flex gap-3 justify-center py-4 pb-8">
           {/* Previous Button */}
           <button
-            className={`text-gray-600  ${!pagination?.prev_page_url
-              ? "opacity-50 cursor-not-allowed"
-              : "cursor-pointer"
-              }`}
+            className={`text-gray-600  ${
+              !pagination?.prev_page_url
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
+            }`}
             disabled={!pagination?.prev_page_url}
             onClick={() =>
               fetchListings(currentPage - 1, filtersApplied, (res) => {
@@ -256,8 +255,9 @@ const Developers = () => {
               (_, index) => (
                 <div
                   key={index}
-                  className={`h-[10px] w-[10px] rounded-full ${currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
-                    }`}
+                  className={`h-[10px] w-[10px] rounded-full ${
+                    currentPage === index + 1 ? "bg-primary" : "bg-gray-300"
+                  }`}
                   onClick={() => {
                     setIsloading(true);
                     fetchListings(index + 1, filtersApplied, (res) => {
@@ -274,10 +274,11 @@ const Developers = () => {
 
           {/* Next Button */}
           <button
-            className={`text-gray-600  ${!pagination?.next_page_url
-              ? "opacity-50 cursor-not-allowed"
-              : "cursor-pointer"
-              }`}
+            className={`text-gray-600  ${
+              !pagination?.next_page_url
+                ? "opacity-50 cursor-not-allowed"
+                : "cursor-pointer"
+            }`}
             disabled={!pagination?.next_page_url}
             onClick={() => {
               setIsFeaturedLoading(true);
