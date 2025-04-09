@@ -30,7 +30,6 @@ const Hero = () => {
         src="./web-1280x720.webp"
         className="lg:hidden object-cover object-top top-0 absolute bottom-0 z-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%]"
       /> */}
-      {/* hidden lg:flex  */}
       <img
         src="./large-1920x1080.webp"
         className="object-cover object-top top-0 absolute bottom-0 z-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%]"
