@@ -43,7 +43,7 @@ const ContactUs = () => {
               GET IN TOUCH
             </h3>
             <span className="text-white">
-              We''re here to help you with all your real estate needs. Fill out
+              We are here to help you with all your real estate needs. Fill out
               the form below, and our team will get back to you shortly!
             </span>
           </div>
