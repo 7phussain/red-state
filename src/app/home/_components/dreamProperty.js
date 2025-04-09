@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Select from "react-select";
 import { LuSearch } from "react-icons/lu";
 import SectionHeader from "./SectionHeader";
 import { BsArrowUpRightCircle } from "react-icons/bs";
@@ -103,7 +102,7 @@ const DreamProperty = () => {
                     </div>
                     <div className="flex flex-col gap-1 py-4">
                       <h4 className="text-primary font-bold text-2xl">
-                        {item?.currency} 
+                        {item?.currency}
                         {" "}
                         {formatPrice(item?.price)}
                       </h4>

@@ -8,40 +8,46 @@ import {
 } from "react-icons/io5";
 
 const Hero = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const checkScreenSize = () => setIsMobile(window.innerWidth < 800);
-    checkScreenSize(); // Run once on mount
-    window.addEventListener("resize", checkScreenSize);
-
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+  // useEffect(() => {
+  //   const checkScreenSize = () => setIsMobile(window.innerWidth < 800);
+  //   checkScreenSize();
+  //   window.addEventListener('resize', checkScreenSize);
+  //   return () => window.removeEventListener('resize', checkScreenSize);
+  // }, []);
 
   return (
     <div
-      className="relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px]"
-      style={{
-        background: isMobile
-          ? "linear-gradient(180deg, #E6ECF4 0%, #FFFFFF 100%)"
-          : "transparent",
-      }}
+      className="hero-bg relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px] bg-gradient-to-b from-[#E6ECF4] to-white lg:bg-transparent"
     >
       {/* Background Image */}
-      <img
+      {/* <img
         src="./B1.webp"
         className="object-cover object-top absolute bottom-0 z-20 left-1/2 -translate-x-1/2 w-[100%] h-[90%]"
+      /> */}
+      {/* <img
+        src="./web-1280x720.webp"
+        className="lg:hidden object-cover object-top top-0 absolute bottom-0 z-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%]"
+      /> */}
+      {/* hidden lg:flex  */}
+      <img
+        src="./large-1920x1080.webp"
+        className="object-cover object-top top-0 absolute bottom-0 z-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%]"
       />
 
       {/* Gradient Overlay */}
       <div
-        className="absolute inset-0 z-20"
+        className="absolute inset-0 z-20 lg:hidden"
         style={{
-          background: isMobile
-            ? // ? `linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%)`
-              `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 41.3%),
-            linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`
-            : `linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 41.3%),
+          background: `linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 41.3%),
+            linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`,
+        }}
+      ></div>
+      <div
+        className="absolute inset-0 z-20 hidden lg:flex"
+        style={{
+          background: `linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 41.3%),
             linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 41.3%)`,
         }}
       ></div>
