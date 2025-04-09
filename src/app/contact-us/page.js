@@ -36,15 +36,15 @@ const ContactUs = () => {
           <div></div>
           <div className={`flex flex-col gap-4`}>
             <div className="rounded-full py-2 px-3 flex gap-2 items-center bg-primary w-fit text-white">
-                <div className="w-2 h-2 bg-white rounded-full"></div>
-                Contact Redestate
+              <div className="w-2 h-2 bg-white rounded-full"></div>
+              Contact Redestate
             </div>
             <h3 className="text-5xl font-semibold text-primary  ">
               GET IN TOUCH
             </h3>
             <span className="text-white">
-              We're here to help you with all your real estate needs. Fill out the
-              form below, and our team will get back to you shortly!
+              We''re here to help you with all your real estate needs. Fill out
+              the form below, and our team will get back to you shortly!
             </span>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 pb-5 mb-5">
