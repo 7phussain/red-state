@@ -3,13 +3,22 @@ export const selectStyles = {
     ...provided,
     backgroundColor: "transparent", // No background
     border: "none", // Removes border
+    borderBottom: "1px solid #F0F0F0",
+    // padding: "px 0px",
     boxShadow: "none", // Removes focus outline
     color: "var(--primary)",
-    fontSize: "small"
+    fontSize: "small",
+    borderRadius: "0px",
     // Uses CSS variable for text
+  }),
+  input: (provided) => ({
+    ...provided,
+    padding: "0px",
+    color: "var(--primary)", // Uses CSS variable for selected text
   }),
   singleValue: (provided) => ({
     ...provided,
+    padding: "0px",
     color: "var(--primary)", // Uses CSS variable for selected text
   }),
   placeholder: (provided) => ({
@@ -30,6 +39,10 @@ export const selectStyles = {
     borderBottom: "1px solid var(--primary)", // Divider between options
     backgroundColor: "transparent", // No background
     cursor: "pointer",
+    "&:hover": {
+      background: "var(--primary)",
+      color: "#FFFFFF",
+    },
   }),
   dropdownIndicator: (provided) => ({
     ...provided,

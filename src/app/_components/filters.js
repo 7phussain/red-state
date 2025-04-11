@@ -274,7 +274,7 @@ const PropertyFilters = ({ filtersApplied, setFiltersApplied }) => {
         {filters.map((i) => {
           return (
             <div key={i.key}>
-              <label htmlFor={i.key} className="text-secondary">
+              <label htmlFor={i.key} className="text-secondary text-xs">
                 {i?.label}
               </label>
               <div className="w-full">

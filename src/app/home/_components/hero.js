@@ -30,10 +30,23 @@ const Hero = () => {
         src="./web-1280x720.webp"
         className="lg:hidden object-cover object-top top-0 absolute bottom-0 z-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%]"
       /> */}
-      <img
+      {/* <img
         src="./large-1920x1080.webp"
         className="object-cover object-top top-0 absolute bottom-0 z-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%]"
-      />
+      /> */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster="/video/hero-preview.jpg" // Optional: fallback poster
+        className="object-cover object-top absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full h-full z-0"
+      >
+        <source src="/video/hero15.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
 
       {/* Gradient Overlay */}
       <div

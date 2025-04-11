@@ -73,3 +73,8 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* PROPERTY FILTERS */
+.css-hlgwow {
+  padding: 0px !important;
+}

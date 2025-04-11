@@ -52,7 +52,7 @@ const DreamProperty = () => {
         property_type: filtersApplied["property_type"]?.label,
         bedrooms: filtersApplied["bedroom"]?.value,
         max_price: filtersApplied["max_price"]?.value,
-        listing_title: filtersApplied["listing_title"],
+        search: filtersApplied["listing_title"],
       },
       (res, status) => {
         if (status) {
@@ -138,12 +138,11 @@ const DreamProperty = () => {
             )
           ) : null}
         </div>
-        {Object.values(filtersApplied).filter((i) => i).length > 0 && (
+        {/* {Object.values(filtersApplied).filter((i) => i).length > 0 && (
           <div
             ref={paginationRef}
             className="flex gap-3 justify-center py-4 pb-8"
           >
-            {/* Previous Button */}
             <button
               className={`text-gray-600  ${!pagination?.prev_page_url
                 ? "opacity-50 cursor-not-allowed"
@@ -167,8 +166,6 @@ const DreamProperty = () => {
             >
               <IoArrowBackCircleOutline size={44} />
             </button>
-
-            {/* Page Dots */}
             <div className="gap-3 grid grid-cols-5 items-center">
               {Array.from({ length: pagination?.last_page || 1 }).map(
                 (_, index) => (
@@ -196,8 +193,6 @@ const DreamProperty = () => {
                 )
               )}
             </div>
-
-            {/* Next Button */}
             <button
               className={`text-gray-600  ${!pagination?.next_page_url
                 ? "opacity-50 cursor-not-allowed"
@@ -224,7 +219,7 @@ const DreamProperty = () => {
               <IoArrowForwardCircleOutline size={44} />
             </button>
           </div>
-        )}
+        )} */}
         <SectionHeader
           name={"About Redestate"}
           title={"Your Dream Home, Our Expertise."}

@@ -115,9 +115,11 @@ import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import useApi from "@/utils/useApi";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { PiCheckCircleDuotone } from "react-icons/pi";
 
 const ContactUs = () => {
   const pathname = usePathname();
+  const [submissionStatus, setSubmissionStatus] = useState("idle");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -199,9 +201,9 @@ const ContactUs = () => {
               leadFor: "Investment",
               note: "",
             });
-            alert("Form submitted successfully!");
+            setSubmissionStatus("success");
           } else {
-            alert("Error submitting form!");
+            setSubmissionStatus("error");
           }
         }
       );
@@ -289,137 +291,158 @@ const ContactUs = () => {
           </p>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col contact-us gap-5"
-        >
-          {/* NAME */}
-          <div className="flex flex-col gap-1">
-            <label className="px-2">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your Name"
-              className="rounded-full px-4 py-2"
-            />
+        {submissionStatus === "success" ? (
+          <div className="text-center p-6 flex flex-col items-center justify-center gap-2">
+            <PiCheckCircleDuotone size={70} className="text-green-600" />
+            <p>Thank you! Your enquiry has been submitted successfully.</p>
           </div>
-          {/* CONTACT EMAIL */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div className="flex flex-col gap-1">
-              <label className="px-2">Phone Number</label>
-              <input
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={(e) => validatePhone(e?.target.value)}
-                placeholder="+999"
-                className="rounded-full px-4 py-2"
-              />
-              {error?.phone && (
-                <p className="text-white bg-primary p-2 ">{error?.phone}</p>
-              )}
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="px-2">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Enter Your Email"
-                className="rounded-full px-4 py-2"
-              />
-            </div>
-          </div>
-          {/* BEDROOMS FOR */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div className="flex flex-col gap-1">
-              <label className="px-2">Bedrooms</label>
-              <div
-                className={`rounded-full border px-4 py-2 ${pathname === "/contact-us"
-                  ? "border-primary "
-                  : "border-white "
-                  }`}
-              >
-                <select
-                  name="bedrooms"
-                  value={formData.bedrooms}
-                  onChange={handleChange}
-                  className={`w-full bg-transparent border-none outline-none `}
-                >
-                  <option value="Studio" className="text-black">
-                    Studio
-                  </option>
-                  <option value="1 Bedroom" className="text-black">
-                    1 Bedroom
-                  </option>
-                  <option value="2 Bedrooms" className="text-black">
-                    2 Bedrooms
-                  </option>
-                  <option value="3 Bedrooms" className="text-black">
-                    3 Bedrooms
-                  </option>
-                  <option value="4 Bedrooms" className="text-black">
-                    4 Bedrooms
-                  </option>
-                  <option value="5 Bedrooms" className="text-black">
-                    5 Bedrooms
-                  </option>
-                  <option value="Retail" className="text-black">
-                    Retail
-                  </option>
-                  <option value="Other" className="text-black">
-                    Other
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="px-2">Property For</label>
-              <div
-                className={`rounded-full border px-4 py-2 ${pathname === "/contact-us"
-                  ? "border-primary "
-                  : "border-white "
-                  }`}
-              >
-                <select
-                  name="leadFor"
-                  value={formData.leadFor}
-                  onChange={handleChange}
-                  className={`w-full bg-transparent border-none outline-none `}
-                >
-                  <option value="Investment" className="text-black">
-                    Investment
-                  </option>
-                  <option value="End-user" className="text-black">
-                    End-user
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="px-2">Note</label>
-            <input
-              type="text"
-              name="note"
-              value={formData.note}
-              onChange={handleChange}
-              placeholder="Type Your Message"
-              className="rounded-full px-4 py-2"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="bg-primary text-white py-3 rounded-full cursor-pointer"
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col contact-us gap-5"
           >
-            Submit
-          </button>
-        </form>
+            {/* NAME */}
+            <div className="flex flex-col gap-1">
+              <label className="px-2">Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Your Name"
+                className="rounded-full px-4 py-2"
+                required
+              />
+            </div>
+            {/* CONTACT EMAIL */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-1">
+                <label className="px-2">Phone Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={(e) => validatePhone(e?.target.value)}
+                  placeholder="+999"
+                  className="rounded-full px-4 py-2"
+                  required
+                />
+                {error?.phone && (
+                  <p className="text-white bg-primary p-2 ">{error?.phone}</p>
+                )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="px-2">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter Your Email"
+                  className="rounded-full px-4 py-2"
+                />
+              </div>
+            </div>
+            {/* BEDROOMS FOR */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-1">
+                <label className="px-2">Bedrooms</label>
+                <div
+                  className={`rounded-full border px-4 py-2 ${pathname === "/contact-us"
+                    ? "border-primary "
+                    : "border-white "
+                    }`}
+                >
+                  <select
+                    name="bedrooms"
+                    value={formData.bedrooms}
+                    onChange={handleChange}
+                    className={`w-full bg-transparent border-none outline-none `}
+                  >
+                    <option value="Studio" className="text-black">
+                      Studio
+                    </option>
+                    <option value="1 Bedroom" className="text-black">
+                      1 Bedroom
+                    </option>
+                    <option value="2 Bedrooms" className="text-black">
+                      2 Bedrooms
+                    </option>
+                    <option value="3 Bedrooms" className="text-black">
+                      3 Bedrooms
+                    </option>
+                    <option value="4 Bedrooms" className="text-black">
+                      4 Bedrooms
+                    </option>
+                    <option value="5 Bedrooms" className="text-black">
+                      5 Bedrooms
+                    </option>
+                    <option value="Retail" className="text-black">
+                      Retail
+                    </option>
+                    <option value="Other" className="text-black">
+                      Other
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="px-2">Property For</label>
+                <div
+                  className={`rounded-full border px-4 py-2 ${pathname === "/contact-us"
+                    ? "border-primary "
+                    : "border-white "
+                    }`}
+                >
+                  <select
+                    name="leadFor"
+                    value={formData.leadFor}
+                    onChange={handleChange}
+                    className={`w-full bg-transparent border-none outline-none `}
+                  >
+                    <option value="Investment" className="text-black">
+                      Investment
+                    </option>
+                    <option value="End-user" className="text-black">
+                      End-user
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="px-2">Note</label>
+              <input
+                type="text"
+                name="note"
+                value={formData.note}
+                onChange={handleChange}
+                placeholder="Type Your Message"
+                className="rounded-full px-4 py-2"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="bg-primary text-white py-3 rounded-full cursor-pointer"
+            >
+              Submit
+            </button>
+            {submissionStatus === "error" && (
+              <div className="text-center flex justify-center rounded-sm">
+                <p
+                  className="opacity-100 text-white w-fit p-2"
+                  style={{
+                    background: "rgba(202, 30, 46, 0.5)"
+                  }}
+                >
+                  Something went wrong! Please try again.
+                </p>
+              </div>
+            )}
+          </form>
+        )}
       </div>
     </div>
   );
