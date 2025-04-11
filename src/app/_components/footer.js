@@ -30,6 +30,7 @@ const Footer = () => {
     // { name: "TERM OF USE", link: "/properties" },
     // { name: "Legal Disclaimer", link: "/properties" },
     // { name: "COOKIEPOLICY", link: "/developers" },
+    { name: "Login", link: "/admin" }
   ];
   return (
     <div

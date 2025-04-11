@@ -78,3 +78,12 @@ body {
 .css-hlgwow {
   padding: 0px !important;
 }
+
+/* ADMIN */
+/* INPUT FILTER */
+input.input-filter {
+  padding: 9px 10px;
+  border: none;
+  border-bottom: 1px solid var(--primary);
+  border-radius: 0px;
+}

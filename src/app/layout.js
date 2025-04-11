@@ -1,9 +1,7 @@
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "./_components/navbar";
-import ContactUs from "./_components/ContactUs";
-import Footer from "./_components/footer";
-import WhatsAppButton from "./_components/WhatsappButton";
+import SubLayout from "./sublayout";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,8 +20,8 @@ const plusSans = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: "RED STATE",
-  description: "REAL STATE WEBSITE",
+  title: "RED ESTATE",
+  description: "RED ESTATE",
   icons: {
     icon: "/fav.png",
   },
@@ -33,13 +31,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={` ${plusSans.variable} antialiased max-w-[100vw] text-white`}
+        className={` ${plusSans.variable} antialiased max-w-[100vw] text-white min-h-screen`}
       >
-        <Navbar />
-        {children}
+        <ToastContainer position="top-right" autoClose={3000} />
+        {/* <Navbar /> */}
+        <SubLayout>
+          {children}
+        </SubLayout>
+        {/* {children}
         <ContactUs />
         <Footer />
-        <WhatsAppButton />
+        <WhatsAppButton /> */}
       </body>
     </html>
   );
