@@ -149,3 +149,25 @@ export const listing_options = () => [
         label: "Ready-to-move",
     },
 ];
+
+// CURRENCIES
+export const currencies = () => [
+    {
+        value: "AED",
+        label: "AED",
+    },
+    {
+        value: "USD",
+        label: "USD",
+    },
+    {
+        value: "EGP",
+        label: "EGP",
+    }
+];
+
+// SIZE UNIT
+export const size_unit = () => [
+    { value: "sq.ft", label: "sq.ft" },
+    { value: "sq.m", label: "sq.m" },
+];

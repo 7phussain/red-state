@@ -66,7 +66,7 @@ export const selectStylesFilter = {
     fontSize: "small",
     // borderRadius: "6px",
     borderRadius: "0px",
-    minWidth: "120px"
+    // minWidth: "120px"
   }),
   input: (provided) => ({
     ...provided,

@@ -1,17 +1,36 @@
 
 const HeadingTitle = ({
     icon,
-    title
+    title,
+    additional
 }) => {
     return (
-        <div className="flex items-center gap-4">
-            <div className="text-primary">
-                {icon}
-            </div>
-            <h4 className="text-xl font-semibold">
-                {title}
-            </h4>
-        </div>
+        <>
+            {additional ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex items-center gap-4">
+                        <div className="text-primary">
+                            {icon}
+                        </div>
+                        <h4 className="text-lg font-semibold">
+                            {title}
+                        </h4>
+                    </div>
+                    <div className="flex items-center justify-end gap-2">
+                        {additional}
+                    </div>
+                </div>
+            ) : (
+                <div className="flex items-center gap-4">
+                    <div className="text-primary">
+                        {icon}
+                    </div>
+                    <h4 className="text-lg font-semibold">
+                        {title}
+                    </h4>
+                </div>
+            )}
+        </>
     );
 };
 

@@ -4,7 +4,7 @@ import { PiHouse, PiScales, PiSignOut } from "react-icons/pi";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter, usePathname } from "next/navigation";
-import { BsDatabase, BsDatabaseAdd, BsHouseAdd, BsHouseDoor, BsList, BsWebcam, BsWindow, BsX } from "react-icons/bs";
+import { BsDatabase, BsDatabaseAdd, BsHouseAdd, BsHouseDoor, BsList, BsPin, BsPinAngle, BsWebcam, BsWindow, BsX } from "react-icons/bs";
 import useIsMobile from "@/app/_functions/useIsMobile";
 
 export default function AdminSidebar() {
@@ -34,6 +34,16 @@ export default function AdminSidebar() {
             label: "Add Developers",
             icon: <BsDatabaseAdd size={16} />,
             path: "/admin/add-developers",
+        },
+        {
+            label: "Nearbies",
+            icon: <BsPin size={16} />,
+            path: "/admin/nearbies",
+        },
+        {
+            label: "Add Nearbies",
+            icon: <BsPinAngle size={16} />,
+            path: "/admin/add-nearbies",
         },
         {
             label: "Website",

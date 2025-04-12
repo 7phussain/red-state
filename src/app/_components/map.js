@@ -31,8 +31,8 @@
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "80%",
-  height: "400px",
+  width: "100%",
+  minHeight: "300px",
 };
 
 const GoogleMaps = ({ lat, lon }) => {
@@ -53,7 +53,7 @@ const GoogleMaps = ({ lat, lon }) => {
   const center = { lat: latitude, lng: longitude };
 
   return (
-    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={13}>
+    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
       <Marker position={center} />
     </GoogleMap>
   );

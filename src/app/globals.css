@@ -87,3 +87,21 @@ input.input-filter {
   border-bottom: 1px solid var(--primary);
   border-radius: 0px;
 }
+textarea.input-filter {
+  padding: 9px 10px;
+  border: none;
+  border-bottom: 1px solid var(--primary);
+  border-radius: 0px;
+}
+
+/* HIDE SCROLLBAR */
+/* Hide scrollbar for all elements */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for WebKit browsers */
+*::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Opera */
+}
