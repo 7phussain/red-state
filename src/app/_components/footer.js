@@ -30,7 +30,7 @@ const Footer = () => {
     // { name: "TERM OF USE", link: "/properties" },
     // { name: "Legal Disclaimer", link: "/properties" },
     // { name: "COOKIEPOLICY", link: "/developers" },
-    { name: "Login", link: "/admin" }
+    { name: "Login", link: "/admin" },
   ];
   return (
     <div
@@ -43,16 +43,26 @@ const Footer = () => {
       <div className="flex flex-col gap-[20px] mt-5 py-5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:px-[50px] lg:px-[70px] xl:px-[100px] px-[30px]">
           <div className="order-1 lg:order-0 flex flex-col gap-2 text-base">
-            <div className="pb-0.1 border-b border-white w-fit">Khalij tujari 2, Dubai</div>
-            <a target="_blank" href="https://wa.me/+971522172300" className="pb-0.1 border-b border-white w-fit">
+            <div className="pb-0.1 border-b border-white w-fit">
+              Khalij tujari 2, Dubai
+            </div>
+            <Link
+              target="_blank"
+              href="https://wa.me/+971522172300"
+              className="pb-0.1 border-b border-white w-fit"
+            >
               +971 522 17 2300
-            </a>
+            </Link>
           </div>
           <div className="order-0 lg:order-1 flex flex-col">
             <span>GET IN TOUCH</span>
-            <a href="mailto:info@redestate.ae" target="_blank" className="text-3xl md:text-5xl font-semibold">
+            <Link
+              href="mailto:info@redestate.ae"
+              target="_blank"
+              className="text-3xl md:text-5xl font-semibold"
+            >
               info@redestate.ae
-            </a>
+            </Link>
           </div>
         </div>
         <div className="uppercase grid grid-cols-1 lg:grid-cols-2 gap-5 md:px-[50px] lg:px-[70px] xl:px-[100px] px-[30px] pt-5 mt-5">
@@ -85,7 +95,7 @@ const Footer = () => {
           <div className="col-span-2 order-1 lg:order-0 flex flex-wrap justify-center lg:justify-start items-center gap-1">
             <span>@{new Date().getFullYear()} RedEstate.</span>
             <span>All Rights Reserved by</span>
-            <a
+            <Link
               href="https://dodeal.com"
               rel="noopener noreferrer"
               target="_blank"
@@ -95,7 +105,7 @@ const Footer = () => {
               }}
             >
               DODEAL
-            </a>
+            </Link>
           </div>
           <div className="order-0 lg:order-1 flex justify-center gap-4 lg:justify-end">
             {termsLinks?.map((link, ind) => {

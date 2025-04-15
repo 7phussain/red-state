@@ -5,11 +5,12 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function Login() {
-  const [formdata, setFormdata] = useState({ loginId: '', password: '' });
+  const [formdata, setFormdata] = useState({ loginId: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -55,10 +56,13 @@ export default function Login() {
 
   return (
     <>
-      <div className="w-full min-h-screen px-[20px] md:px-[50px] lg:px-[100px] py-5 text-black flex items-center justify-center"
+      <div
+        className="w-full min-h-screen px-[20px] md:px-[50px] lg:px-[100px] py-5 text-black flex items-center justify-center"
         style={{
-          background: "linear-gradient(to bottom right, rgba(202, 30, 46, 1), rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 0.2), rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 1)"
-        }}>
+          background:
+            "linear-gradient(to bottom right, rgba(202, 30, 46, 1), rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 0.2), rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 1)",
+        }}
+      >
         {/* <div className="h-[50px]"></div> */}
         <div className="flex flex-col justify-center items-center gap-4">
           <Image
@@ -68,10 +72,13 @@ export default function Login() {
             height={0} // Temporary placeholder, not needed with layout="intrinsic"
             layout="intrinsic"
           />
-          <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">Welcome</h1>
-          <p className="font-normal">Login to your account to manage the listings!</p>
+          <h1 className="text-4xl md:text-6xl lg:text-8xl font-bold">
+            Welcome
+          </h1>
+          <p className="font-normal">
+            Login to your account to manage the listings!
+          </p>
           <div className="flex w-full my-5 flex flex-col gap-4 w-[300px]">
-
             <h4 className="text-start text-md px-5">Sign in</h4>
 
             <form onSubmit={handleSubmit} className="flex flex-col px-5 gap-4">
@@ -83,7 +90,9 @@ export default function Login() {
                   type="text"
                   placeholder="Login ID"
                   value={formdata.loginId}
-                  onChange={(e) => setFormdata({ ...formdata, loginId: e.target.value })}
+                  onChange={(e) =>
+                    setFormdata({ ...formdata, loginId: e.target.value })
+                  }
                   required
                   className="w-full py-2 px-10 rounded-md bg-transparent border border-gray-500 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-red-600"
                 />
@@ -97,7 +106,9 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={formdata.password}
-                  onChange={(e) => setFormdata({ ...formdata, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormdata({ ...formdata, password: e.target.value })
+                  }
                   required
                   className="w-full py-2 px-10 rounded-md bg-transparent border border-gray-500 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-red-600"
                 />
@@ -126,12 +137,14 @@ export default function Login() {
             </form>
           </div>
 
-          <a href="/" className="my-5 text-center flex items-center justify-center gap-2">
+          <Link
+            href="/"
+            className="my-5 text-center flex items-center justify-center gap-2"
+          >
             <PiArrowLeft size={20} />
             <span>Go back to the site</span>
-          </a>
+          </Link>
         </div>
-
 
         {/* </div> */}
       </div>

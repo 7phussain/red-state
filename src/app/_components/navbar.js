@@ -267,9 +267,9 @@ const Navbar = () => {
           <div className="flex flex-col lg:flex-row gap-5 justify-between  py-2">
             <div className="order-1 lg:order-0 flex flex-col gap-3 text-base">
               <div>Khalij tujari 2, Dubai</div>
-              <a target="_blank" href="https://wa.me/+971522172300">
+              <Link target="_blank" href="https://wa.me/+971522172300">
                 +971 522 17 2300
-              </a>
+              </Link>
             </div>
             <div className="order-0 lg:order-1 flex flex-col gap-3">
               <span>GET IN TOUCH</span>
