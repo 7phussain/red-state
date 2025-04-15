@@ -86,7 +86,7 @@ const useApi = () => {
 
     // Determine if method requires a body
     const method = (options.method || "GET").toUpperCase();
-    const hasBody = ["POST", "PUT", "PATCH"].includes(method);
+    const hasBody = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
 
     // Log request details
     const requestBody = hasBody && options.body instanceof FormData

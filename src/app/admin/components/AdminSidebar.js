@@ -36,12 +36,12 @@ export default function AdminSidebar() {
             path: "/admin/add-developers",
         },
         {
-            label: "Nearbies",
+            label: "Locations",
             icon: <BsPin size={16} />,
             path: "/admin/nearbies",
         },
         {
-            label: "Add Nearbies",
+            label: "Add Location",
             icon: <BsPinAngle size={16} />,
             path: "/admin/add-nearbies",
         },

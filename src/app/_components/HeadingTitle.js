@@ -7,7 +7,7 @@ const HeadingTitle = ({
     return (
         <>
             {additional ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 z-1">
                     <div className="flex items-center gap-4">
                         <div className="text-primary">
                             {icon}
@@ -21,7 +21,7 @@ const HeadingTitle = ({
                     </div>
                 </div>
             ) : (
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 z-1">
                     <div className="text-primary">
                         {icon}
                     </div>

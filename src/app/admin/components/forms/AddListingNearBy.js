@@ -19,10 +19,25 @@ export default function AddListingNearBy({
     const [nearByLocations, setNearByLocations] = useState([]);
     const [selectedLocations, setSelectedLocations] = useState(listData?.nearby || []);
     const [btnLoading, setBtnLoading] = useState(false);
-    const [nearByModal, setNearByModal] = useState(false);
+    // const [selectedLocations, setSelectedLocations] = useState([]);
 
-    const handleCloseNearByModal = () => setNearByModal(false);
-    const handleNearByLocaModal = () => setNearByModal(true);
+    // useEffect(() => {
+    //     if (nearByLocations.length > 0 && (listData?.nearby || listingData?.nearby)) {
+    //         try {
+    //             const nearby = listData?.nearby || listingData?.nearby;
+    //             if (typeof nearby === "string" && nearby) {
+    //                 const ids = nearby
+    //                     .split(",")
+    //                     .map((id) => Number(id.trim()))
+    //                     .filter(Boolean);
+    //                 setSelectedLocations(ids);
+    //                 console.log("Set selectedLocations from API:", ids);
+    //             }
+    //         } catch (error) {
+    //             console.error("Error parsing nearby:", error);
+    //         }
+    //     }
+    // }, [listData?.nearby]);
 
     const fetchLocations = async () => {
         setLoading(true);
@@ -127,7 +142,7 @@ export default function AddListingNearBy({
                 </div>
             )}
 
-            <div className="flex items-center justify-center my-5">
+            {/* <div className="flex items-center justify-center my-5">
                 <button
                     onClick={handleNearByLocaModal}
                     className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-dark"
@@ -135,7 +150,7 @@ export default function AddListingNearBy({
                     <FaPlus size={16} />
                     Add Near By Location
                 </button>
-            </div>
+            </div> */}
 
             {listData && (
                 <div className="flex items-center justify-end my-5">
@@ -154,14 +169,14 @@ export default function AddListingNearBy({
                 </div>
             )}
 
-            {nearByModal && (
+            {/* {nearByModal && (
                 <AddNearByLocaModal
                     nearByModal={nearByModal}
                     setNearByModal={setNearByModal}
                     fetchLocations={fetchLocations}
                     handleCloseNearByModal={handleCloseNearByModal}
                 />
-            )}
+            )} */}
         </div>
     );
 }

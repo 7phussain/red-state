@@ -4,7 +4,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import useApi from "@/utils/useApi";
 import { FaPlus } from "react-icons/fa";
-import AddDocumentModal from "./components/AddDocumentModal";
 import AddImageModal from "./components/AddImageModal";
 
 export default function AddListingMeta({

@@ -30,6 +30,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-site-verification" content="5GDWX1MSrnVzEp4ZQKJ8j9aq1hoEF7uenPZQMmzYG8E" />
+      </head>
+
       <body
         className={` ${plusSans.variable} antialiased max-w-[100vw] text-white min-h-screen`}
       >

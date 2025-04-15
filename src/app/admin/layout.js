@@ -14,7 +14,7 @@ export default function AdminLayout({ children }) {
     return showSidebar ? (
         <><div className="relative w-full min-h-screen flex text-black"
             style={{
-                background: "linear-gradient(to bottom left, rgba(202, 30, 46, 0.8), rgba(202, 30, 46, 0.4), rgba(202, 30, 46, 0.1), rgba(202, 30, 46, 0.4), rgba(202, 30, 46, 0.8)"
+                background: "linear-gradient(to bottom left, rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 0.3), rgba(202, 30, 46, 0.1), rgba(202, 30, 46, 0.3), rgba(202, 30, 46, 0.6)"
             }}
         >
             <AdminSidebar />
