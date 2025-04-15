@@ -290,7 +290,7 @@ export default function Listings() {
                           <PiEyeDuotone size={14} />
                         </button>
                         {/* {hasPermission("delete_listing") && ( */}
-                        <button
+                        {/* <button
                           className="bg-white shadow-md aspect-square rounded-full p-2 flex items-center justify-center"
                           onClick={(e) =>
                             handleOpenDialogue(
@@ -302,7 +302,7 @@ export default function Listings() {
                           title="Delete Listing"
                         >
                           <PiTrash size={14} />
-                        </button>
+                        </button> */}
                         {/* )} */}
                       </div>
                     </div>
@@ -434,51 +434,6 @@ export default function Listings() {
         </>
       ) : (
         <p className="text-center py-10">No listings found</p>
-      )}
-      {openDialogue[0] && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-[32px] w-full max-w-[80vw] min-w-[50vw] max-h-[90vh] p-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="flex flex-col gap-5 justify-center items-center">
-              <BsTrash size={50} className="text-red-600" />
-              <h1 className="font-semibold text-lg text-center flex flex-wrap items-center gap-2">
-                <span>Do you really want to delete this listing</span>
-                <span className="bg-primary text-white px-3 py-2 rounded-xl">
-                  {openDialogue[1]}
-                </span>
-                <span>?</span>
-              </h1>
-
-              <form
-                onSubmit={(e) => handleDelete(e, openDialogue[0])}
-                className="w-full"
-              >
-                <div className="p-5 flex flex-col w-full gap-5">
-                  <div className="flex items-center justify-center gap-4">
-                    <button
-                      type="submit"
-                      disabled={btnloading}
-                      className={`bg-primary text-white px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-dark ${btnloading ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
-                    >
-                      {btnloading ? (
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      ) : (
-                        <span>{t("confirm")}</span>
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleCloseModal}
-                      className="bg-transparent border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-100"
-                    >
-                      {t("cancel")}
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
       )}
     </>
   );
