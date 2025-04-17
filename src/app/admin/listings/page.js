@@ -1,25 +1,56 @@
 "use client";
 import { useEffect, useState } from "react";
-import { PiBathtubDuotone, PiBedDuotone, PiEye, PiEyeDuotone, PiEyeSlash, PiHouse, PiLock, PiPlus, PiPlusBold, PiRulerDuotone, PiScales, PiSignOut, PiStarDuotone, PiTagDuotone, PiTrash, PiUser } from "react-icons/pi";
+import {
+  PiBathtubDuotone,
+  PiBedDuotone,
+  PiEye,
+  PiEyeDuotone,
+  PiEyeSlash,
+  PiHouse,
+  PiLock,
+  PiPlus,
+  PiPlusBold,
+  PiRulerDuotone,
+  PiScales,
+  PiSignOut,
+  PiStarDuotone,
+  PiTagDuotone,
+  PiTrash,
+  PiUser,
+} from "react-icons/pi";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import AdminNavbar from "../components/AdminSidebar";
 import useIsMobile from "@/app/_functions/useIsMobile";
-import { BsChevronBarLeft, BsChevronBarRight, BsChevronRight, BsHouse, BsPin, BsSearch, BsTrash } from "react-icons/bs";
+import {
+  BsChevronBarLeft,
+  BsChevronBarRight,
+  BsChevronRight,
+  BsHouse,
+  BsPin,
+  BsSearch,
+  BsTrash,
+} from "react-icons/bs";
 import HeadingTitle from "@/app/_components/HeadingTitle";
 import { debounce } from "lodash";
 import Select from "react-select";
 import { selectStylesFilter } from "@/app/_components/selectStyles";
-import { bathroom_options, enquiry_options, listing_options, property_options } from "@/app/_components/selectOptions";
+import {
+  bathroom_options,
+  enquiry_options,
+  listing_options,
+  property_options,
+} from "@/app/_components/selectOptions";
 import formatPrice from "@/app/_functions/formatPrice";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function Listings() {
   const router = useRouter();
-  const token = typeof window !== "undefined" ? localStorage.getItem("auth-token") : null;
+  const token =
+    typeof window !== "undefined" ? localStorage.getItem("auth-token") : null;
 
   const [listing, setListings] = useState([]);
   const [countryList, setCountryList] = useState([]);
@@ -51,7 +82,8 @@ export default function Listings() {
   const handleCloseModal = () => setOpenDialogue(false);
 
   const handleSearchQueryChange = (e) => setSearchQuery(e.target.value);
-  const handleSearchCriteriaChange = (option) => setSearchCriteria(option.value);
+  const handleSearchCriteriaChange = (option) =>
+    setSearchCriteria(option.value);
   const handleCloseListingModal = () => setListingModalOpen(false);
 
   const handleOpenDialogue = (e, id, name) => {
@@ -60,7 +92,9 @@ export default function Listings() {
     setOpenDialogue([id, name]);
   };
 
-  const isFilterApplied = Object.values(filters).some(val => val !== null && val !== 0);
+  const isFilterApplied = Object.values(filters).some(
+    (val) => val !== null && val !== 0
+  );
 
   const clearFilter = (e) => {
     e.preventDefault();
@@ -110,7 +144,7 @@ export default function Listings() {
   };
 
   const debouncedSearch = debounce(() => {
-    if ((searchQuery?.length >= 3) || (filters?.location?.length >= 3)) {
+    if (searchQuery?.length >= 3 || filters?.location?.length >= 3) {
       SearchListings(currentPage);
     } else {
       SearchListings(currentPage);
@@ -124,17 +158,14 @@ export default function Listings() {
 
   // SINGLE LISTING
   const HandleSingleListing = (id) => {
-    router.push(`/admin/listings/${id}`)
+    router.push(`/admin/listings/${id}`);
   };
 
   return (
     <>
-      <HeadingTitle
-        title={"Listings"}
-        icon={<BsHouse size={30} />}
-      />
+      <HeadingTitle title={"Listings"} icon={<BsHouse size={30} />} />
       <div className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
-        <div className="col-span-2 grid grid-cols-2 gap-2 border-b border-b-[var(--primary)]">
+        <div className="col-span-2 grid grid-cols-2 gap-2 ">
           <Select
             value={{ value: searchCriteria, label: searchCriteria }}
             onChange={handleSearchCriteriaChange}
@@ -154,7 +185,10 @@ export default function Listings() {
               placeholder={"Search"}
               className="input-filter w-full px-3 py-2 !pr-8 border rounded-md"
             />
-            <BsSearch size={14} className="absolute right-2 top-3 text-primary" />
+            <BsSearch
+              size={14}
+              className="absolute right-2 top-3 text-primary"
+            />
           </div>
         </div>
 
@@ -174,9 +208,16 @@ export default function Listings() {
 
         {/* Listing Type */}
         <Select
-          value={listing_options().find(opt => opt.value === filters?.listing_type) || null}
+          value={
+            listing_options().find(
+              (opt) => opt.value === filters?.listing_type
+            ) || null
+          }
           onChange={(opt) =>
-            setFilters((prev) => ({ ...prev, listing_type: opt?.value || null }))
+            setFilters((prev) => ({
+              ...prev,
+              listing_type: opt?.value || null,
+            }))
           }
           options={listing_options()}
           placeholder={"Listing type"}
@@ -187,9 +228,16 @@ export default function Listings() {
 
         {/* Property Type */}
         <Select
-          value={property_options().find(opt => opt.value === filters?.property_type) || null}
+          value={
+            property_options().find(
+              (opt) => opt.value === filters?.property_type
+            ) || null
+          }
           onChange={(opt) =>
-            setFilters((prev) => ({ ...prev, property_type: opt?.value || null }))
+            setFilters((prev) => ({
+              ...prev,
+              property_type: opt?.value || null,
+            }))
           }
           options={property_options()}
           placeholder={"Property type"}
@@ -200,7 +248,10 @@ export default function Listings() {
 
         {/* Bedrooms */}
         <Select
-          value={enquiry_options().find(opt => opt.value === filters?.bedrooms) || null}
+          value={
+            enquiry_options().find((opt) => opt.value === filters?.bedrooms) ||
+            null
+          }
           onChange={(opt) =>
             setFilters((prev) => ({ ...prev, bedrooms: opt?.value || null }))
           }
@@ -219,7 +270,10 @@ export default function Listings() {
               type="checkbox"
               checked={filters.is_featured === 1}
               onChange={(e) =>
-                setFilters({ ...filters, is_featured: e.target.checked ? 1 : 2 })
+                setFilters({
+                  ...filters,
+                  is_featured: e.target.checked ? 1 : 2,
+                })
               }
               className="sr-only peer"
             />
@@ -238,7 +292,10 @@ export default function Listings() {
               type="checkbox"
               checked={filters.listing_status === 1}
               onChange={(e) =>
-                setFilters({ ...filters, listing_status: e.target.checked ? 1 : 2 })
+                setFilters({
+                  ...filters,
+                  listing_status: e.target.checked ? 1 : 2,
+                })
               }
               className="sr-only peer"
             />
@@ -257,11 +314,14 @@ export default function Listings() {
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
             {listing?.map((listing, index) => (
-              <div key={index} className="bg-white shadow-sm rounded-xl overflow-hidden">
+              <div
+                key={index}
+                className="bg-white shadow-sm rounded-xl overflow-hidden"
+              >
                 <div className="relative overflow-hidden p-0">
                   {/* FEATURED */}
                   {listing?.is_featured == 1 && (
-                    <div className="absolute top-4 left-4 z-1">
+                    <div className="absolute top-4 left-4 ">
                       <PiStarDuotone size={20} color={"#FFD700"} />
                     </div>
                   )}
@@ -272,7 +332,7 @@ export default function Listings() {
                           src={listing?.banner_img}
                           alt="secondary"
                           className="w-full h-[200px] object-cover"
-                        // onClick={() => handleImageClick(listing?.banner_img)}
+                          // onClick={() => handleImageClick(listing?.banner_img)}
                         />
                       ) : (
                         <img
@@ -312,21 +372,18 @@ export default function Listings() {
                       className="p-4 flex flex-col gap-1 cursor-pointer"
                     >
                       <h1 className="text-lg font-bold capitalize flex items-center flex-wrap">
-                        {listing?.currency && listing?.price
-                          ? (
-                            <>
-                              {listing.currency} {formatPrice(listing.price)}
-                              {listing?.is_start_price === 1 && (
-                                <PiPlusBold size={14} />
-                              )}
-                            </>
-                          )
-                          : (
-                            <span className="text-gray-500 font-normal">
-                              Unavailable
-                            </span>
-                          )
-                        }
+                        {listing?.currency && listing?.price ? (
+                          <>
+                            {listing.currency} {formatPrice(listing.price)}
+                            {listing?.is_start_price === 1 && (
+                              <PiPlusBold size={14} />
+                            )}
+                          </>
+                        ) : (
+                          <span className="text-gray-500 font-normal">
+                            Unavailable
+                          </span>
+                        )}
                       </h1>
 
                       <div className="text-primary text-base font-bold">
@@ -358,7 +415,10 @@ export default function Listings() {
                         </div>
 
                         <div className="grid grid-cols-8 gap-4 items-center">
-                          <PiBathtubDuotone className="text-primary" size={16} />
+                          <PiBathtubDuotone
+                            className="text-primary"
+                            size={16}
+                          />
                           <p className="col-span-7">
                             {listing?.bathrooms === "null"
                               ? ""
@@ -397,10 +457,14 @@ export default function Listings() {
               <button
                 disabled={currentPage === 1}
                 onClick={() => {
-                  setCurrentPage(prev => Math.max(prev - 1, 1));
+                  setCurrentPage((prev) => Math.max(prev - 1, 1));
                   SearchListings(currentPage - 1);
                 }}
-                className={`p-2 rounded-full border ${currentPage === 1 ? 'text-gray-500 border-gray-500' : 'cursor-pointer border-primary text-primary'}`}
+                className={`p-2 rounded-full border ${
+                  currentPage === 1
+                    ? "text-gray-500 border-gray-500"
+                    : "cursor-pointer border-primary text-primary"
+                }`}
               >
                 <BsChevronBarLeft size={16} />
               </button>
@@ -412,7 +476,11 @@ export default function Listings() {
                     setCurrentPage(index + 1);
                     SearchListings(index + 1);
                   }}
-                  className={`h-10 w-10 rounded-full aspect-square flex items-center justify-center ${currentPage === index + 1 ? 'bg-primary text-white' : 'cursor-pointer bg-white/50 text-primary border border-primary'}`}
+                  className={`h-10 w-10 rounded-full aspect-square flex items-center justify-center ${
+                    currentPage === index + 1
+                      ? "bg-primary text-white"
+                      : "cursor-pointer bg-white/50 text-primary border border-primary"
+                  }`}
                 >
                   {index + 1}
                 </button>
@@ -421,16 +489,19 @@ export default function Listings() {
               <button
                 disabled={currentPage === lastPage}
                 onClick={() => {
-                  setCurrentPage(prev => Math.min(prev + 1, lastPage));
+                  setCurrentPage((prev) => Math.min(prev + 1, lastPage));
                   SearchListings(currentPage + 1);
                 }}
-                className={`p-2 rounded-full border ${currentPage === lastPage ? 'text-gray-500 border-gray-500' : 'cursor-pointer border-primary text-primary'}`}
+                className={`p-2 rounded-full border ${
+                  currentPage === lastPage
+                    ? "text-gray-500 border-gray-500"
+                    : "cursor-pointer border-primary text-primary"
+                }`}
               >
                 <BsChevronBarRight size={16} />
               </button>
             </div>
           )}
-
         </>
       ) : (
         <p className="text-center py-10">No listings found</p>

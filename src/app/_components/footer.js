@@ -87,7 +87,7 @@ const Footer = () => {
         </div>
 
         <div className="w-[100vw] flex items-center justify-center">
-          <div className="text-[19vw] font-bold relative leading-none m-0 p-0">
+          <div className="text-[19vw] font-bold relative  m-0 p-0">
             REDESTATE
           </div>
         </div>
@@ -107,7 +107,7 @@ const Footer = () => {
               DODEAL
             </Link>
           </div>
-          <div className="order-0 lg:order-1 flex justify-center gap-4 lg:justify-end">
+          <div className="order-0 lg:order-1 flex justify-center gap-4 lg:justify-end items-center">
             {termsLinks?.map((link, ind) => {
               return (
                 <Link key={ind} href={link?.link}>

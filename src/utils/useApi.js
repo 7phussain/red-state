@@ -68,10 +68,6 @@
 
 // export default useApi;
 
-
-
-
-
 // src/utils/useApi.js
 import { useCallback } from "react";
 import axios from "axios";
@@ -82,16 +78,18 @@ const useApi = () => {
   const fetchData = useCallback(async (url, options = {}, callBack) => {
     let response = null;
     let error = null;
-    const token = typeof window !== "undefined" ? localStorage.getItem("auth-token") : null;
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("auth-token") : null;
 
     // Determine if method requires a body
     const method = (options.method || "GET").toUpperCase();
     const hasBody = ["POST", "PUT", "PATCH", "DELETE"].includes(method);
 
     // Log request details
-    const requestBody = hasBody && options.body instanceof FormData
-      ? Object.fromEntries(options.body.entries())
-      : hasBody
+    const requestBody =
+      hasBody && options.body instanceof FormData
+        ? Object.fromEntries(options.body.entries())
+        : hasBody
         ? options.body
         : null;
     console.log("API Request Preparing:", {
@@ -124,8 +122,13 @@ const useApi = () => {
       callBack(response, true);
     } catch (err) {
       error = err.response?.data || { message: "Request failed" };
-      console.error("API Error:", error);
+      console.error("API Error:", err.status);
+      if (err.status == 401) {
+        localStorage.removeItem("auth-token");
+        window.location.href = "/admin";
+      }
       callBack(error, false);
+      // console.log(err.status, "error in response");
     }
 
     return { response, error };
