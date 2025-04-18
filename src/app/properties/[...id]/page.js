@@ -16,9 +16,8 @@ import formatPrice from "@/app/_functions/formatPrice";
 import { LuDot } from "react-icons/lu";
 
 const SingleProperty = () => {
-
   const router = useRouter();
-  
+
   const { id } = useParams();
   const [propertyDetails, setPropertyDetails] = useState({});
   const { fetchData } = useApi();
@@ -78,7 +77,7 @@ const SingleProperty = () => {
   }, [id]);
 
   return (
-    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}>
       <div className="flex flex-col gap-5 py-5 my-5">
         <div className="grid lg:grid-cols-2 grid-cols-1 gap-2 px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px] py-5 mt-5">
           <div className={`w-full h-full object-cover`}>
@@ -173,9 +172,7 @@ const SingleProperty = () => {
                   <div className="flex flex-col gap-1 py-4">
                     {item?.price && (
                       <h4 className="text-primary font-bold text-2xl">
-                        {item?.currency}
-                        {" "}
-                        {formatPrice(item?.price)}
+                        {item?.currency} {formatPrice(item?.price)}
                       </h4>
                     )}
                     <h5 className="text-primary font-semibold text-base underline">

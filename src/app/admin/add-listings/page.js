@@ -5,10 +5,28 @@ import Image from "next/image";
 import { LoadScript } from "@react-google-maps/api";
 import formatPrice from "@/app/_functions/formatPrice";
 import HeadingTitle from "@/app/_components/HeadingTitle";
-import { BsDot, BsHouse, BsHouseAdd, BsHouseGear, BsImage, BsPen, BsPersonAdd } from "react-icons/bs";
+import {
+  BsDot,
+  BsHouse,
+  BsHouseAdd,
+  BsHouseGear,
+  BsImage,
+  BsPen,
+  BsPersonAdd,
+} from "react-icons/bs";
 import { selectStyles } from "@/app/_components/selectStyles";
 import { FaStar } from "react-icons/fa6";
-import { PiBathtubDuotone, PiBedDuotone, PiBuildingDuotone, PiCurrencyCircleDollarDuotone, PiMapPinDuotone, PiShovelDuotone, PiTagDuotone, PiVectorTwoDuotone, PiX } from "react-icons/pi";
+import {
+  PiBathtubDuotone,
+  PiBedDuotone,
+  PiBuildingDuotone,
+  PiCurrencyCircleDollarDuotone,
+  PiMapPinDuotone,
+  PiShovelDuotone,
+  PiTagDuotone,
+  PiVectorTwoDuotone,
+  PiX,
+} from "react-icons/pi";
 import { currencies, size_unit } from "@/app/_components/selectOptions";
 import useCurrencyInfo from "@/app/_functions/currencyConverter";
 import GoogleMaps from "@/app/_components/map";
@@ -76,11 +94,10 @@ const AddListing = () => {
     // Implement if MultiStepForm requires it
     console.log("Fetching listing details...");
   };
-  
 
   return (
     <>
-      {/* <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}> */}
+      {/* <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}> */}
       <div className="flex flex-col gap-5">
         <HeadingTitle
           icon={<BsHouseGear size={30} />}

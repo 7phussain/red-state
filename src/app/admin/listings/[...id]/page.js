@@ -275,8 +275,8 @@
 
 //   return (
 //     <>
-//       {/* <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}> */}
-//       {/* <LoadScriptNext googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}> */}
+//       {/* <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}> */}
+//       {/* <LoadScriptNext googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}> */}
 //       <div className="flex flex-col gap-5">
 //         <HeadingTitle
 //           icon={<BsHouse size={30} />}
@@ -565,7 +565,6 @@
 
 // export default SingleListing;
 
-
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
@@ -576,10 +575,27 @@ import Image from "next/image";
 import { LoadScriptNext } from "@react-google-maps/api";
 import formatPrice from "@/app/_functions/formatPrice";
 import HeadingTitle from "@/app/_components/HeadingTitle";
-import { BsDot, BsHouse, BsHouseAdd, BsImage, BsPen, BsPersonAdd, BsUpload } from "react-icons/bs";
+import {
+  BsDot,
+  BsHouse,
+  BsHouseAdd,
+  BsImage,
+  BsPen,
+  BsPersonAdd,
+  BsUpload,
+} from "react-icons/bs";
 import { selectStyles } from "@/app/_components/selectStyles";
 import { FaStar } from "react-icons/fa6";
-import { PiBathtubDuotone, PiBedDuotone, PiBuildingDuotone, PiCurrencyCircleDollarDuotone, PiMapPinDuotone, PiShovelDuotone, PiTagDuotone, PiVectorTwoDuotone } from "react-icons/pi";
+import {
+  PiBathtubDuotone,
+  PiBedDuotone,
+  PiBuildingDuotone,
+  PiCurrencyCircleDollarDuotone,
+  PiMapPinDuotone,
+  PiShovelDuotone,
+  PiTagDuotone,
+  PiVectorTwoDuotone,
+} from "react-icons/pi";
 import { currencies, size_unit } from "@/app/_components/selectOptions";
 import useCurrencyInfo from "@/app/_functions/currencyConverter";
 import GoogleMaps from "@/app/_components/map";
@@ -869,9 +885,15 @@ const SingleListing = () => {
       <div className="relative">
         <div className="absolute top-3 right-3 flex items-center gap-2 bg-black/50 backdrop-blur-sm p-2 rounded-xl">
           <FaStar size={16} color={"#FFD700"} />
-          <h3 className="text-xs font-semibold uppercase text-white">Featured</h3>
+          <h3 className="text-xs font-semibold uppercase text-white">
+            Featured
+          </h3>
         </div>
-        <div className={`w-full flex items-center gap-1 overflow-x-scroll ${propertyDetails?.banner_img && "h-[240px]"}`}>
+        <div
+          className={`w-full flex items-center gap-1 overflow-x-scroll ${
+            propertyDetails?.banner_img && "h-[240px]"
+          }`}
+        >
           {propertyDetails?.banner_img ? (
             <img
               onClick={() =>
@@ -914,7 +936,9 @@ const SingleListing = () => {
         </h1>
         <div
           className={`${
-            propertyDetails?.listing_status === "1" ? "bg-green-600" : "bg-red-600"
+            propertyDetails?.listing_status === "1"
+              ? "bg-green-600"
+              : "bg-red-600"
           } rounded-xl text-white text-[10px] px-2 py-1`}
         >
           {propertyDetails?.listing_status === "1" ? "ACTIVE" : "INACTIVE"}
@@ -968,7 +992,8 @@ const SingleListing = () => {
           <div className="grid grid-cols-7 items-center gap-4">
             <PiMapPinDuotone size={16} className="text-primary" />
             <h6 className="col-span-6">
-              {propertyDetails?.area} | {propertyDetails?.city} | {propertyDetails?.country}
+              {propertyDetails?.area} | {propertyDetails?.city} |{" "}
+              {propertyDetails?.country}
             </h6>
           </div>
           <div className="grid grid-cols-7 items-center gap-4">
@@ -985,7 +1010,8 @@ const SingleListing = () => {
                   label: curr.label,
                 }))}
                 value={currencies()?.filter(
-                  (curr) => curr?.value?.toLowerCase() === currConvertor?.toLowerCase()
+                  (curr) =>
+                    curr?.value?.toLowerCase() === currConvertor?.toLowerCase()
                 )}
                 onChange={(e) => convert(e)}
                 placeholder="Currency"

@@ -37,7 +37,7 @@ const containerStyle = {
 
 const GoogleMaps = ({ lat, lon }) => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
   });
 
   if (!isLoaded) return <p>Loading map...</p>;

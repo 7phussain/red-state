@@ -7,12 +7,21 @@ import useApi from "@/utils/useApi";
 import dynamic from "next/dynamic";
 
 const IMG_BASE_URL = process.env.NEXT_PUBLIC_IMG_BASE_URL;
-const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
 
 // Dynamically import Google Maps components to avoid SSR issues
-const LoadScript = dynamic(() => import("@react-google-maps/api").then((mod) => mod.LoadScript), { ssr: false });
-const GoogleMap = dynamic(() => import("@react-google-maps/api").then((mod) => mod.GoogleMap), { ssr: false });
-const Marker = dynamic(() => import("@react-google-maps/api").then((mod) => mod.Marker), { ssr: false });
+const LoadScript = dynamic(
+  () => import("@react-google-maps/api").then((mod) => mod.LoadScript),
+  { ssr: false }
+);
+const GoogleMap = dynamic(
+  () => import("@react-google-maps/api").then((mod) => mod.GoogleMap),
+  { ssr: false }
+);
+const Marker = dynamic(
+  () => import("@react-google-maps/api").then((mod) => mod.Marker),
+  { ssr: false }
+);
 
 export default function Nearbies() {
   const router = useRouter();
@@ -21,7 +30,11 @@ export default function Nearbies() {
   const [nearbies, setNearbies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [deleteConfirm, setDeleteConfirm] = useState({ open: false, id: null, name: "" });
+  const [deleteConfirm, setDeleteConfirm] = useState({
+    open: false,
+    id: null,
+    name: "",
+  });
   const [isDeleting, setIsDeleting] = useState(false);
   const [mapError, setMapError] = useState(null);
 
@@ -45,10 +58,13 @@ export default function Nearbies() {
               console.log("Default selected location:", response.data.data[0]);
             }
           } else {
-            toast.error(response?.message || "Failed to fetch nearby locations", {
-              position: "top-right",
-              autoClose: 3000,
-            });
+            toast.error(
+              response?.message || "Failed to fetch nearby locations",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
           }
         }
       );
@@ -56,8 +72,8 @@ export default function Nearbies() {
       console.error("Error fetching nearby locations:", error);
       toast.error(
         error.response?.data?.message ||
-        error.message ||
-        "Something went wrong!",
+          error.message ||
+          "Something went wrong!",
         {
           position: "top-right",
           autoClose: 3000,
@@ -74,7 +90,10 @@ export default function Nearbies() {
 
   // Log API key for debugging
   useEffect(() => {
-    console.log("GOOGLE_MAPS_API_KEY:", GOOGLE_MAPS_API_KEY ? "Present" : "Missing");
+    console.log(
+      "GOOGLE_MAPS_API_KEY:",
+      GOOGLE_MAPS_API_KEY ? "Present" : "Missing"
+    );
   }, []);
 
   const parseLatLong = (latlong) => {
@@ -122,8 +141,13 @@ export default function Nearbies() {
             setDeleteConfirm({ open: false, id: null, name: "" });
             if (selectedLocation?.id === id) {
               // Select first remaining location or clear
-              setSelectedLocation(updatedNearbies.length > 0 ? updatedNearbies[0] : null);
-              console.log("Post-delete selected location:", updatedNearbies.length > 0 ? updatedNearbies[0] : null);
+              setSelectedLocation(
+                updatedNearbies.length > 0 ? updatedNearbies[0] : null
+              );
+              console.log(
+                "Post-delete selected location:",
+                updatedNearbies.length > 0 ? updatedNearbies[0] : null
+              );
             }
           } else {
             throw new Error(response?.message || "Failed to delete location");
@@ -134,8 +158,8 @@ export default function Nearbies() {
       console.error("Error deleting location:", error);
       toast.error(
         error.response?.data?.message ||
-        error.message ||
-        "Something went wrong!",
+          error.message ||
+          "Something went wrong!",
         {
           position: "top-right",
           autoClose: 3000,
@@ -177,7 +201,12 @@ export default function Nearbies() {
           >
             <GoogleMap
               mapContainerStyle={mapStyles}
-              center={selectedLocation ? parseLatLong(selectedLocation.latlong) || parseLatLong(nearbies[0]?.latlong) : parseLatLong(nearbies[0]?.latlong)}
+              center={
+                selectedLocation
+                  ? parseLatLong(selectedLocation.latlong) ||
+                    parseLatLong(nearbies[0]?.latlong)
+                  : parseLatLong(nearbies[0]?.latlong)
+              }
               zoom={13}
               options={{
                 disableDefaultUI: false,
@@ -197,17 +226,17 @@ export default function Nearbies() {
         )}
       </div>
       <div className="md:hidden fixed md:relative h-[50vh] md:h-full top-1/2 md:top-none left-0 md:left-none w-full flex flex-col gap-4 p-5 overflow-y-scroll overflow-x-hidden">
-        <div className="z-1 hidden md:flex w-fit !bg-white rounded-xl flex items-center gap-4 z-1 px-5 py-4"
+        <div
+          className="z-1 hidden md:flex w-fit !bg-white rounded-xl flex items-center gap-4 z-1 px-5 py-4"
           style={{
-            background: "linear-gradient(to bottom left, rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 0.2), rgba(202, 30, 46, 0.6)"
+            background:
+              "linear-gradient(to bottom left, rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 0.2), rgba(202, 30, 46, 0.6)",
           }}
         >
           <div className="text-primary">
             <BsPin size={30} />
           </div>
-          <h4 className="text-lg font-semibold">
-            Locations
-          </h4>
+          <h4 className="text-lg font-semibold">Locations</h4>
         </div>
         {/* Results */}
         {loading ? (
@@ -218,38 +247,57 @@ export default function Nearbies() {
               {nearbies.map((nearby, index) => (
                 <div
                   key={index}
-                  className={`cursor-pointer rounded-xl overflow-hidden shadow-sm p-4 ${selectedLocation?.id === nearby.id
-                    ? "bg-primary text-white shadow-md"
-                    : "bg-white text-black"
-                    }`}
+                  className={`cursor-pointer rounded-xl overflow-hidden shadow-sm p-4 ${
+                    selectedLocation?.id === nearby.id
+                      ? "bg-primary text-white shadow-md"
+                      : "bg-white text-black"
+                  }`}
                   onClick={() => handleSelectLocation(nearby)}
                 >
                   <div className="flex flex-col gap-3">
-                    <div className={`text-base font-bold ${selectedLocation?.id === nearby.id ? "text-white" : "text-primary"}`}>
+                    <div
+                      className={`text-base font-bold ${
+                        selectedLocation?.id === nearby.id
+                          ? "text-white"
+                          : "text-primary"
+                      }`}
+                    >
                       {nearby.name}
                     </div>
                     <div className="grid grid-cols-7 items-center gap-2">
                       <BsPin
                         size={14}
-                        className={selectedLocation?.id === nearby.id ? "text-white" : "text-primary"}
+                        className={
+                          selectedLocation?.id === nearby.id
+                            ? "text-white"
+                            : "text-primary"
+                        }
                       />
                       <p className="col-span-6">
                         {nearby.area} - {nearby.city} - {nearby.country}
                       </p>
-                    </div><div className="grid grid-cols-7 items-center gap-2">
+                    </div>
+                    <div className="grid grid-cols-7 items-center gap-2">
                       <BsChatDots
                         size={14}
-                        className={selectedLocation?.id === nearby.id ? "text-white" : "text-primary"}
+                        className={
+                          selectedLocation?.id === nearby.id
+                            ? "text-white"
+                            : "text-primary"
+                        }
                       />
-                      <p className="col-span-6">
-                        {nearby?.notes}
-                      </p>
+                      <p className="col-span-6">{nearby?.notes}</p>
                     </div>
                     <div className="w-full flex items-center justify-end gap-2 z-2">
                       <button
-                        onClick={() => openDeleteConfirm(nearby.id, nearby.name)}
-                        className={`p-2 rounded-full cursor-pointer ${selectedLocation?.id === nearby.id ? "border-white bg-white text-primary hover:shadow-md" : "text-white bg-primary hover:shadow-md"
-                          }`}
+                        onClick={() =>
+                          openDeleteConfirm(nearby.id, nearby.name)
+                        }
+                        className={`p-2 rounded-full cursor-pointer ${
+                          selectedLocation?.id === nearby.id
+                            ? "border-white bg-white text-primary hover:shadow-md"
+                            : "text-white bg-primary hover:shadow-md"
+                        }`}
                         title="Delete"
                       >
                         <BsTrash size={14} />
@@ -266,17 +314,17 @@ export default function Nearbies() {
       </div>
       {/* DESKTOP */}
       <div className="hidden md:flex">
-        <div className="z-1 flex w-fit h-fit !bg-white rounded-xl flex items-center gap-4 z-1 px-5 py-4"
+        <div
+          className="z-1 flex w-fit h-fit !bg-white rounded-xl flex items-center gap-4 z-1 px-5 py-4"
           style={{
-            background: "linear-gradient(to bottom left, rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 0.2), rgba(202, 30, 46, 0.6)"
+            background:
+              "linear-gradient(to bottom left, rgba(202, 30, 46, 0.6), rgba(202, 30, 46, 0.2), rgba(202, 30, 46, 0.6)",
           }}
         >
           <div className="text-primary">
             <BsPin size={30} />
           </div>
-          <h4 className="text-lg font-semibold">
-            Locations
-          </h4>
+          <h4 className="text-lg font-semibold">Locations</h4>
         </div>
 
         {/* Results */}
@@ -290,38 +338,57 @@ export default function Nearbies() {
                 {nearbies.map((nearby, index) => (
                   <div
                     key={index}
-                    className={`cursor-pointer rounded-xl overflow-hidden shadow-sm p-4 ${selectedLocation?.id === nearby.id
-                      ? "bg-primary text-white shadow-md"
-                      : "bg-white text-black"
-                      }`}
+                    className={`cursor-pointer rounded-xl overflow-hidden shadow-sm p-4 ${
+                      selectedLocation?.id === nearby.id
+                        ? "bg-primary text-white shadow-md"
+                        : "bg-white text-black"
+                    }`}
                     onClick={() => handleSelectLocation(nearby)}
                   >
                     <div className="flex flex-col gap-3">
-                      <div className={`text-base font-bold ${selectedLocation?.id === nearby.id ? "text-white" : "text-primary"}`}>
+                      <div
+                        className={`text-base font-bold ${
+                          selectedLocation?.id === nearby.id
+                            ? "text-white"
+                            : "text-primary"
+                        }`}
+                      >
                         {nearby.name}
                       </div>
                       <div className="grid grid-cols-7 items-center gap-2">
                         <BsPin
                           size={14}
-                          className={selectedLocation?.id === nearby.id ? "text-white" : "text-primary"}
+                          className={
+                            selectedLocation?.id === nearby.id
+                              ? "text-white"
+                              : "text-primary"
+                          }
                         />
                         <p className="col-span-6">
                           {nearby.area} - {nearby.city} - {nearby.country}
                         </p>
-                      </div><div className="grid grid-cols-7 items-center gap-2">
+                      </div>
+                      <div className="grid grid-cols-7 items-center gap-2">
                         <BsChatDots
                           size={14}
-                          className={selectedLocation?.id === nearby.id ? "text-white" : "text-primary"}
+                          className={
+                            selectedLocation?.id === nearby.id
+                              ? "text-white"
+                              : "text-primary"
+                          }
                         />
-                        <p className="col-span-6">
-                          {nearby?.notes}
-                        </p>
+                        <p className="col-span-6">{nearby?.notes}</p>
                       </div>
                       <div className="w-full flex items-center justify-end gap-2 z-2">
                         <button
-                          onClick={() => openDeleteConfirm(nearby.id, nearby.name)}
-                          className={`p-2 rounded-full cursor-pointer ${selectedLocation?.id === nearby.id ? "border-white bg-white text-primary hover:shadow-md" : "text-white bg-primary hover:shadow-md"
-                            }`}
+                          onClick={() =>
+                            openDeleteConfirm(nearby.id, nearby.name)
+                          }
+                          className={`p-2 rounded-full cursor-pointer ${
+                            selectedLocation?.id === nearby.id
+                              ? "border-white bg-white text-primary hover:shadow-md"
+                              : "text-white bg-primary hover:shadow-md"
+                          }`}
                           title="Delete"
                         >
                           <BsTrash size={14} />
@@ -352,14 +419,18 @@ export default function Nearbies() {
                 <span>?</span>
               </h1>
 
-              <form onSubmit={(e) => handleDelete(e, deleteConfirm.id)} className="w-full">
+              <form
+                onSubmit={(e) => handleDelete(e, deleteConfirm.id)}
+                className="w-full"
+              >
                 <div className="p-5 flex flex-col w-full gap-5">
                   <div className="flex items-center justify-center gap-4">
                     <button
                       type="submit"
                       disabled={isDeleting}
-                      className={`bg-primary text-white px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-dark ${isDeleting ? "opacity-50 cursor-not-allowed" : ""
-                        }`}
+                      className={`bg-primary text-white px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-primary-dark ${
+                        isDeleting ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                     >
                       {isDeleting ? (
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
