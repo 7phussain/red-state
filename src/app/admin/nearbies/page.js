@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { BsChatDots, BsPin, BsTrash } from "react-icons/bs";
 import useApi from "@/utils/useApi";
 import dynamic from "next/dynamic";
+import { useJsApiLoader } from "@react-google-maps/api";
 
 const IMG_BASE_URL = process.env.NEXT_PUBLIC_IMG_BASE_URL;
 const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_API_KEY;
@@ -37,6 +38,13 @@ export default function Nearbies() {
   });
   const [isDeleting, setIsDeleting] = useState(false);
   const [mapError, setMapError] = useState(null);
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "",
+    libraries: ["places"],
+  });
+  // if (typeof window === "undefined" || !window?.google?.maps) {
+  //   return null;
+  // }
 
   const fetchNearbies = async () => {
     try {
@@ -187,42 +195,44 @@ export default function Nearbies() {
     width: "100%",
   };
 
-  return (
+  return typeof window === "undefined" || !window?.google?.maps ? (
+    <p>Loading Google Maps...</p>
+  ) : (
     <>
       <div className="fixed h-[50vh] w-[100vw] md:h-[100vh] top-0 left-0 flex items-center justify-center">
         {GOOGLE_MAPS_API_KEY && (
-          <LoadScript
-            googleMapsApiKey={GOOGLE_MAPS_API_KEY}
-            onLoad={() => console.log("Google Maps script loaded")}
+          // <LoadScript
+          //   googleMapsApiKey={GOOGLE_MAPS_API_KEY}
+          //   onLoad={() => console.log("Google Maps script loaded")}
+          //   onError={(error) => {
+          //     console.error("LoadScript error:", error);
+          //     setMapError("Failed to load Google Maps");
+          //   }}
+          // >
+          <GoogleMap
+            mapContainerStyle={mapStyles}
+            center={
+              selectedLocation
+                ? parseLatLong(selectedLocation.latlong) ||
+                  parseLatLong(nearbies[0]?.latlong)
+                : parseLatLong(nearbies[0]?.latlong)
+            }
+            zoom={13}
+            options={{
+              disableDefaultUI: false,
+              zoomControl: true,
+            }}
+            onLoad={() => console.log("GoogleMap component loaded")}
             onError={(error) => {
-              console.error("LoadScript error:", error);
-              setMapError("Failed to load Google Maps");
+              console.error("GoogleMap error:", error);
+              setMapError("Failed to render map");
             }}
           >
-            <GoogleMap
-              mapContainerStyle={mapStyles}
-              center={
-                selectedLocation
-                  ? parseLatLong(selectedLocation.latlong) ||
-                    parseLatLong(nearbies[0]?.latlong)
-                  : parseLatLong(nearbies[0]?.latlong)
-              }
-              zoom={13}
-              options={{
-                disableDefaultUI: false,
-                zoomControl: true,
-              }}
-              onLoad={() => console.log("GoogleMap component loaded")}
-              onError={(error) => {
-                console.error("GoogleMap error:", error);
-                setMapError("Failed to render map");
-              }}
-            >
-              {selectedLocation && parseLatLong(selectedLocation.latlong) && (
-                <Marker position={parseLatLong(selectedLocation.latlong)} />
-              )}
-            </GoogleMap>
-          </LoadScript>
+            {selectedLocation && parseLatLong(selectedLocation.latlong) && (
+              <Marker position={parseLatLong(selectedLocation.latlong)} />
+            )}
+          </GoogleMap>
+          // </LoadScript>
         )}
       </div>
       <div className="md:hidden fixed md:relative h-[50vh] md:h-full top-1/2 md:top-none left-0 md:left-none w-full flex flex-col gap-4 p-5 overflow-y-scroll overflow-x-hidden">

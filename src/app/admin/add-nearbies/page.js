@@ -27,7 +27,9 @@ export default function AddNearby() {
   };
 
   const [nearByData, setNearByData] = useState(initialNearByData);
-  const [listingLocation, setListingLocation] = useState(initialListingLocation);
+  const [listingLocation, setListingLocation] = useState(
+    initialListingLocation
+  );
   const [loading, setLoading] = useState(false);
 
   // Log state changes
@@ -68,16 +70,29 @@ export default function AddNearby() {
     console.log("handleSubmit called with:", { nearByData, listingLocation });
 
     // Validate required fields
-    if (!nearByData.name || !nearByData.area || !nearByData.city || !nearByData.country) {
+    if (
+      !nearByData.name ||
+      !nearByData.area ||
+      !nearByData.city ||
+      !nearByData.country
+    ) {
       console.log("Validation failed: Missing required fields", nearByData);
-      toast.error("Please fill all required fields (Name, Area, City, Country)", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.error(
+        "Please fill all required fields (Name, Area, City, Country)",
+        {
+          position: "top-right",
+          autoClose: 3000,
+        }
+      );
       return;
     }
 
-    if (!listingLocation.lat || !listingLocation.lng || listingLocation.lat === 0 || listingLocation.lng === 0) {
+    if (
+      !listingLocation.lat ||
+      !listingLocation.lng ||
+      listingLocation.lat === 0 ||
+      listingLocation.lng === 0
+    ) {
       console.log("Validation failed: Invalid map location", listingLocation);
       toast.error("Please select a valid location on the map", {
         position: "top-right",
@@ -151,9 +166,7 @@ export default function AddNearby() {
           {/* Left Column: Form Inputs */}
           <div className="flex flex-col gap-6">
             <div className="relative">
-              <label htmlFor="name">
-                Location Name *
-              </label>
+              <label htmlFor="name">Location Name *</label>
               <input
                 id="name"
                 type="text"
@@ -166,9 +179,7 @@ export default function AddNearby() {
             </div>
 
             <div className="relative">
-              <label htmlFor="area">
-                Area *
-              </label>
+              <label htmlFor="area">Area *</label>
               <input
                 id="area"
                 type="text"
@@ -181,9 +192,7 @@ export default function AddNearby() {
             </div>
 
             <div className="relative">
-              <label htmlFor="city">
-                City *
-              </label>
+              <label htmlFor="city">City *</label>
               <input
                 id="city"
                 type="text"
@@ -196,9 +205,7 @@ export default function AddNearby() {
             </div>
 
             <div className="relative">
-              <label htmlFor="country">
-                Country *
-              </label>
+              <label htmlFor="country">Country *</label>
               <input
                 id="country"
                 type="text"
@@ -211,9 +218,7 @@ export default function AddNearby() {
             </div>
 
             <div className="relative">
-              <label htmlFor="notes">
-                Notes
-              </label>
+              <label htmlFor="notes">Notes</label>
               <textarea
                 id="notes"
                 className="input-filter w-full"

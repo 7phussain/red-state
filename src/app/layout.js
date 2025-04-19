@@ -31,7 +31,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <meta name="google-site-verification" content="5GDWX1MSrnVzEp4ZQKJ8j9aq1hoEF7uenPZQMmzYG8E" />
+        <meta
+          name="google-site-verification"
+          content="5GDWX1MSrnVzEp4ZQKJ8j9aq1hoEF7uenPZQMmzYG8E"
+        />
       </head>
 
       <body
@@ -39,9 +42,7 @@ export default function RootLayout({ children }) {
       >
         <ToastContainer position="top-right" autoClose={3000} />
         {/* <Navbar /> */}
-        <SubLayout>
-          {children}
-        </SubLayout>
+        <SubLayout>{children}</SubLayout>
         {/* {children}
         <ContactUs />
         <Footer />
