@@ -36,11 +36,11 @@ const containerStyle = {
 };
 
 const GoogleMaps = ({ lat, lon }) => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
-  });
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+  // });
 
-  if (!isLoaded) return <p>Loading map...</p>;
+  // if (!isLoaded) return <p>Loading map...</p>;
 
   // Ensure lat and lon are numbers
   const latitude = Number(lat);
@@ -51,12 +51,14 @@ const GoogleMaps = ({ lat, lon }) => {
   }
 
   const center = { lat: latitude, lng: longitude };
-
-  return (
-    <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
-      <Marker position={center} />
-    </GoogleMap>
-  );
+  if (typeof window !== "undefined" && window.google) {
+    return (
+      <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={12}>
+        <Marker position={center} />
+      </GoogleMap>
+    );
+    return <></>;
+  }
 };
 
 export default GoogleMaps;
