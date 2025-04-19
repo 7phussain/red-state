@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { LuBedDouble, LuBath, LuMapPin, LuScale3D } from "react-icons/lu";
+import { PiCheckCircleDuotone } from "react-icons/pi"; // Import the same icon as ContactUs
 import GoogleMaps from "@/app/_components/map";
 import useApi from "@/utils/useApi";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { Link } from "next/link";
 import { useRouter } from "next/navigation";
 
-
 const Details = ({ propertyDetails }) => {
   const router = useRouter();
+  const { fetchData } = useApi();
   const { listing_attribute, meta_tags_for_listings, listing_attribute_type } =
     propertyDetails;
 
@@ -47,12 +48,12 @@ const Details = ({ propertyDetails }) => {
     note: "",
   });
 
-  const { fetchData } = useApi();
+  const [submissionStatus, setSubmissionStatus] = useState("idle"); // Add submission status state
   const [error, setError] = useState({ phone: "" });
   const [developerDetails, setDeveloperDetails] = useState(null);
 
   const validatePhone = (value) => {
-    const phoneNumber = parsePhoneNumberFromString(value, "US"); // Change "US" for different country codes
+    const phoneNumber = parsePhoneNumberFromString(value, "US");
     if (!phoneNumber || !phoneNumber.isValid()) {
       setError((pre) => ({ ...pre, phone: "Invalid phone number" }));
     } else {
@@ -61,10 +62,8 @@ const Details = ({ propertyDetails }) => {
     setFormData((pre) => ({ ...pre, phone: value }));
   };
 
-  // Fetch Developer Details if developer_id exists
   useEffect(() => {
     if (propertyDetails?.developer_id) {
-      // Fetch developer details using developer_id
       fetchData(`/developers/${propertyDetails.developer_id}`, { method: "GET" }, (res, status) => {
         if (status && res?.data) {
           setDeveloperDetails({
@@ -74,12 +73,10 @@ const Details = ({ propertyDetails }) => {
         }
       });
     } else if (propertyDetails?.developer) {
-      // Fetch developer details by searching with developer name
       fetchData(`/developers?developerName=${encodeURIComponent(propertyDetails.developer)}`, { method: "GET" }, (res, status) => {
-        // console.log("DEV RESPONSE: ", res);
         if (status && res?.data?.developers?.length) {
           setDeveloperDetails({
-            id: res.data?.developers[0].id, // Assuming the first match is the correct developer
+            id: res.data?.developers[0].id,
             logo: res.data?.developers[0].logo,
           });
         }
@@ -110,56 +107,56 @@ const Details = ({ propertyDetails }) => {
     const deviceType = navigator.userAgent;
     const fullUrl = window.location.href;
 
-    const data = {
-      leadName: formData.name,
-      leadContact: formData.phone,
-      leadEmail: formData.email,
-      developer: formData?.developer || propertyDetails?.developer,
-      project: formData?.project || propertyDetails?.project,
-      projectName: formData?.project || propertyDetails?.project,
-      enquiryType: formData?.bedrooms || propertyDetails?.bedrooms,
-      leadType: formData.leadType || propertyDetails?.property_type,
-      leadFor: formData.leadFor,
-      notes: `User Note: ${formData.note}`,
-      ip: ip,
-      device: deviceType,
-      filename: fullUrl
-    };
+    const emailMessage = `
+      <h1>New Property Inquiry</h1>
+      <p><strong>Name:</strong> ${formData.name}</p>
+      <p><strong>Phone:</strong> ${formData.phone}</p>
+      <p><strong>Email:</strong> ${formData.email}</p>
+      <p><strong>Developer:</strong> ${formData.developer || propertyDetails?.developer}</p>
+      <p><strong>Project:</strong> ${formData.project || propertyDetails?.project}</p>
+      <p><strong>Bedrooms:</strong> ${formData.bedrooms || propertyDetails?.bedrooms}</p>
+      <p><strong>Property Type:</strong> ${formData.leadType || propertyDetails?.property_type}</p>
+      <p><strong>Property For:</strong> ${formData.leadFor}</p>
+      <p><strong>Note:</strong> ${formData.note}</p>
+      <p><strong>User IP:</strong> ${ip || 'N/A'}</p>
+      <p><strong>Device:</strong> ${deviceType}</p>
+      <p><strong>URL:</strong> ${fullUrl}</p>
+    `;
+    const emailSubject = `New Property Inquiry from ${formData.name}`;
 
     try {
-      await fetchData(
-        "/create-lead",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: data, // Send FormData directly
+      const emailResponse = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        (response, status) => {
-          console.log('API Response:', response);
-          console.log('API Error Details:', response?.data);
+        body: JSON.stringify({
+          to: 'info@dodeal.com',
+          subject: emailSubject,
+          message: emailMessage,
+        }),
+      });
 
-          if (status) {
-            setFormData({
-              name: "",
-              email: "",
-              phone: "",
-              developer: "",
-              project: "",
-              bedrooms: "",
-              leadType: "",
-              leadFor: "Investment",
-              note: "",
-            });
-            alert("Form submitted successfully!");
-          } else {
-            alert("Error submitting form!");
-          }
-        }
-      );
+      const emailResult = await emailResponse.json();
+      if (!emailResponse.ok) {
+        throw new Error(emailResult.error || 'Failed to send email');
+      }
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        developer: "",
+        project: "",
+        bedrooms: "",
+        leadType: "",
+        leadFor: "Investment",
+        note: "",
+      });
+      setSubmissionStatus("success"); // Set status to success
     } catch (error) {
       console.error("Error:", error);
+      setSubmissionStatus("error"); // Set status to error
     }
   };
 
@@ -175,12 +172,13 @@ const Details = ({ propertyDetails }) => {
           {/* OVERVIEW */}
           <div className="flex flex-col gap-3 mb-5">
             <h3 className="text-xl font-semibold text-primary">Overview</h3>
-            <div className="p-5"
+            <div
+              className="p-5"
               style={{
                 gap: "40px",
                 borderRadius: "16px",
                 borderWidth: "1px",
-                border: "1px solid rgba(240, 240, 240, 1)"
+                border: "1px solid rgba(240, 240, 240, 1)",
               }}
             >
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
@@ -188,7 +186,9 @@ const Details = ({ propertyDetails }) => {
                   return (
                     <div
                       key={ind}
-                      className={`text-primary font-semibold flex gap-3 items-center ${item?.key === "location" && "lg:col-span-3"}`}
+                      className={`text-primary font-semibold flex gap-3 items-center ${
+                        item?.key === "location" && "lg:col-span-3"
+                      }`}
                     >
                       <span>{item?.icon}</span>
                       <span>{item?.title}</span>
@@ -202,12 +202,13 @@ const Details = ({ propertyDetails }) => {
           {/* NEARBY */}
           <div className="flex flex-col gap-3 mb-5">
             <h3 className="text-xl font-semibold text-primary">Nearby Locations</h3>
-            <div className="p-5"
+            <div
+              className="p-5"
               style={{
                 gap: "40px",
                 borderRadius: "16px",
                 borderWidth: "1px",
-                border: "1px solid rgba(240, 240, 240, 1)"
+                border: "1px solid rgba(240, 240, 240, 1)",
               }}
             >
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
@@ -235,30 +236,28 @@ const Details = ({ propertyDetails }) => {
               />
             </div>
           </div>
-
         </div>
+
         <div className="col-span-1 w-full flex flex-col">
-          <div className="p-5 w-fit lg:w-full"
+          <div
+            className="p-5 w-fit lg:w-full"
             style={{
               gap: "40px",
               borderRadius: "16px",
               borderWidth: "1px",
-              border: "1px solid rgba(240, 240, 240, 1)"
+              border: "1px solid rgba(240, 240, 240, 1)",
             }}
           >
             <div className="text-2xl md:text-3xl lg:text-4xl font-semibold text-primary">
               {propertyDetails?.is_start_price === 1 && (
-                <h3 className="">
-                  Starting from
-                </h3>
+                <h3 className="">Starting from</h3>
               )}
               <h3>
-                {propertyDetails?.currency}
-                {" "}
-                {propertyDetails?.price}
+                {propertyDetails?.currency} {propertyDetails?.price}
               </h3>
             </div>
           </div>
+
           {/* DEVELOPER PROFILE */}
           {developerDetails && (
             <div className="flex flex-col items-center justify-center p-5">
@@ -273,7 +272,8 @@ const Details = ({ propertyDetails }) => {
               />
               <div
                 onClick={() => router.push(`/developers/${developerDetails?.id || 2}`)}
-                className="border border-primary w-full text-primary py-3 rounded-full text-center cursor-pointer hover:bg-primary hover:text-white transition">
+                className="border border-primary w-full text-primary py-3 rounded-full text-center cursor-pointer hover:bg-primary hover:text-white transition"
+              >
                 View Developer Profile
               </div>
             </div>
@@ -288,132 +288,168 @@ const Details = ({ propertyDetails }) => {
               Reach our team to know more about your favourable unit.
             </p>
 
-            <div className="flex flex-col contact-us gap-4 text-primary border-primary  single_property">
-              <div className="flex flex-col gap-1">
-                <label htmlFor="" className="px-2">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  id=""
-                  placeholder="Your Name"
-                  className="rounded-full"
-                />
+            {submissionStatus === "success" ? (
+              <div className="text-center p-6 flex flex-col items-center justify-center gap-2">
+                <PiCheckCircleDuotone size={70} className="text-green-600" />
+                <p className="text-black">Thank you! Your enquiry has been submitted successfully.</p>
               </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="" className="px-2">Phone Number</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={(e) => validatePhone(e?.target.value)}
-                  id=""
-                  placeholder="+999"
-                  className="rounded-full"
-                />
-                {error?.phone && (
-                  <p className="text-white bg-primary p-2 ">{error?.phone}</p>
-                )}
-              </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="" className="px-2">Email Address</label>
-                <input
-                  type="text"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  id=""
-                  placeholder="Enter Your email address"
-                  className="rounded-full"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="hidden flex flex-col gap-2">
-                  <label htmlFor="" className="px-2">Developer</label>
+            ) : (
+              <div className="flex flex-col contact-us gap-4 text-primary border-primary single_property">
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="" className="px-2">
+                    Name
+                  </label>
                   <input
                     type="text"
-                    name="developer"
-                    value={propertyDetails?.developer}
-                    id="developer"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    id=""
+                    placeholder="Your Name"
                     className="rounded-full"
-                    readOnly
                   />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="px-2">Project</label>
+                  <label htmlFor="" className="px-2">
+                    Phone Number
+                  </label>
                   <input
-                    type="text"
-                    name="project"
-                    value={propertyDetails?.project}
-                    id="project"
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={(e) => validatePhone(e?.target.value)}
+                    id=""
+                    placeholder="+999"
                     className="rounded-full"
-                    readOnly
                   />
+                  {error?.phone && (
+                    <p className="text-white bg-primary p-2">{error?.phone}</p>
+                  )}
                 </div>
                 <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="px-2">Bedrooms</label>
+                  <label htmlFor="" className="px-2">
+                    Email Address
+                  </label>
                   <input
                     type="text"
-                    name="bedrooms"
-                    value={propertyDetails?.bedrooms}
-                    id="bedrooms"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    id=""
+                    placeholder="Enter Your email address"
                     className="rounded-full"
-                    readOnly
                   />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="px-2">Property Type</label>
-                  <input
-                    type="text"
-                    name="leadType"
-                    value={propertyDetails?.property_type}
-                    id="leadType"
-                    className="rounded-full"
-                    readOnly
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="" className="px-2">Property For</label>
-                  <div className={`rounded-full border border-primary px-4 py-[10px]`}>
-                    <select
-                      name="leadFor"
-                      value={formData.leadFor}
-                      onChange={handleChange}
-                      id="leadFor"
-                      className="w-full border-none outline-none"
-                    >
-                      <option value="Investment" className="text-black">
-                        Investment
-                      </option>
-                      <option value="End-user" className="text-black">
-                        End-user
-                      </option>
-                    </select>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="hidden flex flex-col gap-2">
+                    <label htmlFor="" className="px-2">
+                      Developer
+                    </label>
+                    <input
+                      type="text"
+                      name="developer"
+                      value={propertyDetails?.developer}
+                      id="developer"
+                      className="rounded-full"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="" className="px-2">
+                      Project
+                    </label>
+                    <input
+                      type="text"
+                      name="project"
+                      value={propertyDetails?.project}
+                      id="project"
+                      className="rounded-full"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="" className="px-2">
+                      Bedrooms
+                    </label>
+                    <input
+                      type="text"
+                      name="bedrooms"
+                      value={propertyDetails?.bedrooms}
+                      id="bedrooms"
+                      className="rounded-full"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="" className="px-2">
+                      Property Type
+                    </label>
+                    <input
+                      type="text"
+                      name="leadType"
+                      value={propertyDetails?.property_type}
+                      id="leadType"
+                      className="rounded-full"
+                      readOnly
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <label htmlFor="" className="px-2">
+                      Property For
+                    </label>
+                    <div className={`rounded-full border border-primary px-4 py-[10px]`}>
+                      <select
+                        name="leadFor"
+                        value={formData.leadFor}
+                        onChange={handleChange}
+                        id="leadFor"
+                        className="w-full border-none outline-none"
+                      >
+                        <option value="Investment" className="text-black">
+                          Investment
+                        </option>
+                        <option value="End-user" className="text-black">
+                          End-user
+                        </option>
+                      </select>
+                    </div>
                   </div>
                 </div>
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="" className="px-2">
+                    Note
+                  </label>
+                  <input
+                    type="text"
+                    name="note"
+                    value={formData.note}
+                    onChange={handleChange}
+                    id=""
+                    placeholder="Type Your Message"
+                    className="rounded-full"
+                  />
+                </div>
+                <button
+                  onClick={() => handleSubmit()}
+                  className="bg-primary text-white py-3 rounded-full cursor-pointer"
+                >
+                  Submit
+                </button>
+                {submissionStatus === "error" && (
+                  <div className="text-center flex justify-center rounded-sm">
+                    <p
+                      className="opacity-100 w-fit p-2"
+                      style={{
+                        background: "rgba(202, 30, 46, 0.5)",
+                      }}
+                    >
+                      Something went wrong! Please try again.
+                    </p>
+                  </div>
+                )}
               </div>
-              <div className="flex flex-col gap-1">
-                <label htmlFor="" className="px-2">Note</label>
-                <input
-                  type="text"
-                  name="note"
-                  value={formData.note}
-                  onChange={handleChange}
-                  id=""
-                  placeholder="Type Your Message"
-                  className="rounded-full"
-                />
-              </div>
-              <button
-                onClick={() => handleSubmit()}
-                className="bg-primary text-white py-3 rounded-full cursor-pointer"
-              >
-                Submit
-              </button>
-            </div>
+            )}
           </div>
-
         </div>
       </div>
     </>

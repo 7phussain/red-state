@@ -1,119 +1,6 @@
-// "use client";
-// import React from "react";
-// import { usePathname } from "next/navigation";
-
-// const ContactUs = () => {
-//   const pathname = usePathname();
-//   fetchData(
-//     `/form-submissions`,
-//     { method: "POST"  },
-//     (res, status) => {
-//       if (status) {
-//         setProperties(res?.data);
-//         setPagination(res?.pagination); // Store pagination info
-//         setCurrentPage(res?.pagination?.current_page);
-//       }
-//     }
-//   );
-//   https: return (
-//     <div
-//       style={{
-//         background:
-//           pathname !== "/contact-us" &&
-//           `
-//     linear-gradient(0deg, rgba(9, 12, 27, 0.4), rgba(9, 12, 27, 0.4)),
-//     linear-gradient(180deg, rgba(9, 12, 27, 0) 22.75%, #090C1B 87.07%),
-//     url(/contact_us.png)
-//   `,
-//         backgroundSize: "cover",
-//         backgroundPosition: "center",
-//         "--border-color":
-//           pathname !== "/contact-us" ? "white" : "var(--primary)",
-//       }}
-//       className={`grid grid-cols-2 py-8 px-[100px]  items-center ${
-//         pathname === "/contact-us" ? "text-primary" : "text-white"
-//       }`}
-//     >
-//       <div>
-//         <h4 className="text-5xl font-semibold mb-4">Contact Us</h4>
-//         <p className="font-normal">
-//           We’re here to help you with all your real estate needs.
-//         </p>
-//       </div>
-//       <form action="" className="flex flex-col contact-us gap-4">
-//         <div className="flex flex-col gap-3">
-//           <label htmlFor="">Name</label>
-//           <input
-//             type="text"
-//             name=""
-//             id=""
-//             placeholder="Your Name"
-//             className="rounded-full"
-//           />
-//         </div>
-//         <div className="flex flex-col gap-3">
-//           {" "}
-//           <label htmlFor="">Email</label>
-//           <input
-//             type="text"
-//             name=""
-//             id=""
-//             placeholder="Enter Your email"
-//             className="rounded-full"
-//           />
-//         </div>
-
-//         <div className="grid grid-cols-2 gap-4 items-center">
-//           <div className="flex flex-col gap-3">
-//             <label htmlFor="">Unit Type</label>
-//             <div
-//               className={`rounded-full border  ${
-//                 pathname === "/contact-us" ? "border-primary" : "border-white"
-//               } px-4 py-[10px]`}
-//             >
-//               <select
-//                 name=""
-//                 id=""
-//                 className=" w-full border-none outline-none"
-//               >
-//                 <option value="">Apartment</option>
-//               </select>
-//             </div>
-//           </div>
-//           <div className="flex flex-col gap-3">
-//             <label htmlFor="">Phone Number</label>
-//             <input
-//               type="number"
-//               name=""
-//               id=""
-//               placeholder="+999"
-//               className="rounded-full"
-//             />
-//           </div>
-//         </div>
-//         <div className="flex flex-col gap-3">
-//           <label htmlFor="">Note</label>
-//           <input
-//             type="text"
-//             name=""
-//             id=""
-//             placeholder="Type Your Message"
-//             className="rounded-full"
-//           />
-//         </div>
-//         <button className="bg-primary text-white py-3 rounded-full">
-//           Submit
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default ContactUs;
 "use client";
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import useApi from "@/utils/useApi";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { PiCheckCircleDuotone } from "react-icons/pi";
 
@@ -129,11 +16,10 @@ const ContactUs = () => {
     leadFor: "Investment",
     note: "",
   });
-  const { fetchData } = useApi();
   const [error, setError] = useState({ phone: "" });
 
   const validatePhone = (value) => {
-    const phoneNumber = parsePhoneNumberFromString(value, "US"); // Change "US" for different country codes
+    const phoneNumber = parsePhoneNumberFromString(value, "US");
     if (!phoneNumber || !phoneNumber.isValid()) {
       setError((pre) => ({ ...pre, phone: "Invalid phone number" }));
     } else {
@@ -166,104 +52,57 @@ const ContactUs = () => {
     const deviceType = navigator.userAgent;
     const fullUrl = window.location.href;
 
-    const data = {
-      leadName: formData.name,
-      leadContact: formData.phone,
-      leadEmail: formData.email,
-      project: formData?.project || "Consultation",
-      projectName: formData?.project || "Consultation",
-      enquiryType: formData?.bedrooms,
-      leadFor: formData.leadFor,
-      notes: `User Note: ${formData.note}`,
-      ip: ip,
-      device: deviceType,
-      filename: fullUrl
-    };
+    // Email content to send to SEND_TO (info@dodeal.com)
+    const emailMessage = `
+      <h1>New Contact Form Submission</h1>
+      <p><strong>Name:</strong> ${formData.name}</p>
+      <p><strong>Phone:</strong> ${formData.phone}</p>
+      <p><strong>Email:</strong> ${formData.email}</p>
+      <p><strong>Project:</strong> ${formData.project}</p>
+      <p><strong>Bedrooms:</strong> ${formData.bedrooms}</p>
+      <p><strong>Property For:</strong> ${formData.leadFor}</p>
+      <p><strong>Note:</strong> ${formData.note}</p>
+      <p><strong>User IP:</strong> ${ip || 'N/A'}</p>
+      <p><strong>Device:</strong> ${deviceType}</p>
+      <p><strong>URL:</strong> ${fullUrl}</p>
+    `;
+    const emailSubject = `New Contact Form Submission from ${formData.name}`;
 
     try {
-      await fetchData(
-        "/create-lead",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: data, // Send FormData directly
+      // Send email to SEND_TO using /api/send-email
+      const emailResponse = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        (response, status) => {
-          if (status) {
-            setFormData({
-              name: "",
-              email: "",
-              phone: "",
-              project: "Consultation",
-              bedrooms: "3 Bedrooms",
-              leadFor: "Investment",
-              note: "",
-            });
-            setSubmissionStatus("success");
-          } else {
-            setSubmissionStatus("error");
-          }
-        }
-      );
+        body: JSON.stringify({
+          to: process.env.SEND_TO || 'info@dodeal.com', // Use SEND_TO from .env.local
+          subject: emailSubject,
+          message: emailMessage,
+        }),
+      });
+
+      const emailResult = await emailResponse.json();
+      if (!emailResponse.ok) {
+        throw new Error(emailResult.error || 'Failed to send email');
+      }
+
+      // Reset form and show success
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        project: "Consultation",
+        bedrooms: "3 Bedrooms",
+        leadFor: "Investment",
+        note: "",
+      });
+      setSubmissionStatus("success");
     } catch (error) {
       console.error("Error:", error);
+      setSubmissionStatus("error");
     }
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (error.phone) {
-  //     alert("Invalid Phone");
-  //     return;
-  //   }
-
-  //   const formPayload = new FormData();
-  //   const data = [
-  //     {
-  //       leadName: formData.name,
-  //       leadContact: formData.phone,
-  //       leadEmail: formData.email,
-  //       project: formData.project,
-  //       enquiryType: formData.bedrooms,
-  //       leadFor: formData.leadFor,
-  //       notes: formData.note,
-  //     },
-  //   ];
-
-  //   formPayload.append(
-  //     "form_id",
-  //     process.env.NEXT_PUBLIC_CONTACT_US_FORM_ID || 175
-  //   );
-  //   formPayload.append("data", JSON.stringify(data));
-
-  //   try {
-  //     const response = await fetchData(
-  //       "/form-submissions",
-  //       {
-  //         method: "POST",
-  //         data: formPayload, // Send FormData directly
-  //       },
-  //       (data, status) => {
-  //         if (status) {
-  //           setFormData({
-  //             name: "",
-  //             email: "",
-  //             unitType: "Apartment",
-  //             phone: "",
-  //             note: "",
-  //           });
-  //           alert("Form submitted successfully!");
-  //         } else {
-  //           alert("Error submitting form!");
-  //         }
-  //       }
-  //     );
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
 
   return (
     <div
