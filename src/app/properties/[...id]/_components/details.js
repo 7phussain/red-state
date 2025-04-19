@@ -131,7 +131,6 @@ const Details = ({ propertyDetails }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: 'info@dodeal.com',
           subject: emailSubject,
           message: emailMessage,
         }),

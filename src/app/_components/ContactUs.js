@@ -76,7 +76,6 @@ const ContactUs = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: process.env.SEND_TO || 'info@dodeal.com', // Use SEND_TO from .env.local
           subject: emailSubject,
           message: emailMessage,
         }),

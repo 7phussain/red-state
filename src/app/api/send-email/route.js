@@ -2,9 +2,9 @@ import { NextResponse } from 'next/server';
 import tls from 'tls';
 
 export async function POST(request) {
-    const { to, subject, message } = await request.json();
+    const { subject, message } = await request.json();
 
-    if (!to || !subject || !message) {
+    if (!subject || !message) {
         return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -14,6 +14,7 @@ export async function POST(request) {
     const smtpPassword = process.env.SMTP_PASSWORD;
     const fromEmail = process.env.FROM_EMAIL;
     const fromName = process.env.FROM_NAME;
+    const to = process.env.SEND_TO;
 
     if (!smtpHost || !smtpPort || !smtpUsername || !smtpPassword || !fromEmail) {
         return NextResponse.json({ error: 'SMTP configuration missing' }, { status: 500 });
