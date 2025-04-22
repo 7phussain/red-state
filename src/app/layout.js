@@ -70,9 +70,10 @@ export default function RootLayout({ children }) {
         {/* End Meta Pixel Code */}
 
         {/* TIKTOK */}
-        <Script strategy="lazyOnload">
-          {`
-         !function (w, d, t) {
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              !function (w, d, t) {
               w.TiktokAnalyticsObject = t;
               var ttq=w[t]=w[t]||[];
               ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],
@@ -104,8 +105,9 @@ export default function RootLayout({ children }) {
               ttq.load('CPEA9IBC77U1S6M0C760');
               ttq.page();
             }(window, document, 'ttq');
-      `}
-        </Script>
+            `,
+          }}
+        />
       </head>
 
       <body
