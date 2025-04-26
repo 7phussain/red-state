@@ -9,17 +9,20 @@ import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const plusSans = Plus_Jakarta_Sans({
   // ✅ Use Plus_Jakarta_Sans here
   variable: "--font-plus-sans", // ✅ Correct variable name
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -42,6 +45,7 @@ export default function RootLayout({ children }) {
         {/* <AnalyticsHead /> */}
 
         {/* Meta Pixel Code */}
+        <link rel="icon" href="/fav.png" type="image/png" sizes="32x32" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -65,7 +69,8 @@ export default function RootLayout({ children }) {
             width="1"
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=
-            PageView&noscript=1"/>
+            PageView&noscript=1"
+          />
         </noscript>
         {/* End Meta Pixel Code */}
 
