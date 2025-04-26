@@ -29,7 +29,7 @@ export const metadata = {
   title: "RED ESTATE",
   description: "RED ESTATE",
   icons: {
-    icon: "/fav.png?v=2",
+    icon: "/icon.ico",
   },
 };
 
@@ -45,7 +45,8 @@ export default function RootLayout({ children }) {
         {/* <AnalyticsHead /> */}
 
         {/* Meta Pixel Code */}
-        <link rel="icon" href="/fav.png?v=2" type="image/png" sizes="32x32" />
+        {/* <link rel="icon" href="/fav.png?v=2" type="image/png" sizes="32x32" /> */}
+        <link rel="icon" href="/icon.ico" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -75,7 +76,7 @@ export default function RootLayout({ children }) {
         {/* End Meta Pixel Code */}
 
         {/* TIKTOK */}
-        <script
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `
               !function (w, d, t) {
@@ -112,7 +113,7 @@ export default function RootLayout({ children }) {
             }(window, document, 'ttq');
             `,
           }}
-        />
+        /> */}
       </head>
 
       <body
