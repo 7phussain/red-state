@@ -29,7 +29,7 @@ export const metadata = {
   title: "RED ESTATE",
   description: "RED ESTATE",
   icons: {
-    icon: "/fav.png",
+    icon: "/fav.png?v=2",
   },
 };
 
@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
         {/* <AnalyticsHead /> */}
 
         {/* Meta Pixel Code */}
-        <link rel="icon" href="/fav.png" type="image/png" sizes="32x32" />
+        <link rel="icon" href="/fav.png?v=2" type="image/png" sizes="32x32" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
