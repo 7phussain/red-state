@@ -50,24 +50,8 @@ export default function RootLayout({ children }) {
         <link rel="manifest" href="/logo.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="apple-touch-icon" href="/logo.png" />
-        <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Red Estate - Your Trusted Real Estate Partner"
-        />
-        <meta
-          property="og:description"
-          content="Discover premium properties with Red Estate."
-        />
-        <meta
-          property="og:image"
-          content="https://redestate.ae/images/og-image.png"
-        />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_image"></meta>
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/manifest.json" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
