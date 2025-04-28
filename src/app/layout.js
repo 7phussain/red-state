@@ -56,7 +56,7 @@ export default function RootLayout({ children }) {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://redestate.ae" />
-        <meta property="og:type" content="website" />
+        <meta property="og:image:type" content="image/png" />
         <meta name="twitter:card" content="summary_large_image"></meta>
         <script
           dangerouslySetInnerHTML={{
