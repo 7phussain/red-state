@@ -51,7 +51,8 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <link rel="apple-touch-icon" href="/icon.ico" />
-        <meta property="og:image" content="https://redestate.ae/icon.ico" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://redestate.ae/logo.png" />
         <meta property="og:url" content="https://redestate.ae" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image"></meta>
