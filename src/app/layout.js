@@ -51,12 +51,12 @@ export default function RootLayout({ children }) {
 
         <link
           rel="apple-touch-icon"
-          href="https://red-state.vercel.app/logo300200.png"
+          href="https://redestate.ae/logo300200.png"
         />
         <meta property="og:type" content="website" />
         <meta
           property="og:image"
-          content="https://red-state.vercel.app/logo300200.png"
+          content="https://redestate.ae/logo300200.png"
         />
         <meta property="og:url" content="https://redestate.ae" />
         <meta property="og:image:type" content="image/png" />
