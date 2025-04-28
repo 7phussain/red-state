@@ -51,10 +51,7 @@ export default function RootLayout({ children }) {
 
         <link rel="apple-touch-icon" href="/logo300200.png" />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:image"
-          content="https://redestate.ae/logo300200.png"
-        />
+        <meta property="og:image" content="/logo300200.png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content="https://redestate.ae" />
