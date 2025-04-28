@@ -47,10 +47,10 @@ export default function RootLayout({ children }) {
         {/* Meta Pixel Code */}
         {/* <link rel="icon" href="/fav.png?v=2" type="image/png" sizes="32x32" /> */}
         <link rel="icon" href="/icon.ico" />
-        <link rel="manifest" href="/icon.ico" />
+        <link rel="manifest" href="/logo.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="apple-touch-icon" href="/icon.ico" />
+        <link rel="apple-touch-icon" href="/logo.png" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://redestate.ae/logo.png" />
         <meta property="og:image:width" content="1200" />
