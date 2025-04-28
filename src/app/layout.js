@@ -47,11 +47,11 @@ export default function RootLayout({ children }) {
         {/* Meta Pixel Code */}
         {/* <link rel="icon" href="/fav.png?v=2" type="image/png" sizes="32x32" /> */}
         <link rel="icon" href="/icon.ico" />
-        <link rel="manifest" href="/logo.png" />
+        {/* <link rel="manifest" href="/logo.png" /> */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
-        <link rel="apple-touch-icon" href="%PUBLIC_URL%/manifest.json" />
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
