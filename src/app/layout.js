@@ -49,7 +49,10 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/icon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="apple-touch-icon" href="/logo300200.png" />
+        <link
+          rel="apple-touch-icon"
+          href="https://red-state.vercel.app/logo300200.png"
+        />
         <meta property="og:type" content="website" />
         <meta
           property="og:image"
