@@ -52,11 +52,21 @@ export default function RootLayout({ children }) {
 
         <link rel="apple-touch-icon" href="/logo.png" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://redestate.ae/logo.png" />
+        <meta
+          property="og:title"
+          content="Red Estate - Your Trusted Real Estate Partner"
+        />
+        <meta
+          property="og:description"
+          content="Discover premium properties with Red Estate."
+        />
+        <meta
+          property="og:image"
+          content="https://redestate.ae/images/og-image.png"
+        />
+        <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:url" content="https://redestate.ae" />
-        <meta property="og:image:type" content="image/png" />
         <meta name="twitter:card" content="summary_large_image"></meta>
         <script
           dangerouslySetInnerHTML={{
