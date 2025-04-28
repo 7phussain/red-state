@@ -1,11 +1,13 @@
 import React from "react";
-import Hero from "./home/_components/hero";
-import DreamProperty from "./home/_components/dreamProperty";
-import Stats from "./home/_components/stats";
-import Highlights from "./home/_components/HighLights";
-import Developers from "./home/_components/Developers";
-import Reviews from "./home/_components/Reviews";
-import Insights from "./home/_components/Insights";
+import dynamic from "next/dynamic";
+
+const Hero = dynamic(() => import("./home/_components/hero"));
+const DreamProperty = dynamic(() => import("./home/_components/dreamProperty"));
+const Stats = dynamic(() => import("./home/_components/stats"));
+const Highlights = dynamic(() => import("./home/_components/HighLights"));
+const Developers = dynamic(() => import("./home/_components/Developers"));
+const Reviews = dynamic(() => import("./home/_components/Reviews"));
+// const Insights = dynamic(() => import("./home/_components/Insights"));
 
 const Page = () => {
   return (

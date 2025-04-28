@@ -1,20 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { LuSearch } from "react-icons/lu";
-import SectionHeader from "./SectionHeader";
-import { BsArrowUpRightCircle } from "react-icons/bs";
-import PropertyFilters from "@/app/_components/filters";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import dynamic from "next/dynamic";
+import formatPrice from "@/app/_functions/formatPrice";
 import useApi from "@/utils/useApi";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import {
-  IoArrowBackCircleOutline,
-  IoArrowForwardCircleOutline,
-} from "react-icons/io5";
 import { LuDot } from "react-icons/lu";
-import Loader from "@/app/_components/Loader";
-import formatPrice from "@/app/_functions/formatPrice";
+import { BsArrowUpRightCircle } from "react-icons/bs";
+
+const SectionHeader = dynamic(() => import("./SectionHeader"));
+const PropertyFilters = dynamic(() => import("@/app/_components/filters"));
+const Loader = dynamic(() => import("@/app/_components/Loader"));
+
+// Keep utility functions as static imports
 
 const DreamProperty = () => {
   const [focusedImage, setFocusedImage] = useState(0);
@@ -44,25 +42,38 @@ const DreamProperty = () => {
   };
 
   useEffect(() => {
-    fetchListings(
-      1,
-      {
-        location: filtersApplied["location"]?.label,
-        listing_type: filtersApplied["listing_type"]?.value,
-        property_type: filtersApplied["property_type"]?.label,
-        bedrooms: filtersApplied["bedroom"]?.value,
-        max_price: filtersApplied["max_price"]?.value,
-        search: filtersApplied["listing_title"],
-      },
-      (res, status) => {
-        if (status) {
-          setPropertiesFilter(res?.data?.data);
-          setPagination({ ...res?.data, data: {} || {} }); // Store pagination info
-          setCurrentPage(res?.data?.current_page);
+    const debounce = setTimeout(() => {
+      fetchListings(
+        1,
+        {
+          location: filtersApplied["location"]?.label,
+          listing_type: filtersApplied["listing_type"]?.value,
+          property_type: filtersApplied["property_type"]?.label,
+          bedrooms: filtersApplied["bedroom"]?.value,
+          max_price: filtersApplied["max_price"]?.value,
+          search: filtersApplied["listing_title"],
+        },
+        (res, status) => {
+          if (status) {
+            setPropertiesFilter(res?.data?.data);
+            setPagination({ ...res?.data, data: {} || {} }); // Store pagination info
+            setCurrentPage(res?.data?.current_page);
+          }
         }
-      }
-    );
+      );
+    }, 300); // 300ms delay
+
+    return () => clearTimeout(debounce);
   }, [filtersApplied]);
+
+  const handleGotoSingleProperty = useCallback(
+    (id) => () => router.push(`/properties/${id}`),
+    [router]
+  );
+  const handleGotoProperty = useCallback(
+    (id) => () => router.push(`/properties`),
+    [router]
+  );
 
   return (
     <>
@@ -94,7 +105,8 @@ const DreamProperty = () => {
                         backgroundImage: `url(${item?.banner_img})`,
                         backgroundSize: "cover",
                       }}
-                      onClick={() => router.push(`/properties/${item?.id}`)}
+                      // onClick={() => router.push(`/properties/${item?.id}`)}
+                      onClick={handleGotoSingleProperty(item?.id)}
                     >
                       <button className="p-1.5 px-3 rounded-full bg-primary uppercase text-xs absolute top-3 left-3 font-semibold">
                         {item?.listing_type}
@@ -102,9 +114,7 @@ const DreamProperty = () => {
                     </div>
                     <div className="flex flex-col gap-1 py-4">
                       <h4 className="text-primary font-bold text-2xl">
-                        {item?.currency}
-                        {" "}
-                        {formatPrice(item?.price)}
+                        {item?.currency} {formatPrice(item?.price)}
                       </h4>
                       <h5 className="text-primary font-semibold text-base underline">
                         {item?.listing_title}
@@ -237,18 +247,20 @@ const DreamProperty = () => {
                 <div
                   key={ind}
                   onMouseEnter={() => setFocusedImage(ind)}
-                  className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[150px] md:h-[400px] transition-all duration-300 ease-in-out  ${focusedImage === ind
-                    ? "h-[400px] md:col-span-2"
-                    : "col-span-1"
-                    }`}
-                // style={{
-                //   background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 45.43%, rgba(0, 0, 0, 0.5) 71.41%) !important",
-                // }}
+                  className={`relative flex flex-col justify-end py-4 px-4 rounded-[12px] h-[150px] md:h-[400px] transition-all duration-300 ease-in-out  ${
+                    focusedImage === ind
+                      ? "h-[400px] md:col-span-2"
+                      : "col-span-1"
+                  }`}
+                  // style={{
+                  //   background: "linear-gradient(180deg, rgba(0, 0, 0, 0) 45.43%, rgba(0, 0, 0, 0.5) 71.41%) !important",
+                  // }}
                 >
                   <img
                     src={`${item?.banner_img}`}
                     alt="REDESTATE"
                     className="h-full w-full object-cover absolute rounded-[12px] z-0 top-0 left-0 transition-all duration-300 ease-in-out"
+                    loading="loading...."
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black rounded-[12px]"></div>
                   <div className="flex flex-col z-40">
@@ -263,7 +275,7 @@ const DreamProperty = () => {
               );
             })}
           <div
-            onClick={() => router.push("/properties")}
+            onClick={handleGotoProperty()}
             className="text-primary flex items-center justify-center flex-col gap-3 cursor-pointer"
           >
             <BsArrowUpRightCircle size={54} />

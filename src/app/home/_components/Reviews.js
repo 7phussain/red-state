@@ -68,14 +68,14 @@
 // export default Reviews;
 "use client";
 
-import { selectStyles } from "@/app/_components/selectStyles";
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import { FaStar } from "react-icons/fa6";
-import SectionHeader from "./SectionHeader";
 import {
   IoArrowBackCircleOutline,
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
+const SectionHeader = dynamic(() => import("./SectionHeader"));
 
 const reviews = [
   {

@@ -30,7 +30,7 @@ const Stats = () => {
         backgroundImage: "url(/circle-design.png)",
         backgroundBlendMode: "soft-light",
       }}
-      className="bg-primary min-h-[200px] grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 px-[70px] lg:px-[70px] xl:px-[100px] items-center py-5 my-4"
+      className="bg-primary min-h-[200px] grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 px-[70px] lg:px-[70px] xl:px-[100px] items-center py-5 my-4"
     >
       {statsData?.map((state, ind) => {
         return (

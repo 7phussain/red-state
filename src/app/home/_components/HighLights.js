@@ -1,21 +1,23 @@
 "use client";
 
-import { selectStyles } from "@/app/_components/selectStyles";
 import React, { useState, useEffect } from "react";
-import Select from "react-select";
 import { LuDot } from "react-icons/lu";
 import SectionHeader from "./SectionHeader";
-import { BsArrowUpRightCircle } from "react-icons/bs";
-import { useRouter } from "next/navigation";
 import useApi from "@/utils/useApi";
 import formatPrice from "@/app/_functions/formatPrice";
 const Highlights = () => {
   const [selectedRegion, setSelectedRegion] = useState("Dubai");
-  const [filtersApplied, setFiltersApplied] = useState({});
   const [properties, setProperties] = useState([]);
   const { fetchData } = useApi();
-  const router = useRouter();
-  const links = ["Dubai", "Sharjah", "Abu Dhabi", "Ajman", "Umm Al Quwain", "Ras Al Khaimah", "Fujairah"];
+  const links = [
+    "Dubai",
+    "Sharjah",
+    "Abu Dhabi",
+    "Ajman",
+    "Umm Al Quwain",
+    "Ras Al Khaimah",
+    "Fujairah",
+  ];
 
   const fetchListings = (page = 1, filters, callBack) => {
     fetchData(
@@ -30,18 +32,22 @@ const Highlights = () => {
     );
   };
   useEffect(() => {
-    fetchListings(
-      1,
-      {
-        location: selectedRegion,
-        // is_featured: 1,
-      },
-      (res, status) => {
-        if (status) {
-          setProperties(res?.data?.data);
+    const debounce = setTimeout(() => {
+      fetchListings(
+        1,
+        {
+          location: selectedRegion,
+          // is_featured: 1,
+        },
+        (res, status) => {
+          if (status) {
+            setProperties(res?.data?.data);
+          }
         }
-      }
-    );
+      );
+    }, 300); // 300ms delay
+
+    return () => clearTimeout(debounce);
   }, [selectedRegion]);
   return (
     <div className="md:px-[50px] lg:px-[70px] xl:px-[100px] px-[30px] py-5 my-5">
@@ -59,8 +65,9 @@ const Highlights = () => {
             <button
               key={ind}
               onClick={() => setSelectedRegion(link)}
-              className={`p-1 px-2 rounded-full cursor-pointer ${selectedRegion === link ? "bg-primary" : "text-primary"
-                }`}
+              className={`p-1 px-2 rounded-full cursor-pointer ${
+                selectedRegion === link ? "bg-primary" : "text-primary"
+              }`}
             >
               {link}
             </button>
@@ -105,14 +112,15 @@ const Highlights = () => {
                     ) : item?.bedrooms === "1 Bedroom" ? (
                       <span>1 Bed</span>
                     ) : (
-                      <span>
-                        {item?.bedrooms.slice(0, 5)}
-                      </span>
+                      <span>{item?.bedrooms.slice(0, 5)}</span>
                     )}
                     <LuDot size={20} />
                     <span>{item?.bathrooms.slice(0, 6)}</span>
                     <LuDot size={20} />
-                    <span>{item?.size}{item?.size_unit}</span>
+                    <span>
+                      {item?.size}
+                      {item?.size_unit}
+                    </span>
                   </div>
                 </div>
               </div>

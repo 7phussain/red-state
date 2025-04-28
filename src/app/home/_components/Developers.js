@@ -59,23 +59,22 @@ const Developers = () => {
           Our Developers
         </h3>
       </div>
-      <div
-        ref={scrollRef}
-        className="flex no-scrollbar overflow-x-auto gap-5"
-      >
+      <div ref={scrollRef} className="flex no-scrollbar overflow-x-auto gap-5">
         {developers
           ?.filter((item) => item?.logo)
           ?.map((item, ind) => {
             return (
               <div key={ind} className="min-w-[200px] min-h-[200px] p-5">
                 <img
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL.slice(0, -3)}${item?.logo
-                    }`}
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL.slice(0, -3)}${
+                    item?.logo
+                  }`}
                   onError={(e) => {
                     e.target.onerror = null; // Prevent infinite loop
                     e.target.src = "/no_image.png"; // Set fallback image
                   }}
                   className="!w-[200px] !h-[200px] object-contain"
+                  loading="loading"
                 />
               </div>
             );

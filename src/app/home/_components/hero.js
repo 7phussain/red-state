@@ -1,13 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import {
-  IoArrowBackCircleOutline,
-  IoArrowForwardCircle,
-} from "react-icons/io5";
+import React, { useEffect, useState, useRef } from "react";
 
 const Hero = () => {
+  const videoRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (videoRef.current) observer.observe(videoRef.current);
+    return () => observer.disconnect();
+  }, []);
   // const [isMobile, setIsMobile] = useState(false);
 
   // useEffect(() => {
@@ -19,6 +31,7 @@ const Hero = () => {
 
   return (
     <div
+      ref={videoRef}
       className="hero-bg relative h-[100vh] w-full flex flex-col justify-between py-[70px] px-[30px] md:px-[50px] lg:px-[70px] xl:px-[100px] bg-gradient-to-b from-[#E6ECF4] to-white lg:bg-transparent"
     >
       {/* Background Image */}
@@ -34,7 +47,7 @@ const Hero = () => {
         src="./large-1920x1080.webp"
         className="object-cover object-top top-0 absolute bottom-0 z-0 left-1/2 -translate-x-1/2 w-[100%] h-[100%]"
       /> */}
-      <video
+      {/* <video
         autoPlay
         loop
         muted
@@ -45,8 +58,23 @@ const Hero = () => {
       >
         <source src="/video/hero15.mp4" type="video/mp4" />
         Your browser does not support the video tag.
-      </video>
-
+      </video> */}
+      {shouldLoad && (
+        <video
+          // autoPlay
+          autoPlay={
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          }
+          loop
+          muted
+          playsInline
+          preload="none"
+          poster="/video/hero-preview.jpg"
+          className="object-cover object-top absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-full h-full z-0"
+        >
+          <source src="/video/hero15.mp4" type="video/mp4" />
+        </video>
+      )}
 
       {/* Gradient Overlay */}
       <div
