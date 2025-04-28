@@ -90,7 +90,7 @@ export default function RootLayout({ children }) {
         {/* End Meta Pixel Code */}
 
         {/* TIKTOK */}
-        {/* <script
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               !function (w, d, t) {
@@ -127,7 +127,7 @@ export default function RootLayout({ children }) {
             }(window, document, 'ttq');
             `,
           }}
-        /> */}
+        />
       </head>
 
       <body
