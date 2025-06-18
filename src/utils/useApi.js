@@ -94,6 +94,7 @@ const useApi = () => {
         : null;
     console.log("API Request Preparing:", {
       url: baseUrl + url,
+
       method,
       headers: {
         ...options.headers,
@@ -105,6 +106,7 @@ const useApi = () => {
     try {
       const config = {
         url: baseUrl + url,
+        ...options,
         method,
         headers: {
           ...(options.headers || {}),
